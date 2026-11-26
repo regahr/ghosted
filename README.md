@@ -13,8 +13,8 @@ This repo holds the design work so far:
   - the Blender source (`.blend`), the game file (`.glb`) and the build script that rebuilds the model in Blender 4.3.
 - `design/acceptance/`: the briefs, cards and decision history for each character.
 
-Locked so far: Kit (the hero), the Ghosties, Recruiter Ricky, ATS-9000, Brett Bullet-Points and Auntie Dot.
-In progress: Juno. Still to do: The Panel, Gary, and the 4 districts of Port Pending.
+Locked so far: Kit (the hero), the Ghosties, Recruiter Ricky, ATS-9000, Brett Bullet-Points, Auntie Dot and Juno.
+Still to do: The Panel, Gary, and the 4 districts of Port Pending.
 
 ## Before you push
 Run `sh scripts/check-public.sh`. It fails if any file, including Blender files and PNG metadata, holds a Slack

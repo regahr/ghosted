@@ -49,6 +49,10 @@ No character's hair may read as a fringe or bangs at the game camera (26 m, pitc
 Rega likes Ricky's open grin: a filled dark mouth with a white teeth band along the top edge (ts 1795659302.700869). A
 thin or broken ink smile line under a white crescent looks awkward. Use the Ricky style for open, grinning mouths.
 
+## Juno
+
+- **Locked: v1** (card 7, option 2: the talk mouth as her idle face in game). See `assets/juno/LOCKED.md`.
+
 ## Auntie Dot
 
 - **Locked: v1, after no-fringe pass 2** (ts 1795659821.728169). See `assets/auntie-dot/LOCKED.md`.

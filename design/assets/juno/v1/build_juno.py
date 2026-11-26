@@ -16,7 +16,7 @@ import juno as J
 R = J.R
 ARGV = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 BLOCKOUT = 'blockout' in ARGV
-H_M = 1.12          # puff top to sole (sketch estimate; the blockout measure sets it -> measure.md)
+H_M = 1.10          # puff top to sole: blockout 1.12 gave 75 px, the final (rounder puff) 76 / 77 px; 1.10 gives 75 / 75 -> measure.md
 OUT = HERE
 for a in ARGV:
     if a.startswith('H='): H_M = float(a[2:])
@@ -204,17 +204,18 @@ with shell('ears'):
 # ================================================================ PUFF (layered ball, top-back) + SCRUNCHIE (low torus)
 with shell('puff'):
     ellipsoid((0, 40, -18), (36, 30, 32), 8 if not BLOCKOUT else 6, [52, 18, -18, -52] if not BLOCKOUT else [30, -30], 'hair', 'head')
+SC_Y = 57.5; _k = math.sqrt(1 - ((SC_Y - 40.0) / 30.0) ** 2); SC_RX, SC_RZ = 36.0 * _k + 0.5, 32.0 * _k + 0.5
 with shell('scrunchie'):
-    NU, NV = (8, 4) if not BLOCKOUT else (6, 3)
+    NU, NV = (8, 3) if not BLOCKOUT else (6, 3)
     rings = []
     for i in range(NU):
-        a = 2 * PI * (i + 0.5) / NU; cx, cz = 22.0 * math.sin(a), -14.0 + 18.0 * math.cos(a)
-        ox, oz = math.sin(a) / 22.0, math.cos(a) / 18.0; ol = math.hypot(ox, oz); ox, oz = ox / ol, oz / ol
+        a = 2 * PI * (i + 0.5) / NU; cx, cz = SC_RX * math.sin(a), -18.0 + SC_RZ * math.cos(a)
+        ox, oz = math.sin(a) / SC_RX, math.cos(a) / SC_RZ; ol = math.hypot(ox, oz); ox, oz = ox / ol, oz / ol
         ids = []
         for j in range(NV):
             b = 2 * PI * j / NV + PI / 4
             dx, dyu, dz = ox * math.cos(b), math.sin(b), oz * math.cos(b)
-            ids.append(BODY.v(B(cx + 4.8 * dx, 62.0 - 4.8 * dyu, cz + 4.8 * dz), (dx, -dz, dyu), 'head'))
+            ids.append(BODY.v(B(cx + 3.8 * dx, SC_Y - 3.8 * dyu, cz + 3.8 * dz), (dx, -dz, dyu), 'head'))
         rings.append(ids)
     bands(BODY, rings + [rings[0]], ['tie'] * NU, flip=True)
 
@@ -276,7 +277,7 @@ with shell('bow'):
                               u * math.cos(2 * PI * k / 4 + PI / 4) + w * math.sin(2 * PI * k / 4 + PI / 4), 'torso') for k in range(4)])
         bands(BODY, rr, ['tie'], flip=True)
         fan(BODY, BODY.v(tube_pts[1] + d * 1.5 * U, d, 'torso'), rr[1], 'tie', flip=True)
-    ellipsoid((0, wy - 1, bz - 1), (4.2, 4.2, 3.5), nb, [0], 'tie', 'torso')
+    ellipsoid((0, wy - 1, bz - 1), (4.2, 4.2, 3.5), 4, [0], 'tie', 'torso')
 
 # ================================================================ ARMS (join: sunk sleeve root, rigid cuff ball, hand ball)
 # Bone lengths fixed (upper 36, forearm to the hand centre 58); each beat is a two-bone reach to the sketch's targets.
@@ -400,11 +401,12 @@ def line_card(acc, tree, pts, width, off, m, bone=None, closed=False):
         Rr.append(acc.v(front_hit(tree, p[0] - nx - 150, p[1] - ny, off)[0], (0, -1, 0), bone))
     for i in range(len(pts) - 1): acc.f([L[i], L[i + 1], Rr[i + 1]], m); acc.f([L[i], Rr[i + 1], Rr[i]], m)
 def bez_pts(d, n): return R.path_points(d, n)
-def grid_card(acc, tree, pts2d, off, m, rows, cols=3, bone=None):
+def grid_card(acc, tree, pts2d, off, m, rows, cols=3, bone=None, fr=None):
     """Rows of points across a closed shape, so the fill follows a curved host (Ricky / Brett method)."""
     ys = [p[1] for p in pts2d]; y0, y1 = min(ys), max(ys); n = len(pts2d); R_ = []
     for k in range(rows + 1):
-        y = min(max(y0 + (y1 - y0) * k / rows, y0 + 0.05), y1 - 0.05); xs = []
+        t = fr[k] if fr else k / rows
+        y = min(max(y0 + (y1 - y0) * t, y0 + 0.05), y1 - 0.05); xs = []
         for i in range(n):
             (xa, ya), (xb, yb) = pts2d[i], pts2d[(i + 1) % n]
             if (ya - y) * (yb - y) <= 0 and ya != yb: xs.append(xa + (xb - xa) * (y - ya) / (yb - ya))
@@ -416,7 +418,7 @@ def grid_card(acc, tree, pts2d, off, m, rows, cols=3, bone=None):
 EY = J.LM['eye']
 # face (head bone): ink eyes with glints; happy (laugh) and down (writing) eyes are ink arcs
 for ex in J.LM['eye_x']:
-    fan_card(SWAP['eyes_open'], 'head', clean(bez_pts(R.oval(ex, EY, 6.5, 8.5), 3 if not BLOCKOUT else 2)), 0.4, 'ink')
+    fan_card(SWAP['eyes_open'], 'head', clean(bez_pts(R.oval(ex, EY, 6.5, 8.5), 3)), 0.4, 'ink')
     if not BLOCKOUT: fan_card(SWAP['eyes_open'], 'head', clean(bez_pts(R.oval(ex + 2, EY - 3.2, 2.0, 2.4), 2)), 0.6, 'white')
 for d in J.HAPPY_EYES: line_card(SWAP['eyes_happy'], 'head', bez_pts(d, 4), 3.4, 0.4, 'ink')
 for d in J.DOWN_EYES: line_card(SWAP['eyes_down'], 'head', bez_pts(d, 4), 3.4, 0.4, 'ink')
@@ -424,10 +426,10 @@ for nm, br in (('brows_rest', J.BROWS), ('brows_dry', J.BROWS_DRY)):
     for d in br: line_card(SWAP[nm], 'head', bez_pts(d, 3), 2.8, 0.4, 'ink')
 # MOUTHS: rest = a closed smile line (chair call 6); laugh and talk = Ricky style (bible "Art rule: mouths"): a filled
 # ink mouth with a white teeth band (row 23) along the top edge; dry = a one-sided smirk line
-line_card(SWAP['mouth_smile'], 'head', bez_pts(J.SMILE, 4), 3.0, 0.5, 'ink')
+line_card(SWAP['mouth_smile'], 'head', bez_pts(J.SMILE, 4), 3.6, 0.5, 'ink')   # tried 4.8: heavier at card size, still 2 px at 1x (selfcheck weak point 1)
 line_card(SWAP['mouth_smirk'], 'head', bez_pts(J.SMIRK, 4), 3.0, 0.5, 'ink')
-for nm, md, td, rows in (('mouth_laugh', J.LAUGH, J.LAUGH_TEETH, 3), ('mouth_talk', J.TALK, J.TALK_TEETH, 2)):
-    grid_card(SWAP[nm], 'head', clean(bez_pts(md, 6)), 0.6, 'ink', rows)
+for nm, md, td, rows, fr in (('mouth_laugh', J.LAUGH, J.LAUGH_TEETH, 3, [0, 0.4, 0.75, 1]), ('mouth_talk', J.TALK, J.TALK_TEETH, 2, [0, 0.7, 1])):
+    grid_card(SWAP[nm], 'head', clean(bez_pts(md, 6)), 0.6, 'ink', rows, fr=fr)
     grid_card(SWAP[nm], 'head', clean(bez_pts(td, 6)), 0.85, 'white', 1)
 # hair strand lines ON the cap (trimmed so they start on the hair, above the hairline ink)
 def hair_edge_y_at(x):
@@ -452,16 +454,20 @@ if not BLOCKOUT: outline(DEC, 'body', bib, 1.5, VOFF + 0.2)
 STRAPS = ["M131,198 C134,184 138,172 141.5,163", "M169,198 C166,184 162,172 158.5,163"]
 for d in STRAPS:
     pp = bez_pts(d, 2)
-    if not BLOCKOUT: line_card(DEC, 'body', pp, 7.4, VOFF, 'ink')
-    line_card(DEC, 'body', pp, 5.0, VOFF + 0.2, 'apron')
-SKIRT = "M111,241 L189,241 C197,257 203,272 206,288 C188,294 112,294 94,288 C97,272 103,257 111,241 Z"
+    # lifted more than the bib: the straps cross the steep shoulder shelf, where 3-point strips sank into the facets
+    if not BLOCKOUT: line_card(DEC, 'body', pp, 7.4, VOFF + 1.2, 'ink')
+    line_card(DEC, 'body', pp, 5.0, VOFF + 1.5, 'apron')
+# the bottom edge is straight at the hem line: a row grid cannot fill the corners of a curved bottom edge (the first
+# build showed brown wedges there); on the flared 3D hem the straight edge follows the hem round
+SKIRT = "M111,241 L189,241 C197,257 203,272 206,289 L94,289 C97,272 103,257 111,241 Z"
 skirt = clean(bez_pts(SKIRT, 3))
-grid_card(DEC, 'body', skirt, VOFF, 'apron', 4 if not BLOCKOUT else 2, 6 if not BLOCKOUT else 3)
-if not BLOCKOUT: outline(DEC, 'body', skirt, 1.6, VOFF + 0.2)
+SOFF = 1.9   # the skirt cells span about 23 deg of the 14-column flare: their chords sag up to 1.3 units, so lift more
+grid_card(DEC, 'body', skirt, SOFF, 'apron', 3 if not BLOCKOUT else 2, 6 if not BLOCKOUT else 3)
+if not BLOCKOUT: outline(DEC, 'body', skirt, 1.6, SOFF + 0.2)
 POCKET = "M134,254 L166,254 L165,269 C160,273 140,273 135,269 Z"
 pk = clean(bez_pts(POCKET, 2))
-if not BLOCKOUT: fan_card(DEC, 'body', [(x + (x - 150) * 0.08, y + (y - 262) * 0.12) for x, y in pk], VOFF + 0.3, 'ink')
-fan_card(DEC, 'body', pk, VOFF + 0.5, 'tie')
+if not BLOCKOUT: fan_card(DEC, 'body', [(x + (x - 150) * 0.08, y + (y - 262) * 0.12) for x, y in pk], SOFF + 0.3, 'ink')
+fan_card(DEC, 'body', pk, SOFF + 0.5, 'tie')
 if not BLOCKOUT: line_card(DEC, 'body', bez_pts(J.NECKLINE, 3), 1.4, VOFF, 'ink')
 LAND = {'eye_top': front_hit('head', J.LM['eye_x'][0] - 150, EY - 8.5, 0.4)[0], 'mouth': front_hit('head', 0, 130, 0.5)[0],
         'brow': front_hit('head', -19, 85, 0.4)[0]}
@@ -524,7 +530,7 @@ def hold(name, side, hand, elbow):
 r226 = R.r_at(VPROF, 226)
 # the sketch's hand targets (juno.py model(), arms): 'cup' rest, 'sides', 'hand' (hand over), 'wave0-2', 'holdhigh', 'pen'
 REST = {**hold('rest', 'L', (21, 226, zf(16, 226, 12)), (68, 214, 10)), **hold('rest', 'R', (-21, 226, zf(16, 226, 12)), (-68, 214, 10))}
-SIDES_L = hold('sides', 'L', (R.r_at(VPROF, 254) + 9, 254, 8), (R.r_at(VPROF, 214) + 8, 214, 0))
+SIDES_L = hold('sides', 'L', (R.r_at(VPROF, 268) + 9, 268, 6), (R.r_at(VPROF, 222) + 4, 222, -8))
 HAND_R = hold('hand', 'R', (-42, 212, 78), (-70, 214, 22))
 POSES = {'rest': REST, 'hand': {**SIDES_L, **HAND_R}}
 CUP1_L = hold('wave', 'L', (19, 228, zf(17, 228, 13)), (68, 214, 10))
@@ -570,15 +576,15 @@ def cup_r(h): return 10.0 + 3.0 * (h + 17.0) / 34.0
 # v 0 = cap top, v 1 = baseline, x-height at v 0.4.
 GLYPH = {
     'Y': (0.62, [[(0, 0), (0.31, 0.46), (0.62, 0)], [(0.31, 0.46), (0.31, 1)]]),
-    'o': (0.5, [[(0.25, 0.4), (0.48, 0.52), (0.48, 0.88), (0.25, 1), (0.02, 0.88), (0.02, 0.52), (0.25, 0.4)]]),
-    'u': (0.48, [[(0, 0.4), (0, 0.84), (0.14, 1), (0.34, 0.98), (0.48, 0.8)], [(0.48, 0.4), (0.48, 1)]]),
-    'a': (0.5, [[(0.46, 0.5), (0.28, 0.4), (0.06, 0.48), (0, 0.8), (0.16, 1), (0.36, 0.95), (0.48, 0.74)], [(0.48, 0.42), (0.5, 1)]]),
+    'o': (0.5, [[(0.25, 0.4), (0.48, 0.6), (0.4, 0.95), (0.12, 0.98), (0.02, 0.66), (0.25, 0.4)]]),
+    'u': (0.48, [[(0, 0.4), (0, 0.86), (0.18, 1), (0.48, 0.84)], [(0.48, 0.4), (0.48, 1)]]),
+    'a': (0.5, [[(0.46, 0.5), (0.22, 0.4), (0.02, 0.6), (0.06, 0.94), (0.3, 0.98), (0.48, 0.76)], [(0.48, 0.42), (0.5, 1)]]),
     'r': (0.38, [[(0, 0.4), (0, 1)], [(0, 0.62), (0.14, 0.44), (0.38, 0.42)]]),
-    'e': (0.46, [[(0.02, 0.7), (0.44, 0.68), (0.38, 0.47), (0.2, 0.4), (0.03, 0.52), (0.02, 0.84), (0.2, 1), (0.44, 0.93)]]),
-    'n': (0.48, [[(0, 0.4), (0, 1)], [(0, 0.6), (0.16, 0.42), (0.38, 0.44), (0.48, 0.62), (0.48, 1)]]),
+    'e': (0.46, [[(0.02, 0.7), (0.44, 0.66), (0.3, 0.42), (0.06, 0.48), (0.02, 0.84), (0.22, 1), (0.44, 0.93)]]),
+    'n': (0.48, [[(0, 0.4), (0, 1)], [(0, 0.62), (0.2, 0.42), (0.44, 0.5), (0.48, 1)]]),
     't': (0.4, [[(0.14, 0.12), (0.14, 0.88), (0.26, 1), (0.4, 0.94)], [(0, 0.42), (0.36, 0.4)]]),
-    'P': (0.5, [[(0, 1), (0, 0), (0.34, 0.02), (0.5, 0.16), (0.48, 0.34), (0.3, 0.48), (0, 0.48)]]),
-    'D': (0.54, [[(0, 0), (0, 1), (0.28, 0.98), (0.52, 0.72), (0.52, 0.28), (0.28, 0.02), (0, 0)]]),
+    'P': (0.5, [[(0, 1), (0, 0), (0.38, 0.02), (0.5, 0.22), (0.36, 0.46), (0, 0.48)]]),
+    'D': (0.54, [[(0, 0), (0, 1), (0.36, 0.94), (0.54, 0.5), (0.34, 0.06), (0, 0)]]),
     'F': (0.46, [[(0.46, 0), (0, 0), (0, 1)], [(0, 0.48), (0.36, 0.48)]]),
     '.': (0.12, [[(0.02, 0.9), (0.1, 1)]]),
     ' ': (0.3, [])}
@@ -625,7 +631,7 @@ def build_cup(acc, centre, tilt_deg, bone, text=True):
     def ring(h, r, nh=0.0): return [V((r * math.sin(a), h, r * math.cos(a)), (math.sin(a), nh, math.cos(a))) for a in ang]
     bot = ring(-17.0, 10.0, -0.1); top = ring(15.6, cup_r(15.6), -0.1)
     bands(acc, [top, bot], ['cup'])
-    fan(acc, V((0, -17.0, 0), (0, -1, 0)), bot, 'cup')
+    # no bottom fan: the cup bottom is never seen from the game or card cameras (saves 10 triangles)
     rim0 = ring(15.4, 13.2, -0.2); rim1 = ring(19.5, 15.0, 0.3)
     bands(acc, [rim1, rim0], ['cup'])
     fan(acc, V((0, 22.0, 0), (0, 1, 0)), rim1, 'cup', flip=True)
@@ -695,7 +701,7 @@ for beat, bd in flt['beat_defaults'].to_dict().items():
 for ex in EXPR: vis['rest + ' + ex] = base + sum(counts[x] for x in EXPR[ex]) + counts['cup_rest']
 counts['visible'] = vis
 counts['body_by_part'] = {nm: sum(len(f) - 2 for f in BODY.F[f0:f1]) for nm, (v0, v1, f0, f1) in SHELLS.items()}
-counts['cup_text_tris'] = counts['cup_rest'] - (2 * CUP_N + CUP_N + 2 * CUP_N + CUP_N)
+counts['cup_text_tris'] = counts['cup_rest'] - (2 * CUP_N + 2 * CUP_N + CUP_N)
 checks = {'body_nonmanifold_edges': nonman, 'body_boundary_edges (neck tube ends, body top ring, leg ends, sleeve roots, tails)': boundary,
           'body_faces_against_analytic_normals': inward, 'height_m (sole to puff top)': H_M, 'unit_mm': round(U * 1000, 3),
           'hand_to_target_mm': ERR, 'faces_rewound_to_analytic_normals': REWOUND, 'hairline_front_view_y_by_deg': HAIRLINE,

@@ -134,7 +134,13 @@ def add_outline(ob, width):
     so.thickness = -width; so.offset = -1.0; so.use_flip_normals = True; so.use_rim = False
     so.material_offset = n; so.use_even_offset = False; so.use_quality_normals = True
     ca = ob.data.color_attributes.get('outline_wc')
-    if ca is not None:   # per-vertex outline width (Kit method): the neck ink fades where it enters the vest
+    if ob.name.startswith('cup_'):   # the cup line (ink strokes) gets no hull: weight 0 on its vertices
+        ink = {i for i, m in enumerate(ob.data.materials) if m and m.name == 'ink'}
+        zero = {v for p in ob.data.polygons if p.material_index in ink for v in p.vertices}
+        vg = ob.vertex_groups.new(name='outline_width')
+        for i in range(len(ob.data.vertices)): vg.add([i], 0.0 if i in zero else 1.0, 'REPLACE')
+        so.vertex_group = 'outline_width'; so.thickness_vertex_group = 0.0
+    elif ca is not None:   # per-vertex outline width (Kit method): the neck ink fades where it enters the vest
         vals = [ca.data[i].color[0] for i in range(len(ob.data.vertices))]
         vg = ob.vertex_groups.new(name='outline_width')
         for i, w in enumerate(vals): vg.add([i], w, 'REPLACE')
@@ -170,3 +176,160 @@ blob = bpy.context.object; blob.name = 'contact_shadow'; blob.scale = (GT['conta
 bm_ = bpy.data.materials.new('blob'); flat_tree(bm_, [s2l1(c) for c in blob_s]); blob.data.materials.append(bm_)
 ROOT = bpy.data.objects['root']; blob.parent = ROOT
 
+
+
+cam_d = bpy.data.cameras.new('cam'); cam_d.sensor_fit = 'VERTICAL'; cam_d.lens_unit = 'FOV'
+cam = bpy.data.objects.new('cam', cam_d); scn.collection.objects.link(cam); scn.camera = cam
+cam_d.clip_start = 0.02; cam_d.clip_end = 100
+RIG = bpy.data.objects['rig']; FLT = bpy.data.objects['float']; BNC = bpy.data.objects['bounce']
+BODY = bpy.data.objects['body']; DEC = bpy.data.objects['decals']
+SWAP_NAMES = ('eyes_open', 'eyes_happy', 'eyes_down', 'brows_rest', 'brows_dry', 'mouth_smile', 'mouth_laugh', 'mouth_talk', 'mouth_smirk')
+SWAPS = {k: bpy.data.objects.get(k) for k in SWAP_NAMES}
+PROPS = {k: bpy.data.objects.get(k) for k in ('cup_rest', 'cup_hand', 'cup_wave', 'cup_write', 'marker')}
+OUTDIR = HERE
+for a in (sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []):
+    if a.startswith('out='): OUTDIR = os.path.join(HERE, a[4:]); os.makedirs(OUTDIR, exist_ok=True)
+H = FLT['height_m']; U = FLT['unit_m']; K = H * 0.88          # cameras: Brett's frames scaled to Juno (puff included)
+
+def pose(beat='rest', expr=None, cup=None, only_cup=False):
+    """beat: rest / hand / wave1-3 / write / handover (or None: the bind pose). expr: rest / laugh / talk / dry / writing.
+    cup: override the beat's cup ('none' hides it). only_cup: hide everything but the cup (the card-size cup view)."""
+    for pb in RIG.pose.bones: pb.rotation_mode = 'QUATERNION'; pb.rotation_quaternion = (1, 0, 0, 0); pb.location = (0, 0, 0)
+    P = {k: list(v) for k, v in (FLT['poses_float_blender'][beat].to_dict().items() if beat else [])}
+    for bn, v in P.items():
+        x, y, z, deg = v; M = RIG.data.bones[bn].matrix_local.to_3x3().inverted()
+        RIG.pose.bones[bn].rotation_quaternion = Quaternion(M @ Vector((x, y, z)), math.radians(deg))
+    bd = FLT['beat_defaults'].to_dict().get(beat or '', {})
+    e = FLT['expressions'][expr or bd.get('expr', 'rest')]
+    for k, o in SWAPS.items():
+        if o: o.hide_render = only_cup or k not in list(e)
+    c = cup if cup is not None else bd.get('cup')
+    for k, o in PROPS.items():
+        if not o: continue
+        o.hide_render = (k != c) if k != 'marker' else (only_cup or not bd.get('marker'))
+    BODY.hide_render = DEC.hide_render = only_cup
+    bpy.context.view_layer.update()
+
+def bone_pt(bn, p):
+    b = RIG.data.bones[bn]; pb = RIG.pose.bones[bn]
+    return RIG.matrix_world @ pb.matrix @ (b.matrix_local.inverted() @ Vector(p))
+def SK(X, y, Z): return Vector((X * U, -Z * U, (340 - y) * U))
+def obj_centre(o):
+    dg = bpy.context.evaluated_depsgraph_get(); oe = o.evaluated_get(dg); me = oe.to_mesh()
+    c = sum((oe.matrix_world @ v.co for v in me.vertices), Vector()) / max(len(me.vertices), 1); oe.to_mesh_clear(); return c
+CROPS = {}
+def crop_points():
+    pts = {}
+    hp = lambda X, y, Z: bone_pt('head', SK(X, y, Z)); tp = lambda X, y, Z: bone_pt('torso', SK(X, y, Z))
+    pts['face'] = hp(0, 108, 50); pts['mouth'] = hp(0, 130, 50); pts['eyeL'] = hp(18, 104, 50); pts['eyeR'] = hp(-18, 104, 50)
+    pts['puff'] = hp(0, 40, -18); pts['crown'] = hp(0, 56, 0); pts['forehead'] = hp(0, 74, 50)
+    pts['earL'] = hp(55, 105, -4); pts['earR'] = hp(-55, 105, -4); pts['nape'] = hp(0, 132, -45); pts['templeL'] = hp(46, 84, 30); pts['templeR'] = hp(-46, 84, 30)
+    pts['neck'] = tp(0, 160, 10); pts['bib'] = tp(0, 214, 40); pts['tie'] = tp(0, 238, 34); pts['bow'] = tp(0, 238, -40); pts['hem'] = tp(0, 286, 40)
+    pts['pocket'] = tp(0, 262, 50)
+    for side in ('L', 'R'):
+        up = RIG.data.bones['arm_%s_up' % side]; lo = RIG.data.bones['arm_%s_lo' % side]
+        pts['shoulder' + side] = bone_pt('arm_%s_up' % side, up.head_local); pts['elbow' + side] = bone_pt('arm_%s_lo' % side, lo.head_local)
+        pts['hand' + side] = bone_pt('arm_%s_lo' % side, lo.tail_local)
+    pts['feet'] = bone_pt('body_root', SK(0, 330, 0))
+    for k, o in PROPS.items():
+        if o and not o.hide_render: pts['cup' if k.startswith('cup') else 'marker'] = obj_centre(o)
+    return pts
+
+def shoot(name, w, h, angle_deg, cam_pos, target, fov=22, blob_on=True, compose=True, **pk):
+    if ONLY and name not in ONLY: return
+    pose(**pk); ROOT.rotation_euler = (0, 0, math.radians(angle_deg))
+    blob.hide_render = not blob_on
+    cam.location = Vector(cam_pos); cam_d.angle_y = math.radians(fov)
+    d = Vector(target) - cam.location; cam.rotation_euler = d.to_track_quat('-Z', 'Y').to_euler()
+    scn.render.resolution_x, scn.render.resolution_y = w, h; scn.render.resolution_percentage = 100
+    scn.render.use_compositing = compose
+    scn.render.image_settings.file_format = 'PNG'; scn.render.image_settings.color_mode = 'RGB' if compose else 'RGBA'
+    scn.render.filepath = os.path.join(OUTDIR, name + '.png')
+    bpy.ops.render.render(write_still=True); print("RENDERED", name)
+    from bpy_extras.object_utils import world_to_camera_view
+    bpy.context.view_layer.update(); CROPS[name] = {}
+    for k, v in crop_points().items():
+        p = world_to_camera_view(scn, cam, v); CROPS[name][k] = [round(p.x * w), round((1 - p.y) * h)]
+
+TURN = ((0, -4.0 * K, 0.74 * K), (0, 0, 0.60 * K))
+BLOCK = 'blockout' in sys.argv
+for nm, ang in [('turn-front', 0), ('turn-34', -35), ('turn-side', -90), ('turn-back', 180)]:
+    shoot(nm, 900, 1200, ang, *TURN)
+shoot('hand-front', 900, 1200, 0, *TURN, beat='hand')
+shoot('wave-2', 900, 1200, 0, *TURN, beat='wave2')
+shoot('write-front', 900, 1200, 0, *TURN, beat='write')
+shoot('_mask-front', 900, 1200, 0, *TURN, blob_on=False, compose=False)
+if not BLOCK:
+    shoot('turn-34b', 900, 1200, 35, *TURN)
+    shoot('hero', 1200, 1200, -28, (0, -4.0 * K, 1.45 * K), (0, 0, 0.60 * K), beat='rest')
+    shoot('hand-34', 900, 1200, 35, *TURN, beat='hand')
+    shoot('hand-side', 900, 1200, 90, *TURN, beat='hand')
+    shoot('wave-1', 900, 1200, 0, *TURN, beat='wave1')
+    shoot('wave-3', 900, 1200, 0, *TURN, beat='wave3')
+    shoot('wave-34', 900, 1200, 35, *TURN, beat='wave2')
+    shoot('write-34', 900, 1200, -35, *TURN, beat='write')
+    shoot('write-side', 900, 1200, -90, *TURN, beat='write')
+    shoot('write-then', 900, 1200, 0, *TURN, beat='handover')
+    FACE = ((0, -1.40 * K, 1.0 * K), (0, 0, 0.79 * K))
+    for nm, ex in (('expr-rest', 'rest'), ('expr-laugh', 'laugh'), ('expr-talk', 'talk'), ('expr-dry', 'dry'), ('expr-writing', 'writing')):
+        shoot(nm, 900, 900, -10, *FACE, beat='rest', expr=ex, cup='none')
+    # the cup at card size: the cup alone, front, filling the frame (its line must be readable); and in her hands
+    ROOT.rotation_euler = (0, 0, 0); pose('rest'); cc = obj_centre(PROPS['cup_rest'])
+    so_ = PROPS['cup_rest'].modifiers['outline']; w0 = so_.thickness; so_.thickness = w0 * 0.3   # card view: a thin ink line, as the sketch's card cup
+    shoot('cup-card', 600, 800, 0, (cc.x, cc.y - 0.52, cc.z + 0.03), tuple(cc), fov=22, blob_on=False, beat='rest', only_cup=True)
+    shoot('cup-card-small', 240, 320, 0, (cc.x, cc.y - 0.52, cc.z + 0.03), tuple(cc), fov=22, blob_on=False, beat='rest', only_cup=True)
+    so_.thickness = w0
+    shoot('_close-cup', 1200, 1200, -12, (cc.x - 0.06, cc.y - 0.55, cc.z + 0.12), tuple(cc), fov=22, beat='rest')
+    shoot('_close-face', 1200, 1200, -15, (0, -1.25 * K, 1.0 * K), (0, 0, 0.83 * K), beat='rest', cup='none')
+    shoot('_close-face-side', 1200, 1200, -90, (0, -1.25 * K, 0.9 * K), (0, 0, 0.83 * K), beat='rest', cup='none')
+    shoot('_close-forehead-34', 1200, 1200, -35, (0, -1.15 * K, 1.0 * K), (0, 0, 0.86 * K), beat='rest', cup='none')
+    shoot('_close-forehead-34b', 1200, 1200, 35, (0, -1.15 * K, 1.0 * K), (0, 0, 0.86 * K), beat='rest', cup='none')
+    shoot('_close-puff', 1200, 1200, -35, (0, -1.3 * K, 1.3 * K), (0, 0, 0.86 * K), beat='rest')
+    shoot('_close-top', 1200, 1200, -20, (0, -1.1 * K, 2.1 * K), (0, 0, 0.80 * K), beat='rest')
+    shoot('_close-nape', 1200, 1200, 150, (0, -1.4 * K, 1.0 * K), (0, 0, 0.82 * K), beat='rest')
+    shoot('_close-bow', 1200, 1200, 180, (0, -1.4 * K, 0.6 * K), (0, 0, 0.45 * K), beat='rest')
+    shoot('_close-hands', 1200, 1200, -15, (0, -1.5 * K, 0.58 * K), (0, 0, 0.42 * K), beat='rest')
+    shoot('_close-handover', 1200, 1200, 30, (0, -1.5 * K, 0.75 * K), (0, 0, 0.55 * K), beat='hand')
+    shoot('_close-wave', 1200, 1200, -10, (0, -1.6 * K, 0.85 * K), (0, 0, 0.62 * K), beat='wave2')
+    shoot('_close-write', 1200, 1200, -20, (0, -1.3 * K, 0.75 * K), (0, 0, 0.55 * K), beat='write')
+    shoot('_close-shoulder', 1200, 1200, -35, (0, -1.4 * K, 0.75 * K), (0, 0, 0.60 * K), beat='rest')
+    shoot('_mask-34', 900, 1200, -35, *TURN, blob_on=False, compose=False)
+def load_px(path):
+    im = bpy.data.images.load(path); w, h = im.size
+    a = np.empty(w * h * 4, np.float32); im.pixels.foreach_get(a); bpy.data.images.remove(im)
+    return a.reshape(h, w, 4)
+def save_px(path, arr):
+    h, w = arr.shape[:2]; im = bpy.data.images.new('o', w, h, alpha=True)
+    im.pixels.foreach_set(arr.astype(np.float32).ravel()); im.filepath_raw = path; im.file_format = 'PNG'; im.save()
+    bpy.data.images.remove(im)
+def area_resize(img, nh, nw):
+    h, w = img.shape
+    ys = (np.arange(nh + 1) * h / nh).astype(int); xs = (np.arange(nw + 1) * w / nw).astype(int)
+    out = np.zeros((nh, nw), np.float32)
+    for i in range(nh):
+        for j in range(nw): out[i, j] = img[ys[i]:max(ys[i + 1], ys[i] + 1), xs[j]:max(xs[j + 1], xs[j] + 1)].mean()
+    return out
+def silhouette(mask_name, out_name):
+    mpath = os.path.join(OUTDIR, mask_name + '.png')
+    if not os.path.exists(mpath): return
+    a = load_px(mpath)[..., 3]
+    ys, xs = np.where(a > 0.5); y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+    crop = a[y0:y1, x0:x1]; nh = 64; nw = max(1, round((x1 - x0) * nh / (y1 - y0)))
+    small = area_resize(crop, nh, nw); pad = 6; W = nw + 2 * pad
+    out = np.ones((nh, W, 4), np.float32); v = 1 - small
+    out[:, pad:pad + nw, 0] = v; out[:, pad:pad + nw, 1] = v; out[:, pad:pad + nw, 2] = v
+    save_px(os.path.join(OUTDIR, out_name + '.png'), out)
+    save_px(os.path.join(OUTDIR, out_name + '-x4.png'), np.repeat(np.repeat(out, 4, 0), 4, 1))
+    os.remove(mpath); print('SIL', out_name, nw, nh)
+silhouette('_mask-front', 'silhouette-64'); silhouette('_mask-34', 'silhouette-64-34')
+tpath = os.path.join(OUTDIR, 'turn-34.png')
+if os.path.exists(tpath) and not BLOCK:
+    p = load_px(tpath); lin = np.where(p[..., :3] <= 0.04045, p[..., :3] / 12.92, ((p[..., :3] + 0.055) / 1.055) ** 2.4)
+    Y = lin[..., 0] * 0.2126 + lin[..., 1] * 0.7152 + lin[..., 2] * 0.0722
+    s = np.where(Y <= 0.0031308, 12.92 * Y, 1.055 * np.power(Y, 1 / 2.4) - 0.055)
+    out = np.ones_like(p); out[..., 0] = out[..., 1] = out[..., 2] = s
+    save_px(os.path.join(OUTDIR, 'grey.png'), out); print('GREY done')
+old = {}
+cp = os.path.join(OUTDIR, 'crop_points.json')
+if os.path.exists(cp): old = json.load(open(cp))
+old.update(CROPS); json.dump(old, open(cp, 'w'), indent=1)
