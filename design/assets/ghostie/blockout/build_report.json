@@ -1,0 +1,200 @@
+{
+ "triangles": {
+  "body": 508,
+  "eyes": 24,
+  "acc_tie": 24,
+  "acc_glasses": 36,
+  "acc_headset": 124,
+  "acc_headset_note": "cup + ink ring + band (child node acc_headset_band)",
+  "body_note": "body + both arms, one skinned mesh",
+  "base_body_arms_eyes": 532,
+  "variant_totals": {
+   "tie": 556,
+   "glasses": 568,
+   "headset": 656
+  }
+ },
+ "meshes": {
+  "all": [
+   "acc_glasses",
+   "acc_headset",
+   "acc_headset_band",
+   "acc_tie",
+   "body",
+   "eyes"
+  ],
+  "non_swap (V5 <= 3)": [
+   "body (skinned: body_root, arm_L, arm_R)"
+  ],
+  "swap_parts": [
+   "eyes",
+   "acc_tie",
+   "acc_glasses",
+   "acc_headset (+ child acc_headset_band)"
+  ]
+ },
+ "checks": {
+  "eyes_offset_mm (must be > 0)": [
+   0.82,
+   2.2
+  ],
+  "acc_tie_front_faces_offset_mm (visible, must be > 0)": [
+   1.58,
+   8.0
+  ],
+  "acc_tie_all_faces_offset_mm": [
+   1.58,
+   8.0
+  ],
+  "acc_glasses_front_faces_offset_mm (visible, must be > 0)": [
+   1.07,
+   1.5
+  ],
+  "acc_glasses_all_faces_offset_mm": [
+   1.07,
+   1.5
+  ],
+  "acc_headset_front_faces_offset_mm (visible, must be > 0)": [
+   8.4,
+   24.24
+  ],
+  "acc_headset_all_faces_offset_mm": [
+   -2.64,
+   24.24
+  ],
+  "acc_headset_band_front_faces_offset_mm (visible, must be > 0)": [
+   3.16,
+   6.11
+  ],
+  "acc_headset_band_all_faces_offset_mm": [
+   3.16,
+   6.11
+  ],
+  "arm_L_root_ring_depth_mm_at_rest (must be < 0)": [
+   -48.41,
+   -22.62
+  ],
+  "arm_L_root_ring_worst_mm_at_rest_+-20deg (must be < 0)": -11.39,
+  "arm_L_highest_point_z_m (below eye line 0.258-0.0275)": 0.134,
+  "arm_R_root_ring_depth_mm_at_rest (must be < 0)": [
+   -41.68,
+   -28.5
+  ],
+  "arm_R_root_ring_worst_mm_at_rest_+-20deg (must be < 0)": -14.64,
+  "arm_R_highest_point_z_m (below eye line 0.258-0.0275)": 0.141,
+  "hem_notch_top_curve_heights_pct (5 vertices, centre = notch)": [
+   75,
+   93,
+   100,
+   93,
+   75
+  ],
+  "hem_scallops": 5,
+  "hem_lobe_radius_vs_skirt_m": [
+   0.199,
+   0.213
+  ],
+  "eye_to_glasses_inner_edge_min_gap_mm": 3.9,
+  "tie_landmarks_z_m": {
+   "collar_top": 0.2398,
+   "knot_top": 0.2328,
+   "v_point": 0.0752
+  },
+  "arm_tip_z_m (rest geometry)": {
+   "arm_L": 0.045,
+   "arm_R": 0.045
+  },
+  "skin_unweighted_vertices (must be 0)": 0,
+  "skin_max_arm_weight": {
+   "arm_L": 1.0,
+   "arm_R": 1.0
+  }
+ },
+ "rest_pose": {
+  "float_lean_deg_x": 3.0,
+  "float_roll_deg_three_z": 5.0,
+  "arm_droop_root_tip_deg": [
+   24,
+   76
+  ],
+  "arm_L_up_deg": 6,
+  "arm_R_down_deg": 3,
+  "arm_R_forward_deg": 8,
+  "note": "baked into the mesh; bones rest along the posed arms"
+ },
+ "ghost_toon": {
+  "band_colors": {
+   "ghost": [
+    [
+     -1.0,
+     [
+      178,
+      178,
+      178
+     ]
+    ],
+    [
+     0.0001,
+     [
+      255,
+      255,
+      255
+     ]
+    ]
+   ],
+   "acc": [
+    [
+     -1.0,
+     [
+      178,
+      178,
+      178
+     ]
+    ],
+    [
+     0.0001,
+     [
+      255,
+      255,
+      255
+     ]
+    ]
+   ],
+   "tie": [
+    [
+     -1.0,
+     [
+      178,
+      178,
+      178
+     ]
+    ],
+    [
+     0.0001,
+     [
+      255,
+      255,
+      255
+     ]
+    ]
+   ]
+  },
+  "basic_materials": [
+   "ink"
+  ],
+  "outline_nodes": [
+   "body"
+  ],
+  "float_rest_m": 0.22,
+  "variants": [
+   "tie",
+   "glasses",
+   "headset"
+  ],
+  "contact_shadow": {
+   "rx": 0.2,
+   "ry": 0.17,
+   "opacity_at_rest": 0.22
+  }
+ }
+}

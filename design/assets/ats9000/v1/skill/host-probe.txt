@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "probed_at": "2026-11-25T17:51:31+00:00",
+  "os": {
+    "system": "Darwin",
+    "release": "25.2.0",
+    "product_version": "26.2",
+    "arch": "arm64"
+  },
+  "cpu": {
+    "brand": "Apple M1 Pro",
+    "logical_cores": 10
+  },
+  "memory_gb": 16.0,
+  "gpu": {
+    "found": true,
+    "name": "Apple M1 Pro",
+    "vendor": "sppci_vendor_Apple",
+    "cores": 16,
+    "source": "system_profiler SPDisplaysDataType -json"
+  },
+  "blender": {
+    "found": true,
+    "path": "/Applications/Blender.app/Contents/MacOS/Blender",
+    "version": "4.3.0",
+    "on_path": false,
+    "meets_minimum": true,
+    "source": "standard install path + --version"
+  },
+  "runtimes": {
+    "node": "24.22.3",
+    "pnpm": null,
+    "python": "3.11.4",
+    "playwright": null,
+    "playwright_source": "importlib.metadata in the interpreter running this probe",
+    "chromium_installed": true
+  },
+  "quality_ceiling": "T3",
+  "quality_ceiling_reason": "Blender 4.3.0 >= 4.2 found via standard install path + --version",
+  "quality_ceiling_scope": "shipped-kit-pipelines",
+  "quality_note": "Tool discovery does not grade art, constrain custom/sourced geometry, or prove that a bake, render or scientific model was executed.",
+  "capture_mode_expected": "gpu",
+  "capture_mode_reason": "darwin + chromium available: --use-angle=metal is supported"
+}

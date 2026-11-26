@@ -1,0 +1,109 @@
+{
+  "status": "candidates",
+  "query": "handwritten text decal on small cylinder readable at card size",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.layered-decal-surface-handoff",
+      "revision": 1,
+      "title": "Layered decal surface handoff",
+      "path": "data/knowledge/material-profile/layered-decal-surface-handoff.json",
+      "collection": "knowledge",
+      "kind": "material-profile",
+      "score": 74.161177,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts"
+      ],
+      "summary": "Choose whether a localized mark is baked into portable texture roles, projected as runtime geometry, or reconstructed in a declared runtime shader."
+    },
+    {
+      "id": "knowledge.shared-point-cloud-sampling",
+      "revision": 1,
+      "title": "Point cloud with declared sampling and point size",
+      "path": "data/knowledge/geometry-profile/shared-point-cloud-sampling.json",
+      "collection": "knowledge",
+      "kind": "geometry-profile",
+      "score": 62.925393,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "subject_terms"
+      ],
+      "summary": "Say where the points came from and whether their drawn size means anything, so density is not mistaken for magnitude."
+    },
+    {
+      "id": "knowledge.validation-integrator-energy-drift",
+      "revision": 1,
+      "title": "Energy drift, step size and the small-angle approximation",
+      "path": "data/knowledge/domain-validation/validation-integrator-energy-drift.json",
+      "collection": "knowledge",
+      "kind": "domain-validation",
+      "score": 60.894506,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "summary",
+        "objective",
+        "example_prompts",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Measure a conserved quantity over long model time at several step sizes and separate integrator drift from approximation error."
+    },
+    {
+      "id": "knowledge.linked-spatial-small-multiples",
+      "revision": 1,
+      "title": "Linked spatial small multiples",
+      "path": "data/knowledge/composition-profile/linked-spatial-small-multiples.json",
+      "collection": "knowledge",
+      "kind": "composition-profile",
+      "score": 49.158087,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "tags",
+        "intent_signals",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Arrange repeated 3D views under an explicit comparison contract: shared identity, projection, scale, legend and interaction where those conditions carry the claim."
+    },
+    {
+      "id": "recipe.kinetic-typography-stage",
+      "revision": 1,
+      "title": "Kinetic typography stage with readable alternatives",
+      "path": "data/recipes/kinetic-typography-stage.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 44.473638,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "summary",
+        "objective",
+        "tags"
+      ],
+      "summary": "Animate authored words and phrases in 3D while preserving reading order, pause control, captions and a static text representation."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

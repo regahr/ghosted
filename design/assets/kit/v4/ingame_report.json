@@ -1,0 +1,70 @@
+{
+ "ingame": {
+  "visibleHeroTris": 2465,
+  "calls": 21
+ },
+ "ingame-front": {
+  "visibleHeroTris": 2465,
+  "calls": 21
+ },
+ "ingame-expr-ghosted": {
+  "visibleHeroTris": 2461,
+  "calls": 15
+ },
+ "ingame-world": {
+  "kitPx": 56,
+  "outlineW_m": 0.0213424816684965,
+  "visibleHeroTris": 2465,
+  "cx": 800,
+  "cy": 442
+ },
+ "ingame-world-grass": {
+  "kitPx": 56,
+  "outlineW_m": 0.0213424816684965,
+  "visibleHeroTris": 2465,
+  "cx": 800,
+  "cy": 443
+ },
+ "visibleTris": {
+  "hopeful": 2465,
+  "ghosted": 2461,
+  "rejected": 2451,
+  "focused": 2465,
+  "offer_joy": 2480
+ },
+ "gamecam_hopeful": {
+  "kitPx": 56,
+  "outlineW_m": 0.0213424816684965,
+  "visibleHeroTris": 2465,
+  "cx": 800,
+  "cy": 442
+ },
+ "gamecam_ghosted": {
+  "kitPx": 56,
+  "outlineW_m": 0.0213424816684965,
+  "visibleHeroTris": 2461,
+  "cx": 800,
+  "cy": 442
+ },
+ "gamecam_rejected": {
+  "kitPx": 56,
+  "outlineW_m": 0.0213424816684965,
+  "visibleHeroTris": 2451,
+  "cx": 800,
+  "cy": 442
+ },
+ "gamecam_focused": {
+  "kitPx": 56,
+  "outlineW_m": 0.0213424816684965,
+  "visibleHeroTris": 2465,
+  "cx": 800,
+  "cy": 442
+ },
+ "gamecam_offer_joy": {
+  "kitPx": 56,
+  "outlineW_m": 0.0213424816684965,
+  "visibleHeroTris": 2480,
+  "cx": 800,
+  "cy": 442
+ }
+}

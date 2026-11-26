@@ -1,0 +1,721 @@
+{
+  "objective": "toon sheet-ghost NPC, one skinned mesh with arms, 600 tris, read at a 26 m game camera and at card size",
+  "status": "candidates",
+  "candidate_groups": {
+    "recipes": {
+      "status": "candidates",
+      "query": "toon sheet-ghost NPC, one skinned mesh with arms, 600 tris, read at a 26 m game camera and at card size",
+      "algorithm": "weighted-field-bm25",
+      "index_version": 4,
+      "expanded_terms": [],
+      "hint": "",
+      "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+      "results": [
+        {
+          "id": "recipe.mesh-orientability-check",
+          "revision": 1,
+          "title": "Manifoldness, orientation and mesh validity",
+          "path": "data/recipes/mesh-orientability-check.json",
+          "collection": "recipes",
+          "kind": "recipe",
+          "score": 67.038956,
+          "exact_id": false,
+          "exact_alias": false,
+          "matched_fields": [
+            "title.en",
+            "aliases.en",
+            "summary",
+            "objective",
+            "tags",
+            "intent_signals",
+            "example_prompts"
+          ],
+          "summary": "Make mesh validity inspectable: combinatorial manifoldness, consistent orientation and geometric self-intersection are three different questions."
+        },
+        {
+          "id": "recipe.modular-camera-rig",
+          "revision": 1,
+          "title": "Modular camera rig compatibility",
+          "path": "data/recipes/modular-camera-rig.json",
+          "collection": "recipes",
+          "kind": "recipe",
+          "score": 63.36931,
+          "exact_id": false,
+          "exact_alias": false,
+          "matched_fields": [
+            "title.en",
+            "aliases.en",
+            "summary",
+            "objective",
+            "tags",
+            "intent_signals",
+            "example_prompts",
+            "subject_terms"
+          ],
+          "summary": "Create an invented accessory rig with explicit slot rules and reversible changes."
+        },
+        {
+          "id": "recipe.stage-previsualization-cue-stack",
+          "revision": 1,
+          "title": "Stage previsualization with a versioned cue stack",
+          "path": "data/recipes/stage-previsualization-cue-stack.json",
+          "collection": "recipes",
+          "kind": "recipe",
+          "score": 49.754168,
+          "exact_id": false,
+          "exact_alias": false,
+          "matched_fields": [
+            "title.en",
+            "aliases.en",
+            "summary",
+            "objective",
+            "intent_signals",
+            "example_prompts",
+            "subject_terms"
+          ],
+          "summary": "Coordinate performer blocking, camera, lighting and scenic cues in a reversible previsualization without claiming live show-control execution."
+        }
+      ],
+      "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+    }
+  },
+  "context": {
+    "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+    "bundle_hash": "7838cc594f15c7b92c61ca62ecd5631ae18e4a5a0feea130c937a2549897e4d4",
+    "selected_ids": [
+      "recipe.mesh-orientability-check",
+      "recipe.modular-camera-rig",
+      "recipe.stage-previsualization-cue-stack"
+    ],
+    "records": [
+      {
+        "schema_version": 1,
+        "id": "recipe.mesh-orientability-check",
+        "revision": 1,
+        "status": "active",
+        "record_kind": "mixed",
+        "title": {
+          "en": "Manifoldness, orientation and mesh validity"
+        },
+        "aliases": {
+          "en": [
+            "manifold mesh",
+            "consistent orientation",
+            "self-intersection"
+          ]
+        },
+        "direction_ids": [
+          "topology-symmetry"
+        ],
+        "summary": "Make mesh validity inspectable: combinatorial manifoldness, consistent orientation and geometric self-intersection are three different questions.",
+        "objective": "Build a mesh inspector that highlights non-manifold edges, inconsistently oriented faces and self-intersections as separate findings.",
+        "tags": [
+          "mesh validity",
+          "orientation",
+          "manifold"
+        ],
+        "subject_terms": [
+          "manifold",
+          "non-manifold edge",
+          "boundary edge",
+          "face orientation",
+          "self-intersection",
+          "watertight",
+          "polygon soup",
+          "closed surface"
+        ],
+        "intent_signals": [
+          "Check whether a mesh is closed, manifold and consistently oriented.",
+          "Show why a mesh can look fine and still be invalid for boolean operations."
+        ],
+        "example_prompts": [
+          "Build a mesh validity inspector that separates non-manifold edges from self-intersections.",
+          "Show a mesh with flipped faces and let me repair the orientation."
+        ],
+        "negative_signals": [
+          "Not a repair pipeline: this recipe reports findings and may reorient faces, but it does not claim to fix arbitrary meshes.",
+          "Not a rendering quality check; shading artefacts are a symptom, not the subject."
+        ],
+        "not_for": [
+          "Not a repair pipeline: this recipe reports findings and may reorient faces, but it does not claim to fix arbitrary meshes.",
+          "Not a rendering quality check; shading artefacts are a symptom, not the subject."
+        ],
+        "entities": [
+          {
+            "name": "Inspected mesh",
+            "guidance": "Load or build a mesh with deliberate defects and keep face and edge indices addressable, since findings are reported per element."
+          },
+          {
+            "name": "Finding overlays",
+            "guidance": "Give each finding class its own overlay: boundary edges, non-manifold edges, inconsistently oriented faces and self-intersecting triangles."
+          },
+          {
+            "name": "Normal display",
+            "guidance": "Draw face normals as short spikes so a flipped face is visible as geometry rather than only as shading."
+          }
+        ],
+        "state_contract": {
+          "model": "An indexed mesh with per-edge incidence counts, per-face winding relative to neighbours, a vertex-link connectivity test that detects non-manifold vertices, and a self-intersection test. Findings are lists of element indices per class: boundary edge, non-manifold edge, non-manifold vertex, inconsistent winding, non-orientable component and self-intersecting face.",
+          "authority": "The element lists are authoritative. A repair action must rebuild them, and a stale overlay after an edit is a defect.",
+          "actions": [
+            "Run the validity check and step through findings.",
+            "Reorient faces consistently and rerun.",
+            "Toggle each finding overlay and the normal spikes.",
+            "Reset to the original mesh."
+          ]
+        },
+        "invariants": [
+          "An edge shared by more than two faces is reported as non-manifold even when the mesh looks closed.",
+          "Consistent orientation is a combinatorial property and does not by itself imply the absence of self-intersections.",
+          "Reorientation changes face winding only: vertex positions and mesh topology are identical before and after, and a component that cannot be consistently oriented keeps its original winding.",
+          "Edge counts alone do not certify a 2-manifold: two tetrahedral surfaces joined at a single shared vertex have two faces per edge and consistent winding, and are reported through the vertex-link test instead.",
+          "Reorientation can fail: a component that is non-orientable, such as a Moebius strip, is reported as a conflict rather than repaired by flipping windings."
+        ],
+        "motion_guidance": [
+          "Animate a camera move to each finding rather than teleporting, so the viewer keeps spatial context.",
+          "Flash a repaired face once and then leave it in its final state; a persistent animation hides whether the finding is resolved."
+        ],
+        "known_limits": [
+          "Self-intersection tests are geometric and tolerance-sensitive near coincident faces.",
+          "This recipe describes checks; performance on large meshes depends entirely on the implementation chosen.",
+          "The declared defect classes are edge manifoldness, vertex-link manifoldness, winding consistency, orientability and self-intersection; anything outside that list is not evaluated.",
+          "Authored guidance only: no scene runtime, rendering or numerical calibration has been run for this recipe."
+        ],
+        "claims": [
+          {
+            "id": "claim.rd-mesh-manifold-definition",
+            "statement": "A polygon mesh treated as a surface is required to be a consistent and orientable surface mesh with the topology of a two-manifold.",
+            "scope": "Combinatorial definition used by the cited library documentation.",
+            "source_refs": [
+              {
+                "source_id": "source.recipe-depth-cgal-mesh-processing",
+                "locator": "Polygon Mesh Processing, polygon mesh definition"
+              }
+            ]
+          },
+          {
+            "id": "claim.rd-mesh-combinatorial-limits",
+            "statement": "These requirements are mostly combinatorial and do not prevent defects such as self-intersections or degenerate faces and edges.",
+            "scope": "Explicit separation of combinatorial validity from geometric validity, as documented.",
+            "source_refs": [
+              {
+                "source_id": "source.recipe-depth-cgal-mesh-processing",
+                "locator": "Polygon Mesh Processing, note on combinatorial requirements"
+              }
+            ]
+          }
+        ],
+        "object_craft": [
+          {
+            "family": "Inspected mesh",
+            "structure": "Flat-shaded faces with visible edges so topology is readable; avoid smoothing that hides seams and duplicate vertices.",
+            "material": "Neutral grey mesh so every finding overlay stands out; reserve saturated colour entirely for findings.",
+            "articulation": "None. Only overlays and, on repair, face winding change."
+          },
+          {
+            "family": "Finding overlays",
+            "structure": "Edge tubes and face patches slightly offset from the surface so they do not z-fight with the mesh.",
+            "material": "One accent per finding class with distinct dash or hatch patterns so classes are distinguishable in monochrome.",
+            "articulation": "Overlays rebuild after every check or repair."
+          }
+        ],
+        "physical_contract": {
+          "model": "none",
+          "scope": "Static geometric and combinatorial analysis; no simulation.",
+          "checks": [
+            "Vertex positions are unchanged after a reorientation repair.",
+            "A mesh with a triple edge is reported as non-manifold even when it is watertight by appearance."
+          ]
+        },
+        "related_ids": [
+          "recipe.polyhedron-net",
+          "recipe.minkowski-clearance",
+          "knowledge.structural-coherence"
+        ],
+        "_path": "data/recipes/mesh-orientability-check.json"
+      },
+      {
+        "schema_version": 1,
+        "id": "recipe.modular-camera-rig",
+        "revision": 1,
+        "status": "active",
+        "record_kind": "creative",
+        "title": {
+          "en": "Modular camera rig compatibility"
+        },
+        "aliases": {
+          "en": [
+            "camera accessory assembly",
+            "product configuration slots"
+          ]
+        },
+        "direction_ids": [
+          "products-assemblies"
+        ],
+        "summary": "Create an invented accessory rig with explicit slot rules and reversible changes.",
+        "objective": "Build a fictional modular camera rig where a handle, monitor and battery attach to named slots.",
+        "tags": [
+          "camera rig",
+          "mount slot",
+          "accessory"
+        ],
+        "subject_terms": [
+          "camera rig",
+          "mount slot",
+          "accessory",
+          "tripod plate",
+          "compatibility"
+        ],
+        "intent_signals": [
+          "attach compatible modules",
+          "configure a product assembly"
+        ],
+        "example_prompts": [
+          "Build a fictional modular camera rig where a handle, monitor and battery attach to named slots.",
+          "Show why an accessory cannot fit an occupied mounting point."
+        ],
+        "entities": [
+          {
+            "name": "Camera cage",
+            "guidance": "Create frame rails, corner joins and named mount sockets around a camera-shaped body."
+          },
+          {
+            "name": "Accessories",
+            "guidance": "Distinct monitor frame, battery block and top handle, each with a visible mounting foot."
+          },
+          {
+            "name": "Mount guides",
+            "guidance": "Show socket axis and occupancy only during attachment."
+          }
+        ],
+        "object_craft": [
+          {
+            "family": "Camera cage",
+            "structure": "Create frame rails, corner joins and named mount sockets around a camera-shaped body.",
+            "material": "Anodized-looking aluminum and textured grip inserts."
+          },
+          {
+            "family": "Accessories",
+            "structure": "Distinct monitor frame, battery block and top handle, each with a visible mounting foot.",
+            "material": "Glass-like screen, polymer battery and rubber-looking handle."
+          },
+          {
+            "family": "Mount guides",
+            "structure": "Show socket axis and occupancy only during attachment.",
+            "material": "Muted neutral guides with text status."
+          }
+        ],
+        "state_contract": {
+          "model": "Authored compatibility table keyed by slot type; mounted accessory IDs, rigid local transforms and selected candidate.",
+          "authority": "Domain state owns identities, values and accepted transitions. Derive labels and meshes from that state; camera and display offsets are separate.",
+          "actions": [
+            "Preview an accessory at a socket.",
+            "Attach if compatible and free.",
+            "Detach and undo the last change."
+          ]
+        },
+        "invariants": [
+          "Each slot has at most one attachment and each accessory one parent.",
+          "Invalid preview does not mutate committed assembly.",
+          "Undo restores occupancy and transforms together."
+        ],
+        "motion_guidance": [
+          "Snap only after confirmation of a valid candidate; rejected parts return to their tray.",
+          "Keep preview ghost separate from committed meshes and accessible selection labels."
+        ],
+        "known_limits": [
+          "Fictional interface dimensions; no claim of compatibility with commercial camera hardware.",
+          "Authored recipe only; runtime and rendered geometry checks have not run."
+        ],
+        "claims": [],
+        "creative_affordances": [
+          "Clearly different silhouettes make configuration changes visible without requiring brand assets."
+        ],
+        "physical_contract": {
+          "model": "display-transform",
+          "scope": "Slot-based assembly editor.",
+          "state": [
+            "slot occupancy",
+            "accessory IDs",
+            "mount transforms"
+          ],
+          "colliders": [
+            "Attachment envelopes for authored clearance checks."
+          ],
+          "driving": [
+            "Discrete attach/detach operations."
+          ],
+          "contact": [
+            "No load or fastening simulation."
+          ],
+          "timestep": "Use a declared fixed update step for changing model state; interpolate presentation only. Pause clears accumulated playback time.",
+          "checks": [
+            "Occupied slot rejects attach without duplicating the accessory."
+          ]
+        },
+        "_path": "data/recipes/modular-camera-rig.json"
+      },
+      {
+        "schema_version": 1,
+        "id": "recipe.stage-previsualization-cue-stack",
+        "revision": 1,
+        "status": "active",
+        "record_kind": "mixed",
+        "title": {
+          "en": "Stage previsualization with a versioned cue stack"
+        },
+        "aliases": {
+          "en": [
+            "lighting camera blocking previs",
+            "multi-department stage cues"
+          ]
+        },
+        "direction_ids": [
+          "characters-motion-art",
+          "environments-dioramas"
+        ],
+        "summary": "Coordinate performer blocking, camera, lighting and scenic cues in a reversible previsualization without claiming live show-control execution.",
+        "objective": "Build a stage model where I scrub cues, inspect department ownership and recover cleanly from interruption or a missing asset.",
+        "tags": [
+          "stage previsualization",
+          "cue stack",
+          "blocking"
+        ],
+        "subject_terms": [
+          "cue ID",
+          "department track",
+          "standby",
+          "go",
+          "model time",
+          "performer blocking",
+          "camera cue",
+          "lighting cue"
+        ],
+        "intent_signals": [
+          "stage lighting cue with camera and performer blocking",
+          "versioned cue stack previs"
+        ],
+        "example_prompts": [
+          "Preview a scene change with performer blocking, camera move and lighting cues, then interrupt and resume from a checkpoint."
+        ],
+        "negative_signals": [
+          "Not a live safety system, SMPTE certification, lighting-console protocol or guaranteed real-time show control."
+        ],
+        "not_for": [
+          "No pyrotechnics, machinery safety, performer tracking, live command transmission or timing certification."
+        ],
+        "entities": [
+          {
+            "name": "Stage and anchors",
+            "guidance": "Blender authors the stage, scenic units, performer marks, camera rails and named light targets; every cue target resolves by stable ID."
+          },
+          {
+            "name": "Cue stack",
+            "guidance": "Store immutable cue ID, revision, department, trigger mode, start/end, dependencies, target patch and reversible checkpoint policy outside glTF."
+          }
+        ],
+        "state_contract": {
+          "model": "A cue-stack revision contains ordered cues across blocking, scenic, camera and lighting tracks. A cue may trigger at model time, after a prior cue, or by explicit Go; ties use declared order. Standby changes no show state. Go commits one cue transaction or enters an error without partial target changes. Scrub reconstructs continuous target values and discrete latched cues from the selected revision. Interruption pauses model time and stores a checkpoint; resume, rollback or reset follows an explicit operator choice. Missing target IDs block only according to the cue\u2019s declared required/optional policy.",
+          "authority": "Three.js owns the versioned semantic state, model time, history and reset; Blender/glTF assets are named presentation resources only.",
+          "actions": [
+            "Inspect standby and dependency readiness.",
+            "Go one cue or scrub the authored timeline.",
+            "Interrupt, resume or rollback to a checkpoint.",
+            "Compare cue-stack revisions without mutating the selected one."
+          ]
+        },
+        "invariants": [
+          "Cue ID/revision/department and target ownership are stable.",
+          "Standby never commits target state; Go is atomic at the semantic layer.",
+          "Same revision and model time reconstruct the same cue state.",
+          "Previsualization never sends live control commands."
+        ],
+        "motion_guidance": [
+          "Drive presentation from a seekable model time and derive every visible transform from current state; pause and scrub never advance hidden semantic state.",
+          "Provide a static sequence/list and reduced-motion mode that preserves text, order, choices and status."
+        ],
+        "creative_affordances": [
+          "Choose typography, assets, palette, staging and metaphor per the supplied brief and licensed material; no house style is mandatory.",
+          "Blender owns expressive geometry, rigs, sets and cue anchors; Three.js owns time, branch/state, captions, interruption and checkpoints."
+        ],
+        "known_limits": [
+          "Authored visualization of a finite cue stack; timing, collision, sightline and device outputs are not validated for a venue.",
+          "Authored, source-reviewed guidance only; no Blender export, audio playback, visitor study, show-control link, browser or renderer was run."
+        ],
+        "claims": [
+          {
+            "id": "claim.art-webanimations-timing-state",
+            "statement": "Web Animations defines a timing model with current time, start time, playback rate and play/pause operations, allowing animation presentation to be derived from an owned timeline.",
+            "scope": "Browser animation timing semantics only; department cue transactions and safety policy are authored separately.",
+            "source_refs": [
+              {
+                "source_id": "source.art-w3c-web-animations",
+                "locator": "Timing model; Animation current time, start time, playback rate, play and pause procedures"
+              }
+            ]
+          }
+        ],
+        "object_craft": [
+          {
+            "family": "Cueable stage model",
+            "structure": "Build named marks, scenic pivots, camera rails and light aim targets; keep a cue table visible beside the spatial view.",
+            "material": "Department tracks use shape and labels as well as color; standby, active and error states remain distinct."
+          }
+        ],
+        "physical_contract": {
+          "model": "none",
+          "scope": "Spatial layout and motion communicate authored media/state; geometry and collisions have no physical authority.",
+          "timestep": "Evaluate from seekable authored time or discrete event state; no physics integration.",
+          "state": [
+            "versioned authored content",
+            "model time or event cursor",
+            "selection, accessibility and error state"
+          ],
+          "colliders": [
+            "optional interaction hit regions only"
+          ],
+          "driving": [
+            "authored cues and user actions"
+          ],
+          "contact": [
+            "none"
+          ],
+          "checks": [
+            "seek/reset state equality",
+            "missing asset/data fallback",
+            "presentation controls leave semantic data unchanged"
+          ]
+        },
+        "related_ids": [
+          "knowledge.theme-ceremonial-stage",
+          "recipe.construction-sequence-playback",
+          "knowledge.reasoning-algorithm-trace-as-data"
+        ],
+        "_path": "data/recipes/stage-previsualization-cue-stack.json"
+      }
+    ],
+    "sources": [
+      {
+        "id": "source.art-w3c-web-animations",
+        "url": "https://www.w3.org/TR/web-animations-1/",
+        "title": "Web Animations Level 1",
+        "accessed_at": "2026-09-08",
+        "locator": "Timing model; Animation current time, start time, playback rate, play and pause procedures",
+        "scope": "Browser animation timing/playback semantics; no stage-control protocol or real-time guarantee.",
+        "version": "W3C Working Draft 2023-06-05; live specification read 2026-09-08.",
+        "redistribution": "Link and independently authored summary only; specification text is not bundled."
+      },
+      {
+        "id": "source.recipe-depth-cgal-mesh-processing",
+        "url": "https://doc.cgal.org/latest/Polygon_mesh_processing/index.html",
+        "title": "CGAL 6.2.1: Polygon Mesh Processing",
+        "accessed_at": "2026-09-07",
+        "locator": "Consistent, orientable 2-manifold surface mesh definition; the note that these requirements are combinatorial and do not exclude self-intersections or degenerate faces; volume connected components",
+        "scope": "Combinatorial mesh validity vocabulary; geometric validity of your own mesh still needs its own checks.",
+        "version": "Official documentation read 2026-09-07; verify against the installed version before use.",
+        "redistribution": "Public link and independently authored summary only; no source text or assets redistributed."
+      }
+    ],
+    "notice": "These are authored records and source metadata, not new source reads or runtime verification. Apply only the guidance relevant to the task."
+  },
+  "next_step": "Interpret the user constraints and negation yourself. Select useful records, research factual claims, then synthesize a coherent design with custom choices. Do not present this retrieval output as a completed design system or treat absent matches as a capability limit. Assess each blueprint against the intended silhouette, structure, behavior and finish. Reuse, adapt, reject or combine it with custom or sourced geometry by actual fit. A matching noun does not require using its kit; document choices when useful.",
+  "blueprints": [
+    {
+      "id": "knowledge.blueprint-crate",
+      "title": "Blueprint: nailed shipping crate",
+      "asset": "templates/kits/props/crate.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        0.67,
+        0.68
+      ],
+      "poly_budget": 2156,
+      "sockets": [
+        "lid",
+        "base",
+        "label"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "four corner posts standing 1.8 cm proud of every face, breaking the cube",
+          "a battened lid overhanging the box by 2 cm on all four sides",
+          "a diagonal brace crossing two opposite faces at 40 degrees"
+        ],
+        "medium": [
+          "four planks a side with an 11 mm gap between each pair and at both ends",
+          "lid planks running across the side planks, with two battens over them",
+          "the brace laid over the planks, not flush with them",
+          "a dark inner liner behind the plank gaps, so a gap reads as depth not as sky"
+        ],
+        "fine": [
+          "thirty-two dome nail heads, 2.8 cm across, two at each plank end",
+          "9 mm chamfer on every plank edge and 1.1 cm on the posts",
+          "per-plank hue jitter of 5 percent across the sixteen side planks"
+        ]
+      },
+      "params": {
+        "size": 0.62,
+        "planks": 4,
+        "seed": 1,
+        "braced": true
+      }
+    },
+    {
+      "id": "knowledge.blueprint-rock-cluster",
+      "title": "Blueprint: glacial rock cluster",
+      "asset": "templates/kits/nature/rock-cluster.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        2.26,
+        2.67
+      ],
+      "poly_budget": 800,
+      "sockets": [
+        "base",
+        "perch",
+        "shelter"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "eight boulders whose masses differ by more than three to one",
+          "every boulder sunk a quarter of its height into the ground plane",
+          "no boulder spherical: each shape is jittered before it is placed"
+        ],
+        "medium": [
+          "flat facets meeting at hard edges across every stone",
+          "three separate boulder shapes, so the cluster is not one stone scaled thrice",
+          "a ring of fourteen pebbles tying the cluster to the ground"
+        ],
+        "fine": [
+          "chipped facet corners from welded per-vertex jitter of up to 32 percent",
+          "pebbles between 5 and 13 cm across, each with its own shape and attitude",
+          "per-instance hue jitter of 6 percent on the boulders and 8 on the pebbles"
+        ]
+      },
+      "params": {
+        "count": 8,
+        "seed": 1,
+        "spread": 1.05,
+        "rock": "#8e8b84"
+      }
+    },
+    {
+      "id": "knowledge.blueprint-tree-conifer",
+      "title": "Blueprint: conifer with countable boughs",
+      "asset": "templates/kits/nature/tree-conifer.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        2.51,
+        2.55
+      ],
+      "poly_budget": 1184,
+      "sockets": [
+        "base",
+        "leader",
+        "nest"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "a narrow leaning cone 5.1 m tall over a bare bole for its lowest sixth",
+          "a leader spike standing clear above the top whorl",
+          "five root wedges splaying out of the base"
+        ],
+        "medium": [
+          "eight whorls of decreasing radius, each turned to its own angle",
+          "the bole visible between the upper whorls, tapering from 16 cm to 3 cm",
+          "a skirt of needle mass inside every whorl, with boughs poking past its rim"
+        ],
+        "fine": [
+          "nine countable boughs in every whorl, each at its own reach and droop",
+          "flat-shaded facets on every bough and skirt, so the crown catches light in planes",
+          "per-bough hue jitter of 10 percent across the seventy-two boughs"
+        ]
+      },
+      "params": {
+        "seed": 1,
+        "age": 1,
+        "lean": 0.06,
+        "height": 4.2,
+        "radius": 0.16,
+        "needle": "#4b7554"
+      }
+    },
+    {
+      "id": "knowledge.blueprint-tree-round",
+      "title": "Blueprint: round-crowned broadleaf tree",
+      "asset": "templates/kits/nature/tree-round.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        3.02,
+        2.78
+      ],
+      "poly_budget": 860,
+      "sockets": [
+        "base",
+        "canopy",
+        "swing"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "a crown of seven overlapping lobes, never a single sphere",
+          "a trunk leaning about 5 degrees, with the lean growing up the tree",
+          "six root wedges splaying out of the base into the ground"
+        ],
+        "medium": [
+          "four branches reaching out to the lobes they carry",
+          "a bark collar over each of the three trunk segment joins",
+          "lobes of five different sizes, the crown lobe 15 percent larger than the rest"
+        ],
+        "fine": [
+          "flat-shaded facets across every lobe, so the crown catches light in planes",
+          "the trunk narrowing from 19 cm at the flare to 6 cm under the crown",
+          "per-lobe hue jitter of 10 percent across the seven lobes"
+        ]
+      },
+      "params": {
+        "seed": 1,
+        "age": 1,
+        "lean": 0.09,
+        "height": 3.4,
+        "radius": 0.19,
+        "leaf": "#6a9150"
+      }
+    }
+  ],
+  "quality_brief": {
+    "scope": "shipped-kit-pipelines",
+    "delivery": "web-desktop",
+    "ceiling": "T3",
+    "ceiling_reason": "Blender 4.3.0 >= 4.2 found via standard install path + --version",
+    "capture_mode_expected": "gpu",
+    "role_rules": {
+      "hero": "host bake ceiling or proved shipped GLB reuse, capped by the delivery target",
+      "mid": "T2 (procedural surface, no shipped bytes)",
+      "background": "T1 (instanced repeat, flat material)"
+    },
+    "per_blueprint": {
+      "knowledge.blueprint-crate": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-rock-cluster": {
+        "role": "background",
+        "tier": "T1",
+        "reason": "instanced repeat: flat material, one draw call; the record declares T1 proved"
+      },
+      "knowledge.blueprint-tree-conifer": {
+        "role": "background",
+        "tier": "T1",
+        "reason": "instanced repeat: flat material, one draw call; the record declares T1 proved"
+      },
+      "knowledge.blueprint-tree-round": {
+        "role": "background",
+        "tier": "T1",
+        "reason": "instanced repeat: flat material, one draw call; the record declares T1 proved"
+      }
+    },
+    "draw_call_note": "Background and repeated objects stay one InstancedMesh at T1 and are never wrapped in a LOD. Eval run 3 measured 4,773 draw calls at 5 fps with every object built as a separate mesh - that measurement is the concrete reason this note exists. An instanced field is one draw call whatever the count; a LOD per repeat adds a per-frame update and removes no draws.",
+    "note": "Shipped-kit pipeline recommendations, not limits on artistic quality or construction. Choose kit, adapted kit, custom geometry or sourced assets by object fit. Blender availability does not grade the result; inspect identity, structure, surface and factual fidelity at the intended viewing scale. T0 is an optional layout proxy. Keep the declared proof status when reporting a kit tier."
+  }
+}

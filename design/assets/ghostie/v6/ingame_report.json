@@ -1,0 +1,653 @@
+{
+ "ingame": {
+  "visibleGhostTris": 540,
+  "calls": 7
+ },
+ "ingame-front": {
+  "visibleGhostTris": 540,
+  "calls": 7
+ },
+ "ingame-rest-front": {
+  "visibleGhostTris": 540,
+  "calls": 7
+ },
+ "_ingame-wave": {
+  "visibleGhostTris": 540,
+  "calls": 7
+ },
+ "lineup-grass": {
+  "ghostPx": [],
+  "ghostTris": [
+   540,
+   598,
+   584
+  ],
+  "kitTop": [
+   887,
+   437
+  ],
+  "kitBot": [
+   885,
+   492
+  ],
+  "ghostTop": [
+   716,
+   412
+  ],
+  "ghostBot": [
+   717,
+   439
+  ],
+  "kitPx": 55,
+  "ghostBodyPx": 27,
+  "eyeVsArm": [
+   {
+    "ghost": "tie",
+    "wave": 0,
+    "eyeCentreY": 425.4,
+    "eyeBottomY": 427,
+    "collarTop": [
+     712.6,
+     430.9
+    ],
+    "knotTop": [
+     712.6,
+     431.4
+    ],
+    "vPoint": [
+     713.7,
+     440.5
+    ],
+    "tipL": [
+     733.2,
+     430.9
+    ],
+    "tipR": [
+     698.6,
+     428.7
+    ],
+    "armHighestY": {
+     "arm_L": 428.4,
+     "arm_R": 426.9
+    },
+    "tipMarginBelowEyeBottomPx": 1.7
+   },
+   {
+    "ghost": "glasses",
+    "wave": 0,
+    "eyeCentreY": 453.5,
+    "eyeBottomY": 455.4,
+    "collarTop": [
+     760.2,
+     459.1
+    ],
+    "knotTop": [
+     760.2,
+     459.7
+    ],
+    "vPoint": [
+     761,
+     468.8
+    ],
+    "tipL": [
+     781.6,
+     460.1
+    ],
+    "tipR": [
+     746.9,
+     455.8
+    ],
+    "armHighestY": {
+     "arm_L": 457.5,
+     "arm_R": 454
+    },
+    "tipMarginBelowEyeBottomPx": 0.4
+   },
+   {
+    "ghost": "headset",
+    "wave": 0,
+    "eyeCentreY": 455.2,
+    "eyeBottomY": 457.6,
+    "collarTop": [
+     822.1,
+     460.7
+    ],
+    "knotTop": [
+     822.1,
+     461.3
+    ],
+    "vPoint": [
+     822.5,
+     470.5
+    ],
+    "tipL": [
+     844.4,
+     465
+    ],
+    "tipR": [
+     812.4,
+     455.7
+    ],
+    "armHighestY": {
+     "arm_L": 462.3,
+     "arm_R": 454.1
+    },
+    "tipMarginBelowEyeBottomPx": -1.9
+   }
+  ],
+  "centre": [
+   800,
+   456
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-path": {
+  "ghostPx": [],
+  "ghostTris": [
+   540,
+   598,
+   584
+  ],
+  "kitTop": [
+   887,
+   436
+  ],
+  "kitBot": [
+   885,
+   491
+  ],
+  "ghostTop": [
+   716,
+   411
+  ],
+  "ghostBot": [
+   717,
+   437
+  ],
+  "kitPx": 55,
+  "ghostBodyPx": 26,
+  "eyeVsArm": [
+   {
+    "ghost": "tie",
+    "wave": 0,
+    "eyeCentreY": 424.2,
+    "eyeBottomY": 425.9,
+    "collarTop": [
+     712.6,
+     429.8
+    ],
+    "knotTop": [
+     712.6,
+     430.3
+    ],
+    "vPoint": [
+     713.6,
+     439.4
+    ],
+    "tipL": [
+     733.1,
+     429.8
+    ],
+    "tipR": [
+     698.5,
+     427.6
+    ],
+    "armHighestY": {
+     "arm_L": 427.3,
+     "arm_R": 425.8
+    },
+    "tipMarginBelowEyeBottomPx": 1.7
+   },
+   {
+    "ghost": "glasses",
+    "wave": 0,
+    "eyeCentreY": 452.4,
+    "eyeBottomY": 454.3,
+    "collarTop": [
+     760.2,
+     458
+    ],
+    "knotTop": [
+     760.2,
+     458.6
+    ],
+    "vPoint": [
+     761,
+     467.7
+    ],
+    "tipL": [
+     781.6,
+     459
+    ],
+    "tipR": [
+     746.8,
+     454.7
+    ],
+    "armHighestY": {
+     "arm_L": 456.4,
+     "arm_R": 452.9
+    },
+    "tipMarginBelowEyeBottomPx": 0.4
+   },
+   {
+    "ghost": "headset",
+    "wave": 0,
+    "eyeCentreY": 454.1,
+    "eyeBottomY": 456.4,
+    "collarTop": [
+     822.1,
+     459.6
+    ],
+    "knotTop": [
+     822.1,
+     460.2
+    ],
+    "vPoint": [
+     822.5,
+     469.4
+    ],
+    "tipL": [
+     844.5,
+     463.9
+    ],
+    "tipR": [
+     812.4,
+     454.6
+    ],
+    "armHighestY": {
+     "arm_L": 461.1,
+     "arm_R": 453
+    },
+    "tipMarginBelowEyeBottomPx": -1.8
+   }
+  ],
+  "centre": [
+   800,
+   456
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-grass-wave20": {
+  "ghostPx": [],
+  "ghostTris": [
+   540,
+   598,
+   584
+  ],
+  "kitTop": [
+   887,
+   437
+  ],
+  "kitBot": [
+   885,
+   492
+  ],
+  "ghostTop": [
+   716,
+   412
+  ],
+  "ghostBot": [
+   717,
+   439
+  ],
+  "kitPx": 55,
+  "ghostBodyPx": 27,
+  "eyeVsArm": [
+   {
+    "ghost": "tie",
+    "wave": 20,
+    "eyeCentreY": 425.4,
+    "eyeBottomY": 427,
+    "collarTop": [
+     712.6,
+     430.9
+    ],
+    "knotTop": [
+     712.6,
+     431.4
+    ],
+    "vPoint": [
+     713.7,
+     440.5
+    ],
+    "tipL": [
+     733.9,
+     430.5
+    ],
+    "tipR": [
+     698.6,
+     428.7
+    ],
+    "armHighestY": {
+     "arm_L": 426.2,
+     "arm_R": 426.9
+    },
+    "tipMarginBelowEyeBottomPx": 1.7
+   },
+   {
+    "ghost": "glasses",
+    "wave": 20,
+    "eyeCentreY": 453.5,
+    "eyeBottomY": 455.4,
+    "collarTop": [
+     760.2,
+     459.1
+    ],
+    "knotTop": [
+     760.2,
+     459.7
+    ],
+    "vPoint": [
+     761,
+     468.8
+    ],
+    "tipL": [
+     782.1,
+     459.8
+    ],
+    "tipR": [
+     746.9,
+     455.8
+    ],
+    "armHighestY": {
+     "arm_L": 455.4,
+     "arm_R": 454
+    },
+    "tipMarginBelowEyeBottomPx": 0.4
+   },
+   {
+    "ghost": "headset",
+    "wave": 20,
+    "eyeCentreY": 455.2,
+    "eyeBottomY": 457.6,
+    "collarTop": [
+     822.1,
+     460.7
+    ],
+    "knotTop": [
+     822.1,
+     461.3
+    ],
+    "vPoint": [
+     822.5,
+     470.5
+    ],
+    "tipL": [
+     844,
+     464.7
+    ],
+    "tipR": [
+     812.4,
+     455.7
+    ],
+    "armHighestY": {
+     "arm_L": 460.3,
+     "arm_R": 454.1
+    },
+    "tipMarginBelowEyeBottomPx": -1.9
+   }
+  ],
+  "centre": [
+   800,
+   456
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-grass-wave40": {
+  "ghostPx": [],
+  "ghostTris": [
+   540,
+   598,
+   584
+  ],
+  "kitTop": [
+   887,
+   437
+  ],
+  "kitBot": [
+   885,
+   492
+  ],
+  "ghostTop": [
+   716,
+   412
+  ],
+  "ghostBot": [
+   717,
+   439
+  ],
+  "kitPx": 55,
+  "ghostBodyPx": 27,
+  "eyeVsArm": [
+   {
+    "ghost": "tie",
+    "wave": 40,
+    "eyeCentreY": 425.4,
+    "eyeBottomY": 427,
+    "collarTop": [
+     712.6,
+     430.9
+    ],
+    "knotTop": [
+     712.6,
+     431.4
+    ],
+    "vPoint": [
+     713.7,
+     440.5
+    ],
+    "tipL": [
+     733.9,
+     427.5
+    ],
+    "tipR": [
+     698.6,
+     428.7
+    ],
+    "armHighestY": {
+     "arm_L": 423.8,
+     "arm_R": 426.9
+    },
+    "tipMarginBelowEyeBottomPx": 0.5
+   },
+   {
+    "ghost": "glasses",
+    "wave": 40,
+    "eyeCentreY": 453.5,
+    "eyeBottomY": 455.4,
+    "collarTop": [
+     760.2,
+     459.1
+    ],
+    "knotTop": [
+     760.2,
+     459.7
+    ],
+    "vPoint": [
+     761,
+     468.8
+    ],
+    "tipL": [
+     782.2,
+     456.9
+    ],
+    "tipR": [
+     746.9,
+     455.8
+    ],
+    "armHighestY": {
+     "arm_L": 453,
+     "arm_R": 454
+    },
+    "tipMarginBelowEyeBottomPx": 0.4
+   },
+   {
+    "ghost": "headset",
+    "wave": 40,
+    "eyeCentreY": 455.2,
+    "eyeBottomY": 457.6,
+    "collarTop": [
+     822.1,
+     460.7
+    ],
+    "knotTop": [
+     822.1,
+     461.3
+    ],
+    "vPoint": [
+     822.5,
+     470.5
+    ],
+    "tipL": [
+     844.2,
+     461.8
+    ],
+    "tipR": [
+     812.4,
+     455.7
+    ],
+    "armHighestY": {
+     "arm_L": 457.9,
+     "arm_R": 454.1
+    },
+    "tipMarginBelowEyeBottomPx": -1.9
+   }
+  ],
+  "centre": [
+   800,
+   456
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-path-wave40": {
+  "ghostPx": [],
+  "ghostTris": [
+   540,
+   598,
+   584
+  ],
+  "kitTop": [
+   887,
+   436
+  ],
+  "kitBot": [
+   885,
+   491
+  ],
+  "ghostTop": [
+   716,
+   411
+  ],
+  "ghostBot": [
+   717,
+   437
+  ],
+  "kitPx": 55,
+  "ghostBodyPx": 26,
+  "eyeVsArm": [
+   {
+    "ghost": "tie",
+    "wave": 40,
+    "eyeCentreY": 424.2,
+    "eyeBottomY": 425.9,
+    "collarTop": [
+     712.6,
+     429.8
+    ],
+    "knotTop": [
+     712.6,
+     430.3
+    ],
+    "vPoint": [
+     713.6,
+     439.4
+    ],
+    "tipL": [
+     733.9,
+     426.4
+    ],
+    "tipR": [
+     698.5,
+     427.6
+    ],
+    "armHighestY": {
+     "arm_L": 422.7,
+     "arm_R": 425.8
+    },
+    "tipMarginBelowEyeBottomPx": 0.5
+   },
+   {
+    "ghost": "glasses",
+    "wave": 40,
+    "eyeCentreY": 452.4,
+    "eyeBottomY": 454.3,
+    "collarTop": [
+     760.2,
+     458
+    ],
+    "knotTop": [
+     760.2,
+     458.6
+    ],
+    "vPoint": [
+     761,
+     467.7
+    ],
+    "tipL": [
+     782.1,
+     455.8
+    ],
+    "tipR": [
+     746.8,
+     454.7
+    ],
+    "armHighestY": {
+     "arm_L": 451.9,
+     "arm_R": 452.9
+    },
+    "tipMarginBelowEyeBottomPx": 0.4
+   },
+   {
+    "ghost": "headset",
+    "wave": 40,
+    "eyeCentreY": 454.1,
+    "eyeBottomY": 456.4,
+    "collarTop": [
+     822.1,
+     459.6
+    ],
+    "knotTop": [
+     822.1,
+     460.2
+    ],
+    "vPoint": [
+     822.5,
+     469.4
+    ],
+    "tipL": [
+     844.2,
+     460.7
+    ],
+    "tipR": [
+     812.4,
+     454.6
+    ],
+    "armHighestY": {
+     "arm_L": 456.8,
+     "arm_R": 453
+    },
+    "tipMarginBelowEyeBottomPx": -1.8
+   }
+  ],
+  "centre": [
+   800,
+   456
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "visibleTris": {
+  "tie": 540,
+  "glasses": 598,
+  "headset": 584
+ }
+}

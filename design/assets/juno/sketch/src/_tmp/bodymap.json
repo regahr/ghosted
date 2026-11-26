@@ -1,0 +1,115 @@
+{
+ "gamecam_marks_px_from_feet_origin": {
+  "eye_l": [
+   -5.7,
+   -36.4
+  ],
+  "eye_r": [
+   3.5,
+   -35.9
+  ],
+  "mouth": [
+   -1.1,
+   -31.6
+  ],
+  "hairline": [
+   -0.8,
+   -46.3
+  ],
+  "ear_l": [
+   -13.9,
+   -46.1
+  ],
+  "ear_r": [
+   14.1,
+   -44.5
+  ],
+  "puff": [
+   0.4,
+   -60.0
+  ],
+  "scrunchie": [
+   0.3,
+   -55.2
+  ],
+  "neck": [
+   -0.6,
+   -29.4
+  ],
+  "bib": [
+   -1.1,
+   -18.6
+  ],
+  "tie": [
+   -0.8,
+   -13.5
+  ],
+  "bow": [
+   0.8,
+   -25.7
+  ],
+  "hand_l": [
+   -5.2,
+   -13.3
+  ],
+  "hand_r": [
+   3.0,
+   -12.8
+  ],
+  "cup": [
+   -1.2,
+   -12.7
+  ],
+  "hem": [
+   -1.2,
+   0.4
+  ],
+  "feet": [
+   -0.2,
+   0.0
+  ]
+ },
+ "face_check_px": {
+  "band": {
+   "left_brow": 6.36,
+   "centre": 6.68,
+   "right_brow": 6.36
+  },
+  "temple_low_y": 88.0,
+  "temple_above_eye_top_px": 7.07,
+  "smile": {
+   "w": 5.1,
+   "h": 0.8,
+   "below_eye_px": 2.9
+  },
+  "laugh": {
+   "w": 7.2,
+   "h": 2.2,
+   "below_eye_px": 2.1
+  }
+ },
+ "face_check_writing_nod14_px": {
+  "band": {
+   "left_brow": 6.05,
+   "centre": 6.25,
+   "right_brow": 6.05
+  },
+  "temple_low_y": 88.0,
+  "temple_above_eye_top_px": 7.95,
+  "smile": {
+   "w": 5.1,
+   "h": 0.6,
+   "below_eye_px": 2.1
+  },
+  "laugh": {
+   "w": 7.2,
+   "h": 1.1,
+   "below_eye_px": 1.6
+  }
+ },
+ "m_per_u": 0.00340710148696109,
+ "height_m": 1.1243434906971597,
+ "target_px": 75.0,
+ "px": 75,
+ "px_w": 43
+}

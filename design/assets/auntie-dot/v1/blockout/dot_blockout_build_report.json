@@ -1,0 +1,144 @@
+{
+ "triangles": {
+  "body": 696,
+  "decals": 8,
+  "eyes_open": 24,
+  "eyes_happy": 16,
+  "mouth_smile": 6,
+  "mouth_talk": 9,
+  "visible_rest (body + decals + eyes_open + mouth_smile)": 734,
+  "visible_talk": 737,
+  "visible_card (rest + card)": 734,
+  "visible_happy": 726,
+  "body_by_part": {
+   "head": 96,
+   "bun": 32,
+   "ears": 24,
+   "neck": 16,
+   "body": 72,
+   "arm_L": 120,
+   "arm_R": 120,
+   "legs": 72,
+   "band": 96,
+   "cups": 48
+  }
+ },
+ "meshes": {
+  "all": [
+   "body",
+   "decals",
+   "eyes_happy",
+   "eyes_open",
+   "mouth_smile",
+   "mouth_talk"
+  ],
+  "non_swap (<= 3)": [
+   "body",
+   "decals"
+  ],
+  "swap": [
+   "eyes_open",
+   "eyes_happy",
+   "mouth_smile",
+   "mouth_talk"
+  ],
+  "prop": []
+ },
+ "checks": {
+  "body_nonmanifold_edges": 0,
+  "body_boundary_edges (neck tube ends, body top ring, leg ends, band ends)": 56,
+  "body_faces_against_analytic_normals": 0,
+  "height_m": 1.0,
+  "unit_mm": 3.333,
+  "talk_hand_centre_to_target_mm": 0.0,
+  "card_hand_centre_to_target_mm": 0.0,
+  "faces_rewound_to_analytic_normals": 198,
+  "hairline_front_view_y_by_deg": [
+   [
+    0,
+    89.0
+   ],
+   [
+    25,
+    89.0
+   ],
+   [
+    50,
+    96.0
+   ],
+   [
+    72,
+    107.0
+   ],
+   [
+    90,
+    113.0
+   ],
+   [
+    104,
+    115.0
+   ],
+   [
+    120,
+    143.0
+   ],
+   [
+    145,
+    162.0
+   ],
+   [
+    180,
+    167.0
+   ]
+  ],
+  "skin_unweighted": 0,
+  "smile_width_units": 2.6,
+  "card_pose_elbow_sketch": [
+   -78.1,
+   235.8,
+   25.3
+  ]
+ },
+ "poses": {
+  "talk": {
+   "arm_R_up": [
+    0.6989246606826782,
+    -0.6924977898597717,
+    -0.17874804139137268,
+    47.43478952152479
+   ],
+   "arm_R_lo": [
+    -0.5996023416519165,
+    -0.767436146736145,
+    0.22697804868221283,
+    106.54933912755479
+   ],
+   "head": [
+    0.0,
+    1.0,
+    0.0,
+    8.0
+   ]
+  },
+  "card": {
+   "arm_R_up": [
+    -0.7561322450637817,
+    0.0116768479347229,
+    0.6543177962303162,
+    7.369122685151669
+   ],
+   "arm_R_lo": [
+    -0.4274296760559082,
+    -0.08835753053426743,
+    -0.899722158908844,
+    30.291079591589902
+   ],
+   "torso": [
+    1.0,
+    0.0,
+    0.0,
+    2.0
+   ]
+  }
+ }
+}

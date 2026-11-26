@@ -1,0 +1,108 @@
+{
+  "status": "candidates",
+  "query": "hair bun puff on head layered join",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "recipe.multi-head-attention-comparison",
+      "revision": 1,
+      "title": "Multi-head attention comparison without head averaging",
+      "path": "data/recipes/multi-head-attention-comparison.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 87.147665,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "subject_terms"
+      ],
+      "summary": "Compare two to eight supplied attention heads from their separate projections through concatenation and the output projection while retaining each head identity."
+    },
+    {
+      "id": "recipe.single-attention-head-aggregation",
+      "revision": 1,
+      "title": "Single attention-head value aggregation",
+      "path": "data/recipes/single-attention-head-aggregation.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 56.248668,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Connect one query row's scaled query-key scores and softmax weights to the weighted sum of value vectors produced by one attention head."
+    },
+    {
+      "id": "recipe.secondary-motion-chain",
+      "revision": 1,
+      "title": "Cape and hair follow-through chains",
+      "path": "data/recipes/secondary-motion-chain.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 54.69885,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts"
+      ],
+      "summary": "Add trailing motion that is driven by the character rather than looped beside it, with limits that keep it from exploding."
+    },
+    {
+      "id": "recipe.layered-attenuating-seismic-rays",
+      "revision": 1,
+      "title": "Flat layered attenuating seismic rays",
+      "path": "data/recipes/layered-attenuating-seismic-rays.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 45.917278,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals"
+      ],
+      "summary": "Trace one declared P or S geometric ray through flat constant-velocity layers while keeping travel time, interface refraction and phenomenological Q_x attenuation explicit."
+    },
+    {
+      "id": "recipe.layered-maze-navigation",
+      "revision": 1,
+      "title": "Layered maze route puzzle",
+      "path": "data/recipes/layered-maze-navigation.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 36.265041,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "tags",
+        "subject_terms"
+      ],
+      "summary": "Navigate a designed stacked maze while retaining an exact cell-and-link path history."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

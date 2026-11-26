@@ -1,0 +1,118 @@
+{
+  "status": "candidates",
+  "query": "sleeve join body continuous skin arm root",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.root-motion-runtime-ownership",
+      "revision": 1,
+      "title": "Root-motion runtime ownership",
+      "path": "data/knowledge/motion-profile/root-motion-runtime-ownership.json",
+      "collection": "knowledge",
+      "kind": "motion-profile",
+      "score": 79.69694,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Choose whether clip root channels or an application controller own world displacement, then remove the duplicate contribution when extracting root deltas."
+    },
+    {
+      "id": "knowledge.material-skin-scattering-approximation",
+      "revision": 1,
+      "title": "Skin surface and subsurface approximation",
+      "path": "data/knowledge/material-profile/material-skin-scattering-approximation.json",
+      "collection": "knowledge",
+      "kind": "material-profile",
+      "score": 72.544942,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "objective",
+        "tags",
+        "intent_signals",
+        "subject_terms"
+      ],
+      "summary": "Balance surface detail and an explicitly approximate subsurface response without turning a character into uniform wax."
+    },
+    {
+      "id": "knowledge.validation-contact-root-selection",
+      "revision": 1,
+      "title": "First-contact root selection and its boundary configurations",
+      "path": "data/knowledge/domain-validation/validation-contact-root-selection.json",
+      "collection": "knowledge",
+      "kind": "domain-validation",
+      "score": 59.905673,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "subject_terms"
+      ],
+      "summary": "Select first contact as the earliest admissible root of the gap equation and enumerate the degenerate starting configurations explicitly."
+    },
+    {
+      "id": "recipe.root-zone-irrigation-budget",
+      "revision": 1,
+      "title": "Root-zone irrigation water budget",
+      "path": "data/recipes/root-zone-irrigation-budget.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 58.001535,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Balance daily root-zone depletion from rain, runoff, irrigation, capillary rise, evapotranspiration and deep percolation while keeping every flux and modeling assumption visible."
+    },
+    {
+      "id": "recipe.robot-arm-forward-frames",
+      "revision": 1,
+      "title": "Robot arm forward-kinematics frames",
+      "path": "data/recipes/robot-arm-forward-frames.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 56.142334,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "summary",
+        "objective",
+        "tags",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Connect joint coordinates to an articulated arm and inspectable endpoint frame."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

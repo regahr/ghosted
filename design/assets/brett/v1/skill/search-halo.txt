@@ -1,0 +1,111 @@
+{
+  "status": "candidates",
+  "query": "floating ring halo above head attachment counter rotate level",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "recipe.multi-head-attention-comparison",
+      "revision": 1,
+      "title": "Multi-head attention comparison without head averaging",
+      "path": "data/recipes/multi-head-attention-comparison.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 87.147665,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "subject_terms"
+      ],
+      "summary": "Compare two to eight supplied attention heads from their separate projections through concatenation and the output projection while retaining each head identity."
+    },
+    {
+      "id": "recipe.sky-archipelago-world",
+      "revision": 1,
+      "title": "Floating archipelago with wind-driven travel",
+      "path": "data/recipes/sky-archipelago-world.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 72.18882,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Author a fictional world whose invented rule set is stated and consistently enforced, so travel between islands has real constraints."
+    },
+    {
+      "id": "recipe.single-attention-head-aggregation",
+      "revision": 1,
+      "title": "Single attention-head value aggregation",
+      "path": "data/recipes/single-attention-head-aggregation.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 56.248668,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Connect one query row's scaled query-key scores and softmax weights to the weighted sum of value vectors produced by one attention head."
+    },
+    {
+      "id": "recipe.buoyancy-floating-equilibrium",
+      "revision": 1,
+      "title": "Buoyancy and floating equilibrium",
+      "path": "data/recipes/buoyancy-floating-equilibrium.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 48.548887,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "objective",
+        "example_prompts"
+      ],
+      "summary": "Make the displaced volume an explicit object so flotation becomes a balance the viewer can watch settle."
+    },
+    {
+      "id": "knowledge.lighting-mood-noir-hard-key",
+      "revision": 1,
+      "title": "Noir single hard key with a controlled black level",
+      "path": "data/knowledge/lighting-profile/lighting-mood-noir-hard-key.json",
+      "collection": "knowledge",
+      "kind": "lighting-profile",
+      "score": 40.866367,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "summary",
+        "objective",
+        "subject_terms"
+      ],
+      "summary": "Light from one hard source at a steep ratio and let most of the frame fall away, while holding the black level just above zero."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

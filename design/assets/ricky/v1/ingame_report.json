@@ -1,0 +1,218 @@
+{
+ "ingame": {
+  "visibleTris": 1392,
+  "calls": 19
+ },
+ "ingame-front": {
+  "visibleTris": 1392,
+  "calls": 19
+ },
+ "ingame-phone": {
+  "visibleTris": 1392,
+  "calls": 19
+ },
+ "lineup-grass": {
+  "ghostTris": [
+   716,
+   774,
+   788
+  ],
+  "rickyTris": 1392,
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "rickyFeet": [
+   849.5,
+   556
+  ],
+  "rickyTop": [
+   851.1,
+   489
+  ],
+  "rickyEyeTopY": 510.6,
+  "rickyEyeBottomY": 516,
+  "ricky_collar_top": [
+   849.8,
+   521.7
+  ],
+  "ricky_knot_top": [
+   849.5,
+   525.9
+  ],
+  "ricky_v_point": [
+   848.8,
+   545.4
+  ],
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 424,
+   "y1": 498,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_ricky": {
+   "x0": 819,
+   "x1": 880,
+   "y0": 484,
+   "y1": 562,
+   "heightPx": 79,
+   "widthPx": 62
+  },
+  "hair": {
+   "eyePixels": {
+    "x0": 842,
+    "x1": 856,
+    "y0": 511,
+    "y1": 521
+   },
+   "eyeTopPx": 511,
+   "hairLowestInEyeColumnsPx": 501,
+   "hairLowestAnywherePx": 501,
+   "gapPx": 10
+  },
+  "ratio_ricky_to_kit": 1.053
+ },
+ "lineup-path": {
+  "ghostTris": [
+   716,
+   774,
+   788
+  ],
+  "rickyTris": 1392,
+  "kitTop": [
+   886.9,
+   435.8
+  ],
+  "kitBot": [
+   884.7,
+   490.7
+  ],
+  "rickyFeet": [
+   975.2,
+   513
+  ],
+  "rickyTop": [
+   980.7,
+   446.2
+  ],
+  "rickyEyeTopY": 467.2,
+  "rickyEyeBottomY": 472.6,
+  "ricky_collar_top": [
+   978.4,
+   478.5
+  ],
+  "ricky_knot_top": [
+   978.2,
+   482.6
+  ],
+  "ricky_v_point": [
+   976.8,
+   501.9
+  ],
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 423,
+   "y1": 497,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_ricky": {
+   "x0": 947,
+   "x1": 1006,
+   "y0": 441,
+   "y1": 519,
+   "heightPx": 79,
+   "widthPx": 60
+  },
+  "hair": {
+   "eyePixels": {
+    "x0": 972,
+    "x1": 986,
+    "y0": 468,
+    "y1": 478
+   },
+   "eyeTopPx": 468,
+   "hairLowestInEyeColumnsPx": 457,
+   "hairLowestAnywherePx": 457,
+   "gapPx": 11
+  },
+  "ratio_ricky_to_kit": 1.053
+ },
+ "lineup-grass-phone": {
+  "ghostTris": [
+   716,
+   774,
+   788
+  ],
+  "rickyTris": 1392,
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "rickyFeet": [
+   849.5,
+   556
+  ],
+  "rickyTop": [
+   851.1,
+   489
+  ],
+  "rickyEyeTopY": 510.6,
+  "rickyEyeBottomY": 516,
+  "ricky_collar_top": [
+   849.8,
+   521.7
+  ],
+  "ricky_knot_top": [
+   849.5,
+   525.9
+  ],
+  "ricky_v_point": [
+   848.8,
+   545.4
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "drain": {
+  "labels": [
+   [
+    365,
+    143
+   ],
+   [
+    683,
+    143
+   ],
+   [
+    1000,
+    143
+   ],
+   [
+    1317,
+    143
+   ],
+   [
+    1635,
+    143
+   ]
+  ]
+ },
+ "visibleTris": {
+  "rest": 1392,
+  "phone": 1392,
+  "drain_step1": 1380
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "band_colors": {
+  "robot": [
+   [
+    -1.0,
+    [
+     178,
+     178,
+     178
+    ]
+   ],
+   [
+    0.0001,
+    [
+     255,
+     255,
+     255
+    ]
+   ]
+  ],
+  "neckcore": [
+   [
+    -1.0,
+    [
+     178,
+     178,
+     178
+    ]
+   ],
+   [
+    0.0001,
+    [
+     255,
+     255,
+     255
+    ]
+   ]
+  ],
+  "ball": [
+   [
+    -1.0,
+    [
+     178,
+     178,
+     178
+    ]
+   ],
+   [
+    0.0001,
+    [
+     255,
+     255,
+     255
+    ]
+   ]
+  ]
+ },
+ "basic_materials": [
+  "ink",
+  "neck",
+  "decal",
+  "screen",
+  "scan",
+  "hub",
+  "belt",
+  "paper"
+ ],
+ "alpha_materials": [
+  "scan",
+  "hub",
+  "screen"
+ ],
+ "outline_nodes": [
+  "body",
+  "stamp"
+ ],
+ "no_outline_materials": [
+  "decal",
+  "hub"
+ ],
+ "contact_shadow": {
+  "rx": 0.36,
+  "ry": 0.3,
+  "opacity": 0.25
+ }
+}

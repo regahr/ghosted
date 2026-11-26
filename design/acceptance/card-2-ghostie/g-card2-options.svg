@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="825" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="825" fill="#f8fafc"/>
+<text x="40" y="60" font-size="34" font-weight="bold" fill="#0f172a">Card 2: the Ghostie sketch (5 of 5 seats pass)</text>
+<rect x="40" y="110" width="420" height="675" rx="16" fill="#ffffff" stroke="#16a34a" stroke-width="4"/>
+<text x="60" y="150" font-size="26" font-weight="bold" fill="#0f172a">1. Accept the sketch</text>
+<rect x="310" y="170" width="130" height="32" rx="16" fill="#16a34a"/><text x="375" y="192" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">My pick</text>
+<rect x="70" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="250" font-size="19" fill="#1e1b4b" text-anchor="middle">Sketch locked as the target</text>
+<line x1="250.0" y1="290" x2="250.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="242.0,304 258.0,304 250.0,315" fill="#334155"/>
+<rect x="70" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="335" font-size="19" fill="#1e1b4b" text-anchor="middle">Viet v6 on the v5 body: smooth</text>
+<text x="250.0" y="359" font-size="19" fill="#1e1b4b" text-anchor="middle">dome, tie B, paint-over 1-3</text>
+<line x1="250.0" y1="385" x2="250.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="242.0,399 258.0,399 250.0,410" fill="#334155"/>
+<rect x="70" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="430" font-size="19" fill="#1e1b4b" text-anchor="middle">Game-camera checks: knot below</text>
+<text x="250.0" y="454" font-size="19" fill="#1e1b4b" text-anchor="middle">eyes, wave clears the tie</text>
+<line x1="250.0" y1="480" x2="250.0" y2="502" stroke="#334155" stroke-width="3"/><polygon points="242.0,494 258.0,494 250.0,505" fill="#334155"/>
+<rect x="70" y="505" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="525" font-size="19" fill="#1e1b4b" text-anchor="middle">5-seat 3D gate incl.</text>
+<text x="250.0" y="549" font-size="19" fill="#1e1b4b" text-anchor="middle">&#x27;matches the sketch&#x27;</text>
+<line x1="250.0" y1="575" x2="250.0" y2="597" stroke="#334155" stroke-width="3"/><polygon points="242.0,589 258.0,589 250.0,600" fill="#334155"/>
+<rect x="70" y="600" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="630" font-size="19" fill="#1e1b4b" text-anchor="middle">3D card to you</text>
+<text x="70" y="715" font-size="18" fill="#475569">One build expected.</text>
+<text x="70" y="739" font-size="18" fill="#475569">Stops and asks if any item fails twice.</text>
+<rect x="490" y="110" width="420" height="580" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="510" y="150" font-size="26" font-weight="bold" fill="#0f172a">2. Accept with a change</text>
+<rect x="520" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="240" font-size="19" fill="#1e1b4b" text-anchor="middle">You name the change</text>
+<text x="700.0" y="264" font-size="19" fill="#1e1b4b" text-anchor="middle">(tie, arms, eyes, size ...)</text>
+<line x1="700.0" y1="290" x2="700.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="692.0,304 708.0,304 700.0,315" fill="#334155"/>
+<rect x="520" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="345" font-size="19" fill="#1e1b4b" text-anchor="middle">Illustrator updates the sketch only</text>
+<line x1="700.0" y1="385" x2="700.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="692.0,399 708.0,399 700.0,410" fill="#334155"/>
+<rect x="520" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="440" font-size="19" fill="#1e1b4b" text-anchor="middle">Owner seats re-check</text>
+<line x1="700.0" y1="480" x2="700.0" y2="502" stroke="#334155" stroke-width="3"/><polygon points="692.0,494 708.0,494 700.0,505" fill="#334155"/>
+<rect x="520" y="505" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="535" font-size="19" fill="#1e1b4b" text-anchor="middle">Then the same as option 1</text>
+<text x="520" y="620" font-size="18" fill="#475569">Cheap: 2D only,</text>
+<text x="520" y="644" font-size="18" fill="#475569">no Blender pass.</text>
+<rect x="940" y="110" width="420" height="580" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="960" y="150" font-size="26" font-weight="bold" fill="#0f172a">3. Redo the sketch</text>
+<rect x="970" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="250" font-size="19" fill="#1e1b4b" text-anchor="middle">You say what is wrong</text>
+<line x1="1150.0" y1="290" x2="1150.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="1142.0,304 1158.0,304 1150.0,315" fill="#334155"/>
+<rect x="970" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="345" font-size="19" fill="#1e1b4b" text-anchor="middle">Illustrator draws again</text>
+<line x1="1150.0" y1="385" x2="1150.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="1142.0,399 1158.0,399 1150.0,410" fill="#334155"/>
+<rect x="970" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="440" font-size="19" fill="#1e1b4b" text-anchor="middle">Sketch gate again</text>
+<line x1="1150.0" y1="480" x2="1150.0" y2="502" stroke="#334155" stroke-width="3"/><polygon points="1142.0,494 1158.0,494 1150.0,505" fill="#334155"/>
+<rect x="970" y="505" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="535" font-size="19" fill="#1e1b4b" text-anchor="middle">Card 2 again</text>
+<text x="970" y="620" font-size="18" fill="#475569">No Blender work until</text>
+<text x="970" y="644" font-size="18" fill="#475569">you accept a sketch.</text>
+</svg>

@@ -1,0 +1,64 @@
+{
+ "texels": 32,
+ "bands2": [
+  [
+   -1.0,
+   178
+  ],
+  [
+   0.125,
+   255
+  ]
+ ],
+ "bands3": [
+  [
+   -1.0,
+   178
+  ],
+  [
+   0.0625,
+   217
+  ],
+  [
+   0.5,
+   255
+  ]
+ ],
+ "skin_materials": [
+  "skin"
+ ],
+ "basic_materials": [
+  "ink",
+  "white",
+  "cheek",
+  "tongue",
+  "sweat"
+ ],
+ "sun": {
+  "color": "#fff3dc",
+  "intensity": 2.6,
+  "elev": 62,
+  "az": 25
+ },
+ "hemi": {
+  "sky": "#fff6e8",
+  "ground": "#e9c49a",
+  "intensity": 0.9
+ },
+ "ambient": {
+  "color": "#ffffff",
+  "intensity": 0.25
+ },
+ "outline": {
+  "color": "#2B1E16",
+  "width_m": 0.007
+ },
+ "contact_shadow": {
+  "color": "#2B1E16",
+  "opacity": 0.25,
+  "rx": 0.26,
+  "ry": 0.21
+ },
+ "tone_mapping": "Neutral",
+ "exposure": 1.0
+}

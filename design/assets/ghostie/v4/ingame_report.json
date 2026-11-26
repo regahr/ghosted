@@ -1,0 +1,163 @@
+{
+ "ingame": {
+  "visibleGhostTris": 578,
+  "calls": 10
+ },
+ "ingame-front": {
+  "visibleGhostTris": 578,
+  "calls": 10
+ },
+ "_ingame-wave": {
+  "visibleGhostTris": 578,
+  "calls": 10
+ },
+ "lineup-grass": {
+  "ghostPx": [],
+  "ghostTris": [
+   578,
+   528,
+   580
+  ],
+  "kitTop": [
+   887,
+   437
+  ],
+  "kitBot": [
+   885,
+   492
+  ],
+  "ghostTop": [
+   716,
+   412
+  ],
+  "ghostBot": [
+   717,
+   439
+  ],
+  "kitPx": 55,
+  "ghostBodyPx": 27,
+  "eyeVsArm": [
+   {
+    "ghost": "tie",
+    "eyeY": 431.3,
+    "armTipL": [
+     734.2,
+     439.1
+    ],
+    "armTipR": [
+     697.9,
+     437.9
+    ],
+    "gapPx": 6.6
+   },
+   {
+    "ghost": "glasses",
+    "eyeY": 459.6,
+    "armTipL": [
+     782.1,
+     468.5
+    ],
+    "armTipR": [
+     745.6,
+     465.1
+    ],
+    "gapPx": 5.5
+   },
+   {
+    "ghost": "headset",
+    "eyeY": 460.9,
+    "armTipL": [
+     843.6,
+     473.4
+    ],
+    "armTipR": [
+     809.9,
+     464.7
+    ],
+    "gapPx": 3.8
+   }
+  ],
+  "centre": [
+   800,
+   456
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-path": {
+  "ghostPx": [],
+  "ghostTris": [
+   578,
+   528,
+   580
+  ],
+  "kitTop": [
+   887,
+   436
+  ],
+  "kitBot": [
+   885,
+   491
+  ],
+  "ghostTop": [
+   716,
+   411
+  ],
+  "ghostBot": [
+   717,
+   437
+  ],
+  "kitPx": 55,
+  "ghostBodyPx": 26,
+  "eyeVsArm": [
+   {
+    "ghost": "tie",
+    "eyeY": 430.2,
+    "armTipL": [
+     734.1,
+     438
+    ],
+    "armTipR": [
+     697.8,
+     436.8
+    ],
+    "gapPx": 6.6
+   },
+   {
+    "ghost": "glasses",
+    "eyeY": 458.4,
+    "armTipL": [
+     782.1,
+     467.4
+    ],
+    "armTipR": [
+     745.6,
+     464
+    ],
+    "gapPx": 5.6
+   },
+   {
+    "ghost": "headset",
+    "eyeY": 459.8,
+    "armTipL": [
+     843.6,
+     472.3
+    ],
+    "armTipR": [
+     809.9,
+     463.6
+    ],
+    "gapPx": 3.8
+   }
+  ],
+  "centre": [
+   800,
+   456
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "visibleTris": {
+  "tie": 578,
+  "glasses": 528,
+  "headset": 580
+ }
+}

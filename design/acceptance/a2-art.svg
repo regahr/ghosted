@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="730" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="730" fill="#f8fafc"/>
+<text x="40" y="60" font-size="34" font-weight="bold" fill="#0f172a">A2. How do the designs become final art?</text>
+<rect x="40" y="110" width="420" height="485" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="60" y="150" font-size="26" font-weight="bold" fill="#0f172a">a. Polish the code models</text>
+<rect x="70" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="250" font-size="19" fill="#1e1b4b" text-anchor="middle">Keep three.js primitives</text>
+<line x1="250.0" y1="290" x2="250.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="242.0,304 258.0,304 250.0,315" fill="#334155"/>
+<rect x="70" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="335" font-size="19" fill="#1e1b4b" text-anchor="middle">Add bevels, fix shadows,</text>
+<text x="250.0" y="359" font-size="19" fill="#1e1b4b" text-anchor="middle">merge meshes, better faces</text>
+<line x1="250.0" y1="385" x2="250.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="242.0,399 258.0,399 250.0,410" fill="#334155"/>
+<rect x="70" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="440" font-size="19" fill="#1e1b4b" text-anchor="middle">Same scenes, cleaner</text>
+<text x="70" y="525" font-size="18" fill="#475569">Fastest. Still reads as</text>
+<text x="70" y="549" font-size="18" fill="#475569">built from spheres and boxes.</text>
+<rect x="490" y="110" width="420" height="580" rx="16" fill="#ffffff" stroke="#16a34a" stroke-width="4"/>
+<text x="510" y="150" font-size="26" font-weight="bold" fill="#0f172a">b. Model in Blender</text>
+<rect x="760" y="170" width="130" height="32" rx="16" fill="#16a34a"/><text x="825" y="192" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">My pick</text>
+<rect x="520" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="240" font-size="19" fill="#1e1b4b" text-anchor="middle">Blender 4.3 on this machine,</text>
+<text x="700.0" y="264" font-size="19" fill="#1e1b4b" text-anchor="middle">driven by script</text>
+<line x1="700.0" y1="290" x2="700.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="692.0,304 708.0,304 700.0,315" fill="#334155"/>
+<rect x="520" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="335" font-size="19" fill="#1e1b4b" text-anchor="middle">Real shapes: seams, folds,</text>
+<text x="700.0" y="359" font-size="19" fill="#1e1b4b" text-anchor="middle">faces, hand-made silhouettes</text>
+<line x1="700.0" y1="385" x2="700.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="692.0,399 708.0,399 700.0,410" fill="#334155"/>
+<rect x="520" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="430" font-size="19" fill="#1e1b4b" text-anchor="middle">Bake toon colours,</text>
+<text x="700.0" y="454" font-size="19" fill="#1e1b4b" text-anchor="middle">export glTF</text>
+<line x1="700.0" y1="480" x2="700.0" y2="502" stroke="#334155" stroke-width="3"/><polygon points="692.0,494 708.0,494 700.0,505" fill="#334155"/>
+<rect x="520" y="505" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="525" font-size="19" fill="#1e1b4b" text-anchor="middle">The game loads the same files</text>
+<text x="700.0" y="549" font-size="19" fill="#1e1b4b" text-anchor="middle">you accepted</text>
+<text x="520" y="620" font-size="18" fill="#475569">More work per asset.</text>
+<text x="520" y="644" font-size="18" fill="#475569">What you accept is what you play.</text>
+<rect x="940" y="110" width="420" height="485" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="960" y="150" font-size="26" font-weight="bold" fill="#0f172a">c. Restyle a free asset pack</text>
+<rect x="970" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="240" font-size="19" fill="#1e1b4b" text-anchor="middle">Download a CC0 low-poly</text>
+<text x="1150.0" y="264" font-size="19" fill="#1e1b4b" text-anchor="middle">pack (city, people)</text>
+<line x1="1150.0" y1="290" x2="1150.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="1142.0,304 1158.0,304 1150.0,315" fill="#334155"/>
+<rect x="970" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="335" font-size="19" fill="#1e1b4b" text-anchor="middle">Recolour to our palette,</text>
+<text x="1150.0" y="359" font-size="19" fill="#1e1b4b" text-anchor="middle">add our props</text>
+<line x1="1150.0" y1="385" x2="1150.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="1142.0,399 1158.0,399 1150.0,410" fill="#334155"/>
+<rect x="970" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="430" font-size="19" fill="#1e1b4b" text-anchor="middle">Our own designs only for</text>
+<text x="1150.0" y="454" font-size="19" fill="#1e1b4b" text-anchor="middle">Kit and the Ghosties</text>
+<text x="970" y="525" font-size="18" fill="#475569">Fast good look, but generic.</text>
+<text x="970" y="549" font-size="18" fill="#475569">Less of GHOSTED&#x27;s own identity.</text>
+</svg>

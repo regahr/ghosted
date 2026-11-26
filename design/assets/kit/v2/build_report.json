@@ -1,0 +1,105 @@
+{
+ "triangles": {
+  "body": 1431,
+  "head": 730,
+  "sprout": 84,
+  "briefcase": 236,
+  "hero_total": 2481,
+  "body_plus_head": 2161,
+  "face_hopeful": 260,
+  "face_ghosted": 240,
+  "face_rejected": 208,
+  "face_focused": 160,
+  "face_offer_joy": 312
+ },
+ "checks": {
+  "briefcase_vs_torso": 0,
+  "briefcase_vs_legs_shoes": 0,
+  "briefcase_vs_sleeveL": 0,
+  "briefcase_vs_handR": 0,
+  "handR_vs_torso": 0,
+  "handL_vs_torso": 0,
+  "handle_inside_handL": true,
+  "blade_vs_flaps": 4,
+  "card_vs_tie": 0,
+  "head_vs_collar_contact": 52,
+  "face_hopeful_deg_below_hair_edge": 8.8,
+  "face_ghosted_deg_below_hair_edge": 12.7,
+  "face_rejected_deg_below_hair_edge": 9.2,
+  "face_focused_deg_below_hair_edge": 15.0,
+  "face_offer_joy_deg_below_hair_edge": 6.5,
+  "sweat_ghosted_min_gap_to_hair_mm": 1.5,
+  "sweat_rejected_min_gap_to_hair_mm": 1.5,
+  "sprout_hopeful_min_clearance_mm": 52.4,
+  "sprout_ghosted_min_clearance_mm": 4.2,
+  "sprout_rejected_min_clearance_mm": 39.4,
+  "sprout_focused_min_clearance_mm": 54.9,
+  "sprout_offer_joy_min_clearance_mm": 69.3
+ },
+ "toon": {
+  "texels": 32,
+  "bands2": [
+   [
+    -1.0,
+    178
+   ],
+   [
+    0.125,
+    255
+   ]
+  ],
+  "bands3": [
+   [
+    -1.0,
+    178
+   ],
+   [
+    0.0625,
+    217
+   ],
+   [
+    0.5,
+    255
+   ]
+  ],
+  "skin_materials": [
+   "skin"
+  ],
+  "basic_materials": [
+   "ink",
+   "white",
+   "cheek",
+   "tongue",
+   "sweat"
+  ],
+  "sun": {
+   "color": "#fff3dc",
+   "intensity": 2.6,
+   "elev": 62,
+   "az": 25
+  },
+  "hemi": {
+   "sky": "#fff6e8",
+   "ground": "#e9c49a",
+   "intensity": 0.9
+  },
+  "ambient": {
+   "color": "#ffffff",
+   "intensity": 0.25
+  },
+  "outline": {
+   "color": "#2B1E16",
+   "width_m": 0.007
+  },
+  "contact_shadow": {
+   "color": "#2B1E16",
+   "opacity": 0.25,
+   "rx": 0.26,
+   "ry": 0.21
+  },
+  "tone_mapping": "Neutral",
+  "exposure": 1.0
+ },
+ "hero_height_m": 0.977,
+ "head_heights": 2.71
+}

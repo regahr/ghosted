@@ -1,0 +1,147 @@
+{
+ "triangles": {
+  "body": 652,
+  "eyes": 24,
+  "acc_tie": 40,
+  "acc_glasses": 98,
+  "acc_headset": 112,
+  "base_body_arms_eyes": 676,
+  "variant_totals": {
+   "tie": 716,
+   "glasses": 774,
+   "headset": 788
+  }
+ },
+ "meshes": {
+  "all": [
+   "acc_glasses",
+   "acc_headset",
+   "acc_tie",
+   "body",
+   "eyes"
+  ],
+  "non_swap (V5 <= 3)": [
+   "body (skinned: body_root, arm_L, arm_R)"
+  ],
+  "swap_parts": [
+   "eyes",
+   "acc_tie",
+   "acc_glasses",
+   "acc_headset"
+  ]
+ },
+ "checks": {
+  "body_inward_faces (arm faces may lean)": 56,
+  "body_boundary_edges (the open hem only)": 0,
+  "body_nonmanifold_edges": 0,
+  "dome_rows_y": [
+   36.3,
+   38.3,
+   42.0,
+   46.9,
+   53.1,
+   60.5,
+   69.0,
+   79.2,
+   91.4,
+   105.9,
+   134.0
+  ],
+  "arm_tip_front_units": [
+   284.9,
+   241.4
+  ],
+  "wave_morph_moved_vertices": 45,
+  "skin_unweighted_vertices (must be 0)": 0,
+  "eyes_offset_mm_min": 1.2,
+  "acc_tie_vertex_offset_mm_min": 3.0,
+  "acc_glasses_vertex_offset_mm_min": 2.2,
+  "acc_headset_vertex_offset_mm_min": 0.5,
+  "tie_landmarks_z_m": {
+   "collar_top": 0.2661,
+   "knot_top": 0.2591,
+   "v_point": 0.1032
+  }
+ },
+ "rest_pose": {
+  "float_tilt_deg_blender_y": -4.0,
+  "arm_R_droop_deg": 14.0,
+  "mesh": "upright, symmetric"
+ },
+ "ghost_toon": {
+  "band_colors": {
+   "ghost": [
+    [
+     -1.0,
+     [
+      178,
+      178,
+      178
+     ]
+    ],
+    [
+     0.0001,
+     [
+      255,
+      255,
+      255
+     ]
+    ]
+   ],
+   "acc": [
+    [
+     -1.0,
+     [
+      178,
+      178,
+      178
+     ]
+    ],
+    [
+     0.0001,
+     [
+      255,
+      255,
+      255
+     ]
+    ]
+   ],
+   "tie": [
+    [
+     -1.0,
+     [
+      178,
+      178,
+      178
+     ]
+    ],
+    [
+     0.0001,
+     [
+      255,
+      255,
+      255
+     ]
+    ]
+   ]
+  },
+  "basic_materials": [
+   "ink"
+  ],
+  "outline_nodes": [
+   "body",
+   "acc_headset"
+  ],
+  "float_rest_m": 0.22,
+  "variants": [
+   "tie",
+   "glasses",
+   "headset"
+  ],
+  "contact_shadow": {
+   "rx": 0.2,
+   "ry": 0.17,
+   "opacity_at_rest": 0.22
+  }
+ }
+}

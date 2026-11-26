@@ -1,0 +1,114 @@
+{
+  "status": "candidates",
+  "query": "squash stretch hop morph target dissolve fade",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.morph-target-topology-compatibility",
+      "revision": 1,
+      "title": "Morph-target topology and attribute correspondence",
+      "path": "data/knowledge/geometry-profile/morph-target-topology-compatibility.json",
+      "collection": "knowledge",
+      "kind": "geometry-profile",
+      "score": 116.107123,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "applies_when"
+      ],
+      "summary": "Preserve vertex correspondence from Blender shape keys through exported primitive splits and runtime morph attributes."
+    },
+    {
+      "id": "knowledge.morph-expression-channel-ownership",
+      "revision": 1,
+      "title": "Morph expression channel ownership",
+      "path": "data/knowledge/motion-profile/morph-expression-channel-ownership.json",
+      "collection": "knowledge",
+      "kind": "motion-profile",
+      "score": 78.391758,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "tags",
+        "intent_signals",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Assign each expression morph channel to animation, procedural behavior or direct interaction at a given time, then combine only through declared envelopes and reset rules."
+    },
+    {
+      "id": "knowledge.blender-deformation-animation-handoff",
+      "revision": 2,
+      "title": "Skinned and morph animation handoff ownership",
+      "path": "data/knowledge/motion-profile/blender-deformation-animation-handoff.json",
+      "collection": "knowledge",
+      "kind": "motion-profile",
+      "score": 69.428799,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "subject_terms"
+      ],
+      "summary": "Freeze bind pose, joint influence and morph topology contracts, bake Blender-only animation logic into transportable channels, then assign one Three.js playback owner per property."
+    },
+    {
+      "id": "recipe.inverse-kinematics-target",
+      "revision": 1,
+      "title": "Inverse-kinematics target and residual",
+      "path": "data/recipes/inverse-kinematics-target.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 65.555383,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Make numerical target solving visible, including residuals and non-convergence."
+    },
+    {
+      "id": "knowledge.interruptible-animation-transition",
+      "revision": 1,
+      "title": "Interruptible animation transition",
+      "path": "data/knowledge/motion-profile/interruptible-animation-transition.json",
+      "collection": "knowledge",
+      "kind": "motion-profile",
+      "score": 33.789506,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "intent_signals"
+      ],
+      "summary": "Model crossfades as explicit transition state and, when interrupted, begin the new transition from the currently evaluated action weights and pose after cancelling obsolete fade and warp schedules."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

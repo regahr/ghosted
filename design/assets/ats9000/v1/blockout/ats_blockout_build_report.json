@@ -1,0 +1,76 @@
+{
+ "triangles": {
+  "body": 417,
+  "screen": 4,
+  "stamp": 60,
+  "cv": 10,
+  "visible_robot (body + stamp + screen)": 481
+ },
+ "by_part": {
+  "body": {
+   "head": 44,
+   "decals": 23,
+   "body": 44,
+   "lip": 10,
+   "neck_core": 16,
+   "neck_rings": 84,
+   "treads": 72,
+   "hubs": 36,
+   "shoulder_hub": 22,
+   "antenna": 66
+  },
+  "screen": {
+   "screen": 2,
+   "scan": 2
+  },
+  "stamp": {
+   "bar": 28,
+   "block": 20,
+   "rubber": 12
+  },
+  "cv": {
+   "cv": 10
+  }
+ },
+ "meshes": {
+  "non_swap (<= 3)": [
+   "body",
+   "stamp",
+   "screen"
+  ],
+  "prop": [
+   "cv"
+  ]
+ },
+ "height_m": 1.25,
+ "unit_mm": 3.743,
+ "bevel_m": 0.0,
+ "outline_points": {
+  "head": 12,
+  "body": 12,
+  "tread": 10
+ },
+ "materials": {
+  "body": [
+   "robot",
+   "neckcore",
+   "ink",
+   "neck",
+   "ball",
+   "decal",
+   "hub",
+   "belt"
+  ],
+  "screen": [
+   "screen",
+   "scan"
+  ],
+  "stamp": [
+   "robot",
+   "ink"
+  ],
+  "cv": [
+   "paper"
+  ]
+ }
+}

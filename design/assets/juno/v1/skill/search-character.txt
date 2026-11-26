@@ -1,0 +1,114 @@
+{
+  "status": "candidates",
+  "query": "toy character hourglass body apron held cup prop low poly",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.style-low-poly",
+      "revision": 2,
+      "title": "Low-poly shape economy",
+      "path": "data/knowledge/style-profile/style-low-poly.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 138.604642,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Spend geometric detail on the contour and meaningful part boundaries rather than distributing it evenly."
+    },
+    {
+      "id": "knowledge.style-toy-miniature",
+      "revision": 2,
+      "title": "Toy miniature scale cues",
+      "path": "data/knowledge/style-profile/style-toy-miniature.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 67.032101,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "subject_terms"
+      ],
+      "summary": "Present the subject as a deliberately crafted small object using a readable base, tactile parts and selective oversizing."
+    },
+    {
+      "id": "knowledge.deformable-prop-support-cage",
+      "revision": 1,
+      "title": "Deformable prop with a construction-aware support cage",
+      "path": "data/knowledge/object-archetype/deformable-prop-support-cage.json",
+      "collection": "knowledge",
+      "kind": "object-archetype",
+      "score": 62.310072,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "applies_when"
+      ],
+      "summary": "Organize a soft prop around a low-complexity cage, protected openings, attachment zones and thickness checks so expressive deformation does not silently destroy construction."
+    },
+    {
+      "id": "knowledge.theme-functional-prop-grammar",
+      "revision": 1,
+      "title": "Functional prop grammar for fictional settings",
+      "path": "data/knowledge/theme-profile/theme-functional-prop-grammar.json",
+      "collection": "knowledge",
+      "kind": "theme-profile",
+      "score": 60.925551,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Turn a fictional setting into a reusable prop language by assigning visible structure, interface, maintenance and state cues to each object role."
+    },
+    {
+      "id": "knowledge.style-retro-low-resolution",
+      "revision": 2,
+      "title": "Retro low-resolution presentation",
+      "path": "data/knowledge/style-profile/style-retro-low-resolution.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 54.930567,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Choose an intentional image-grid and detail hierarchy so pixel structure supports the scene instead of making controls unreadable."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

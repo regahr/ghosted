@@ -1,0 +1,220 @@
+{
+ "triangles": {
+  "body": 1208,
+  "decals": 66,
+  "eyes_open": 40,
+  "eyes_wink": 28,
+  "brows_rest": 12,
+  "brows_smug": 12,
+  "brows_lost": 12,
+  "mouth_grin": 24,
+  "mouth_talk": 24,
+  "mouth_wink": 18,
+  "mouth_lost": 12,
+  "thumb": 18,
+  "fingers_1": 12,
+  "fingers_2": 24,
+  "fingers_3": 36,
+  "visible": {
+   "rest / idle (grin)": 1350,
+   "like (wink + thumb)": 1350,
+   "bullets (talk + 3 fingers)": 1386,
+   "talk": 1350,
+   "lost": 1338
+  },
+  "body_by_part": {
+   "head": 288,
+   "ears": 32,
+   "swoop": 126,
+   "halo": 120,
+   "neck": 16,
+   "vest": 208,
+   "hips": 50,
+   "arm_L": 140,
+   "arm_R": 140,
+   "legs": 88
+  }
+ },
+ "meshes": {
+  "all": [
+   "body",
+   "brows_lost",
+   "brows_rest",
+   "brows_smug",
+   "decals",
+   "eyes_open",
+   "eyes_wink",
+   "fingers_1",
+   "fingers_2",
+   "fingers_3",
+   "mouth_grin",
+   "mouth_lost",
+   "mouth_talk",
+   "mouth_wink",
+   "thumb"
+  ],
+  "non_swap (<= 3)": [
+   "body",
+   "decals"
+  ],
+  "swap": [
+   "eyes_open",
+   "eyes_wink",
+   "brows_rest",
+   "brows_smug",
+   "brows_lost",
+   "mouth_grin",
+   "mouth_talk",
+   "mouth_wink",
+   "mouth_lost",
+   "thumb",
+   "fingers_1",
+   "fingers_2",
+   "fingers_3"
+  ]
+ },
+ "checks": {
+  "body_nonmanifold_edges": 0,
+  "body_boundary_edges (neck tube ends, vest top ring, hips top, leg ends)": 66,
+  "body_faces_against_analytic_normals": 0,
+  "height_m (sole to swoop top)": 1.235,
+  "unit_mm": 3.812,
+  "like_hand_centre_to_target_mm": 0.0,
+  "bullets_hand_centre_to_target_mm": 0.0,
+  "hips_left_hand_to_target_mm": 0.0,
+  "faces_rewound_to_analytic_normals": 444,
+  "hairline_front_view_y_by_deg": [
+   [
+    0,
+    56.0
+   ],
+   [
+    25,
+    57.5
+   ],
+   [
+    50,
+    64.0
+   ],
+   [
+    72,
+    74.0
+   ],
+   [
+    90,
+    79.0
+   ],
+   [
+    104,
+    81.0
+   ],
+   [
+    120,
+    106.0
+   ],
+   [
+    145,
+    124.0
+   ],
+   [
+    180,
+    132.0
+   ]
+  ],
+  "skin_unweighted": 0,
+  "carry_halo_up_vs_world_up_deg": 0.0,
+  "carry_head_up_vs_world_up_deg": 10.0,
+  "carry_eye_move_mm (x, y fwd=-, z up)": [
+   0.0,
+   43.1,
+   26.9
+  ],
+  "carry_halo_centre_move_mm": [
+   0.0,
+   96.6,
+   -8.5
+  ]
+ },
+ "poses": {
+  "idle": {
+   "arm_L_up": [
+    -0.37223371863365173,
+    -0.9092696905136108,
+    -0.18611685931682587,
+    2.171409131257437
+   ],
+   "arm_L_lo": [
+    -0.22096605598926544,
+    0.9639512300491333,
+    -0.14822950959205627,
+    49.41338262595618
+   ],
+   "arm_R_up": [
+    -0.37223371863365173,
+    0.9092696905136108,
+    0.18611685931682587,
+    2.171409131257437
+   ],
+   "arm_R_lo": [
+    -0.22096605598926544,
+    -0.9639512300491333,
+    0.14822950959205627,
+    49.41338262595618
+   ]
+  },
+  "like": {
+   "arm_R_up": [
+    -0.6373240351676941,
+    0.7016329169273376,
+    0.31866201758384705,
+    12.495789251629661
+   ],
+   "arm_R_lo": [
+    -0.6554805636405945,
+    0.7513658404350281,
+    -0.07612471282482147,
+    130.02002745549632
+   ]
+  },
+  "bullets": {
+   "arm_L_up": [
+    -0.37223371863365173,
+    -0.9092696905136108,
+    -0.18611685931682587,
+    2.171409131257437
+   ],
+   "arm_L_lo": [
+    -0.22096605598926544,
+    0.9639512300491333,
+    -0.14822950959205627,
+    49.41338262595618
+   ],
+   "arm_R_up": [
+    -0.8501781821250916,
+    0.3107141852378845,
+    0.4250890910625458,
+    7.332149163627097
+   ],
+   "arm_R_lo": [
+    -0.9428114891052246,
+    0.33331596851348877,
+    -0.0027207881212234497,
+    130.27882332314812
+   ]
+  }
+ },
+ "carry": {
+  "head": [
+   1.0,
+   0.0,
+   0.0,
+   -10.0
+  ],
+  "halo": [
+   1.0,
+   0.0,
+   0.0,
+   10.0
+  ]
+ }
+}

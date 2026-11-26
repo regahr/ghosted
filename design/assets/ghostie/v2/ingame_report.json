@@ -1,0 +1,81 @@
+{
+ "ingame": {
+  "visibleGhostTris": 430,
+  "calls": 11
+ },
+ "ingame-front": {
+  "visibleGhostTris": 430,
+  "calls": 11
+ },
+ "_ingame-wave": {
+  "visibleGhostTris": 430,
+  "calls": 11
+ },
+ "lineup-grass": {
+  "ghostPx": [],
+  "ghostTris": [
+   430,
+   426,
+   442
+  ],
+  "kitTop": [
+   887,
+   437
+  ],
+  "kitBot": [
+   885,
+   492
+  ],
+  "ghostTop": [
+   716,
+   412
+  ],
+  "ghostBot": [
+   717,
+   439
+  ],
+  "kitPx": 55,
+  "ghostBodyPx": 27,
+  "centre": [
+   800,
+   456
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-path": {
+  "ghostPx": [],
+  "ghostTris": [
+   430,
+   426,
+   442
+  ],
+  "kitTop": [
+   887,
+   436
+  ],
+  "kitBot": [
+   885,
+   491
+  ],
+  "ghostTop": [
+   716,
+   411
+  ],
+  "ghostBot": [
+   717,
+   437
+  ],
+  "kitPx": 55,
+  "ghostBodyPx": 26,
+  "centre": [
+   800,
+   456
+  ],
+  "outlineW_m": 0.0213424816684965
+ },
+ "visibleTris": {
+  "tie": 430,
+  "glasses": 426,
+  "headset": 442
+ }
+}

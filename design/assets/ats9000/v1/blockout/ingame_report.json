@@ -1,0 +1,224 @@
+{
+ "lineup-grass": {
+  "atsTris": 481,
+  "ats": {
+   "feet": [
+    702.7,
+    559.3
+   ],
+   "top": [
+    674.9,
+    483.4
+   ],
+   "headTopFront": [
+    698.7,
+    507
+   ],
+   "chinFront": [
+    699.6,
+    526.5
+   ],
+   "neckRingTop": [
+    699.9,
+    525.9
+   ],
+   "neckRingBot": [
+    700.3,
+    534
+   ],
+   "crownFront": [
+    701.4,
+    530.1
+   ],
+   "bodyCrownZ50": [
+    699.7,
+    543.4
+   ],
+   "slotTop": [
+    699.9,
+    548.9
+   ],
+   "slotBot": [
+    700.1,
+    551.8
+   ],
+   "screenTL": [
+    677.9,
+    509
+   ],
+   "screenBR": [
+    720.2,
+    525
+   ],
+   "eyeL": [
+    690,
+    512.6
+   ],
+   "eyeLb": [
+    690.3,
+    519.1
+   ],
+   "hem": [
+    700.6,
+    562.3
+   ]
+  },
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 424,
+   "y1": 498,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_ats": {
+   "x0": 671,
+   "x1": 735,
+   "y0": 483,
+   "y1": 575,
+   "heightPx": 93,
+   "widthPx": 65
+  },
+  "neck": {
+   "neckPixels": {
+    "red": 21,
+    "green": 0
+   },
+   "neckBox": {
+    "x0": 697,
+    "x1": 707,
+    "y0": 529,
+    "y1": 533,
+    "widthPx": 11,
+    "heightPx": 5
+   },
+   "centreColumnFromY": 515,
+   "columns": {
+    "0": "KKKKKKKK.WW.KKR.KRRK.WWWWWWWWWWWW",
+    "4": "SSSS.KKKKWW.KKK.RK.WWWWWWWWWWWWWW",
+    "-4": "KKKKKKKK.WW.K.R.KR.KWWWWWWWWWWWWW"
+   }
+  },
+  "ratio_ats_to_kit": 1.24
+ },
+ "lineup-path": {
+  "atsTris": 481,
+  "ats": {
+   "feet": [
+    1075.4,
+    537.7
+   ],
+   "top": [
+    1059.6,
+    461.9
+   ],
+   "headTopFront": [
+    1083.4,
+    485.3
+   ],
+   "chinFront": [
+    1080.9,
+    504.7
+   ],
+   "neckRingTop": [
+    1080.7,
+    504.2
+   ],
+   "neckRingBot": [
+    1079.6,
+    512.3
+   ],
+   "crownFront": [
+    1079.2,
+    508.5
+   ],
+   "bodyCrownZ50": [
+    1079.1,
+    521.6
+   ],
+   "slotTop": [
+    1078.4,
+    527.1
+   ],
+   "slotBot": [
+    1078,
+    530
+   ],
+   "screenTL": [
+    1062.1,
+    487.3
+   ],
+   "screenBR": [
+    1102.1,
+    503.2
+   ],
+   "eyeL": [
+    1073.7,
+    490.8
+   ],
+   "eyeLb": [
+    1072.9,
+    497.3
+   ],
+   "hem": [
+    1076.6,
+    540.4
+   ]
+  },
+  "kitTop": [
+   886.9,
+   435.8
+  ],
+  "kitBot": [
+   884.7,
+   490.7
+  ],
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 423,
+   "y1": 497,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_ats": {
+   "x0": 1049,
+   "x1": 1113,
+   "y0": 461,
+   "y1": 553,
+   "heightPx": 93,
+   "widthPx": 65
+  },
+  "neck": {
+   "neckPixels": {
+    "red": 32,
+    "green": 0
+   },
+   "neckBox": {
+    "x0": 1073,
+    "x1": 1085,
+    "y0": 506,
+    "y1": 511,
+    "widthPx": 13,
+    "heightPx": 6
+   },
+   "centreColumnFromY": 492,
+   "columns": {
+    "0": "KKKKKKKKK.WW.KKRRKRRK.WWWWWWWWWWWW",
+    "4": "KKKKKKKKKKWW.KKR.K..K.WWWWWWWWWWWW",
+    "-4": "SS...KKKK.WW.KR.KRRK.WWWWWWWWWWWWW"
+   }
+  },
+  "ratio_ats_to_kit": 1.24
+ }
+}

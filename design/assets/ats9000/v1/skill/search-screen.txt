@@ -1,0 +1,122 @@
+{
+  "status": "candidates",
+  "query": "screen face texture states UV scroll scan line emissive",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.reasoning-texture-screen-footprint",
+      "revision": 1,
+      "title": "Choose texture sampling from screen footprint",
+      "path": "data/knowledge/reasoning-rule/reasoning-texture-screen-footprint.json",
+      "collection": "knowledge",
+      "kind": "reasoning-rule",
+      "score": 110.186466,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "tags",
+        "intent_signals",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Choose source resolution, UV allocation, mip filtering and bounded anisotropy from the texture's projected use across target cameras and drawing-buffer pixels rather than a universal texture-size rule."
+    },
+    {
+      "id": "knowledge.uv-seam-and-density-inspection",
+      "revision": 1,
+      "title": "UV seam and density inspection",
+      "path": "data/knowledge/inspection-pattern/uv-seam-and-density-inspection.json",
+      "collection": "knowledge",
+      "kind": "inspection-pattern",
+      "score": 109.968002,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Inspect authored seams, island distortion, relative texel density and the actual runtime UV set or transform with a diagnostic texture that leaves production maps untouched."
+    },
+    {
+      "id": "knowledge.gltf-texture-transform-atlas-handoff",
+      "revision": 1,
+      "title": "glTF texture-transform and atlas handoff",
+      "path": "data/knowledge/tool-adapter/gltf-texture-transform-atlas-handoff.json",
+      "collection": "knowledge",
+      "kind": "tool-adapter",
+      "score": 104.331521,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Carry per-texture UV selection and KHR_texture_transform into Three.js without confusing transform order, sampler wrap or mip padding."
+    },
+    {
+      "id": "knowledge.emissive-practical-light-balance",
+      "revision": 1,
+      "title": "Emissive practical and scene-light balance",
+      "path": "data/knowledge/lighting-profile/emissive-practical-light-balance.json",
+      "collection": "knowledge",
+      "kind": "lighting-profile",
+      "score": 80.52538,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Separate the visible glowing surface of a practical fixture from the mechanism that illuminates nearby receivers, then tune them under one declared exposure."
+    },
+    {
+      "id": "knowledge.color-normal-material-parity",
+      "revision": 1,
+      "title": "Color, normal and material-role parity validation",
+      "path": "data/knowledge/validation-profile/color-normal-material-parity.json",
+      "collection": "knowledge",
+      "kind": "validation-profile",
+      "score": 60.606621,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "applies_when"
+      ],
+      "summary": "Validate UV/tangent orientation, texture channel roles, transfer functions and baked-versus-runtime lighting ownership with isolated fixtures before judging a composed look."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

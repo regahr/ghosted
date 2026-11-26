@@ -1,0 +1,138 @@
+{
+ "triangles": {
+  "body": 1216,
+  "decals": 152,
+  "mouth_grin": 24,
+  "mouth_o": 12,
+  "visible_rest (body + decals + mouth_grin)": 1392,
+  "body_by_part": {
+   "head": 368,
+   "jacket": 272,
+   "arm_L": 176,
+   "arm_R": 176,
+   "legs": 88,
+   "cups": 48,
+   "band": 60,
+   "mic": 28
+  }
+ },
+ "meshes": {
+  "all": [
+   "body",
+   "decals",
+   "mouth_grin",
+   "mouth_o"
+  ],
+  "non_swap (<= 3)": [
+   "body",
+   "decals"
+  ],
+  "swap": [
+   "mouth_grin",
+   "mouth_o"
+  ]
+ },
+ "checks": {
+  "body_nonmanifold_edges": 0,
+  "body_boundary_edges (head bottom ring, jacket top ring, leg ends, band ends)": 86,
+  "faces_facing_in_by_shell": {},
+  "height_m": 1.18,
+  "unit_mm": 3.882,
+  "phone_hand_centre_to_target_mm": 0.0,
+  "decal_offsets_units": "eyes, brows 0.4 / glints 0.6; mouth 0.6 / teeth 0.85; V ink 0.4 / shirt 0.6; collar ink 0.8 / 1.0; tie ink 1.1 / 1.3; knot 1.5 / 1.7",
+  "faces_rewound_to_analytic_normals": 484,
+  "band_extra_gap_to_hair_units": [
+   7.4,
+   7.2,
+   7.8,
+   4.8,
+   4.2,
+   5.0,
+   8.3,
+   7.2,
+   9.4
+  ],
+  "band_scale": 1.0,
+  "skin_unweighted": 0
+ },
+ "hairline_front_view_y_by_deg": [
+  [
+   0,
+   63.0
+  ],
+  [
+   22.5,
+   64.0
+  ],
+  [
+   45,
+   66.0
+  ],
+  [
+   67.5,
+   70.0
+  ],
+  [
+   90,
+   75.0
+  ],
+  [
+   112.5,
+   96.0
+  ],
+  [
+   135,
+   115.0
+  ],
+  [
+   157.5,
+   123.0
+  ],
+  [
+   180,
+   125.0
+  ]
+ ],
+ "poses": {
+  "phone": {
+   "arm_R_up": [
+    0.1523950845003128,
+    0.9825745820999146,
+    -0.10641010105609894,
+    114.4948572078956
+   ],
+   "arm_R_lo": [
+    0.04305708780884743,
+    0.9937347769737244,
+    -0.1031409502029419,
+    77.86791314218887
+   ]
+  },
+  "hop_up": {
+   "arm_L_up": [
+    0.8718214631080627,
+    -0.2359558641910553,
+    0.42924562096595764,
+    47.63573368690657
+   ],
+   "arm_L_lo": [
+    -0.9795234203338623,
+    -0.18995560705661774,
+    -0.06671279668807983,
+    91.62949439514645
+   ],
+   "arm_R_up": [
+    0.8718214631080627,
+    0.2359558641910553,
+    -0.42924562096595764,
+    47.63573368690657
+   ],
+   "arm_R_lo": [
+    -0.9795234203338623,
+    0.18995560705661774,
+    0.06671279668807983,
+    91.62949439514645
+   ]
+  }
+ }
+}

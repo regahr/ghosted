@@ -1,0 +1,59 @@
+{
+ "band_colors": {
+  "ghost": [
+   [
+    -1.0,
+    [
+     184,
+     170,
+     255
+    ]
+   ],
+   [
+    0.0001,
+    [
+     255,
+     255,
+     255
+    ]
+   ]
+  ],
+  "acc": [
+   [
+    -1.0,
+    [
+     178,
+     178,
+     178
+    ]
+   ],
+   [
+    0.0001,
+    [
+     255,
+     255,
+     255
+    ]
+   ]
+  ]
+ },
+ "basic_materials": [
+  "ink"
+ ],
+ "outline_nodes": [
+  "body",
+  "arm_L",
+  "arm_R"
+ ],
+ "float_rest_m": 0.22,
+ "variants": [
+  "tie",
+  "glasses",
+  "headset"
+ ],
+ "contact_shadow": {
+  "rx": 0.2,
+  "ry": 0.17,
+  "opacity_at_rest": 0.22
+ }
+}

@@ -1,0 +1,113 @@
+{
+  "status": "candidates",
+  "query": "stylized low poly toon character wedge torso swoop hair halo ring",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.style-low-poly",
+      "revision": 2,
+      "title": "Low-poly shape economy",
+      "path": "data/knowledge/style-profile/style-low-poly.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 138.604642,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Spend geometric detail on the contour and meaningful part boundaries rather than distributing it evenly."
+    },
+    {
+      "id": "knowledge.style-stylized",
+      "revision": 2,
+      "title": "Stylized proportions",
+      "path": "data/knowledge/style-profile/style-stylized.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 76.019254,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Choose one proportional exaggeration that gives the subject character while preserving its identifying parts."
+    },
+    {
+      "id": "recipe.secondary-motion-chain",
+      "revision": 1,
+      "title": "Cape and hair follow-through chains",
+      "path": "data/recipes/secondary-motion-chain.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 68.587761,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts"
+      ],
+      "summary": "Add trailing motion that is driven by the character rather than looped beside it, with limits that keep it from exploding."
+    },
+    {
+      "id": "knowledge.style-stylized-realism",
+      "revision": 2,
+      "title": "Stylized realism balance",
+      "path": "data/knowledge/style-profile/style-stylized-realism.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 56.5523,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Keep construction and recognizable material relationships while deliberately exaggerating selected shapes or color relationships."
+    },
+    {
+      "id": "knowledge.style-retro-low-resolution",
+      "revision": 2,
+      "title": "Retro low-resolution presentation",
+      "path": "data/knowledge/style-profile/style-retro-low-resolution.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 54.930567,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Choose an intentional image-grid and detail hierarchy so pixel structure supports the scene instead of making controls unreadable."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

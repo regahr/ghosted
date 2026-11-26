@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="730" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="730" fill="#f8fafc"/>
+<text x="40" y="60" font-size="34" font-weight="bold" fill="#0f172a">Q3. Run length: one run from start to the end</text>
+<rect x="40" y="110" width="420" height="580" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="60" y="150" font-size="26" font-weight="bold" fill="#0f172a">a. Short, 10-15 min</text>
+<rect x="70" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="250" font-size="19" fill="#1e1b4b" text-anchor="middle">Season of 6 in-game weeks</text>
+<line x1="250.0" y1="290" x2="250.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="242.0,304 258.0,304 250.0,315" fill="#334155"/>
+<rect x="70" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="345" font-size="19" fill="#1e1b4b" text-anchor="middle">4-5 nodes, short funnel</text>
+<line x1="250.0" y1="385" x2="250.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="242.0,399 258.0,399 250.0,410" fill="#334155"/>
+<rect x="70" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="440" font-size="19" fill="#1e1b4b" text-anchor="middle">First offer on run 2-3</text>
+<line x1="250.0" y1="480" x2="250.0" y2="502" stroke="#334155" stroke-width="3"/><polygon points="242.0,494 258.0,494 250.0,505" fill="#334155"/>
+<rect x="70" y="505" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="535" font-size="19" fill="#1e1b4b" text-anchor="middle">About 2 runs in one evening</text>
+<text x="70" y="620" font-size="18" fill="#475569">Less depth in one run.</text>
+<text x="70" y="644" font-size="18" fill="#475569">Paweł&#x27;s pick (15 min).</text>
+<rect x="490" y="110" width="420" height="580" rx="16" fill="#ffffff" stroke="#16a34a" stroke-width="4"/>
+<text x="510" y="150" font-size="26" font-weight="bold" fill="#0f172a">b. Season, 20-30 min</text>
+<rect x="760" y="170" width="130" height="32" rx="16" fill="#16a34a"/><text x="825" y="192" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">My pick</text>
+<rect x="520" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="250" font-size="19" fill="#1e1b4b" text-anchor="middle">Season of 12 in-game weeks</text>
+<line x1="700.0" y1="290" x2="700.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="692.0,304 708.0,304 700.0,315" fill="#334155"/>
+<rect x="520" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="335" font-size="19" fill="#1e1b4b" text-anchor="middle">8-10 nodes, full funnel:</text>
+<text x="700.0" y="359" font-size="19" fill="#1e1b4b" text-anchor="middle">CV to ATS to interview to offer</text>
+<line x1="700.0" y1="385" x2="700.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="692.0,399 708.0,399 700.0,410" fill="#334155"/>
+<rect x="520" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="440" font-size="19" fill="#1e1b4b" text-anchor="middle">First offer on run 2-3</text>
+<line x1="700.0" y1="480" x2="700.0" y2="502" stroke="#334155" stroke-width="3"/><polygon points="692.0,494 708.0,494 700.0,505" fill="#334155"/>
+<rect x="520" y="505" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="535" font-size="19" fill="#1e1b4b" text-anchor="middle">About 1 run in one evening</text>
+<text x="520" y="620" font-size="18" fill="#475569">BMGD&#x27;s pick. BMGD owns the</text>
+<text x="520" y="644" font-size="18" fill="#475569">loop feel and the scope.</text>
+<rect x="940" y="110" width="420" height="580" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="960" y="150" font-size="26" font-weight="bold" fill="#0f172a">c. Long, 45+ min</text>
+<rect x="970" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="250" font-size="19" fill="#1e1b4b" text-anchor="middle">Season of 24 in-game weeks</text>
+<line x1="1150.0" y1="290" x2="1150.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="1142.0,304 1158.0,304 1150.0,315" fill="#334155"/>
+<rect x="970" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="345" font-size="19" fill="#1e1b4b" text-anchor="middle">2 districts in one run</text>
+<line x1="1150.0" y1="385" x2="1150.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="1142.0,399 1158.0,399 1150.0,410" fill="#334155"/>
+<rect x="970" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="440" font-size="19" fill="#1e1b4b" text-anchor="middle">First offer on run 2-3</text>
+<line x1="1150.0" y1="480" x2="1150.0" y2="502" stroke="#334155" stroke-width="3"/><polygon points="1142.0,494 1158.0,494 1150.0,505" fill="#334155"/>
+<rect x="970" y="505" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="535" font-size="19" fill="#1e1b4b" text-anchor="middle">Needs save in the middle of a run</text>
+<text x="970" y="620" font-size="18" fill="#475569">More content to build.</text>
+<text x="970" y="644" font-size="18" fill="#475569">More chance to stop and not return.</text>
+</svg>

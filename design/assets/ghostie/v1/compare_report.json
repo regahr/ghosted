@@ -1,0 +1,10 @@
+{
+ "ingame": {
+  "mean": 0.71,
+  "pct_over_40": 0.25
+ },
+ "ingame-front": {
+  "mean": 0.71,
+  "pct_over_40": 0.24
+ }
+}

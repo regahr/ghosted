@@ -1,0 +1,310 @@
+"""Build tie-options, ghostie-sheet and paintover-v5 (SVG sources + PNG via magick).
+
+Run: python3 build.py   (from this folder)
+Reads only: ../../v5/*.png, ../../../kit/hero.png. Writes only into ../ and ./.
+"""
+import os
+import subprocess
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ghost import *  # noqa
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.dirname(HERE)
+V5 = os.path.join(OUT, "..", "v5")
+KIT = os.path.join(OUT, "..", "..", "kit", "hero.png")
+TMP = os.path.join(HERE, "_tmp")
+os.makedirs(TMP, exist_ok=True)
+
+
+def sh(*a):
+    subprocess.run(["magick", *a], check=True)
+
+
+def write(name, w, h, inner, bg=None):
+    p = os.path.join(HERE, name)
+    open(p, "w").write(svg_doc(w, h, inner, bg))
+    return p
+
+
+def render(svg, png):
+    sh(svg, png)
+
+
+def comp(base, over, x, y, out):
+    sh(base, over, "-geometry", f"+{x}+{y}", "-composite", out)
+
+
+# ============================================================ game-camera thumbs
+def thumb_tile(view_svg, name, w=60, h=60, mark=False):
+    """1x tile on grass, then x3 nearest (same as v5 make_sheets.py line 46)."""
+    cx, cy = w / 2, h / 2 - 2
+    inner = thumb_shadow(cx, cy + 6) + thumb(view_svg, cx, cy)
+    if mark:  # mouth zone: centred below the two eye dots
+        s = THUMB_S
+        ex = cx + (150 - 150) * s
+        top = cy + (163 - 176) * s * THUMB_SQUASH
+        inner += (f'<rect x="{ex - 4.2}" y="{top + 1.5}" width="8.4" height="7.5" '
+                  f'fill="none" stroke="{NOTE}" stroke-width="0.7" '
+                  f'stroke-dasharray="1.4,1"/>')
+    svg = write(f"{name}.svg", w, h, inner, GRASS)
+    one = os.path.join(TMP, f"{name}-1x.png")
+    render(svg, one)
+    x3 = os.path.join(TMP, f"{name}-x3.png")
+    sh(one, "-scale", "300%", x3)
+    return one, x3
+
+
+# ============================================================ tie options
+def tie_options():
+    W, H = 1840, 1500
+    colw = 450
+    inner = [text(30, 46, "GHOSTED: Ghostie tie options (Illustrator sketch, 2026-11-25)", 30, "bold"),
+             text(30, 76, "Same body for all three. Card size = v5 variants panel scale. "
+                  "Game camera = 26 m, pitch 42, 1.6 px outline, shown x3 nearest like "
+                  "v5/lineup-grass-crop-x3.png.", 17)]
+    names = {"A": "A. Hangs centre front (like Kit)",
+             "B": "B. Slipped: hangs, off-centre",
+             "C": "C. Blown aside past the outline"}
+    verdict = {
+        "A": ["Card: reads as a TIE (knot, blade, V, collar).",
+              "Game camera: a lilac+ink bar CENTRED under",
+              "the eye dots. Reads as a mouth or tongue.",
+              "FAILS the no-mouth test. Rejected."],
+        "B": ["Card: reads as a TIE (knot, blade, V, collar),",
+              "hanging askew: the recruiter stopped caring.",
+              "Game camera: small lilac mark beside the arm,",
+              "out of the mouth zone. Nothing centred. PICK."],
+        "C": ["Card: knot + blade + V, but the blade lies",
+              "flat in the air: flag / horn risk (v1-v5).",
+              "Game camera: a bar out of the face at eye level:",
+              "reads as a cigarette. Hits the arm_L wave. Rejected."],
+    }
+    x0 = 30
+    for i, o in enumerate("ABC"):
+        x = x0 + i * colw
+        inner.append(text(x + 10, 120, names[o], 21, "bold"))
+        inner.append(shadow(x + 5, 140, 1.45))
+        inner.append(place(front("tie", o), x + 5, 140, 1.45))
+        for j, ln in enumerate(verdict[o]):
+            inner.append(text(x + 10, 1330 + j * 24, ln, 17))
+    # Kit column
+    xk = x0 + 3 * colw
+    inner.append(text(xk + 10, 120, "Kit (reference, locked)", 21, "bold"))
+    inner.append(text(xk + 10, 1330, "Kit's tie: wide knot under a collar, blade", 17))
+    inner.append(text(xk + 10, 1354, "widens to a V, ink all round, hangs straight.", 17))
+    inner.append(text(xk + 10, 1378, "Source: assets/kit/hero.png,", 17))
+    inner.append(text(xk + 10, 1402, "v5/lineup-grass-crop-x3.png (Kit).", 17))
+    # row labels
+    inner.append(text(30, 690, "Tie close-up (x2.4 of card)", 18, "bold", NOTE))
+    inner.append(text(30, 1018, "Game camera x3: clean, mouth zone, 1x", 18, "bold", NOTE))
+    # pick frame
+    xb = x0 + colw
+    inner.append(f'<rect x="{xb - 8}" y="96" width="{colw - 4}" height="1390" rx="18" '
+                 f'fill="none" stroke="{NOTE}" stroke-width="5"/>')
+    inner.append(f'<rect x="{xb + colw - 130}" y="140" width="108" height="34" rx="8" fill="{NOTE}" stroke="none"/>')
+    inner.append(text(xb + colw - 76, 165, "PICK", 22, "bold", "#FFFFFF", "middle"))
+    svg = write("tie-options.svg", W, H, "".join(inner), CREAM)
+    png = os.path.join(OUT, "tie-options.png")
+    render(svg, png)
+
+    # close-ups: render each tie region at high scale as its own SVG, then paste
+    for i, o in enumerate("ABC"):
+        cx, cy = {"A": (150, 218), "B": (222, 224), "C": (250, 186)}[o]
+        s = 2.4
+        w, h = 420, 280
+        body = (f'<g transform="translate({w / 2 - cx * s},{h / 2 - cy * s}) scale({s})">'
+                f'<g transform="rotate(-4,150,300)">{front("tie", o)}</g></g>')
+        sv = write(f"tie-close-{o}.svg", w, h, body, CREAM)
+        pn = os.path.join(TMP, f"tie-close-{o}.png")
+        render(sv, pn)
+        sh(pn, "-bordercolor", INK, "-border", "2", pn)
+        comp(png, pn, x0 + i * colw + 5, 705, png)
+    # Kit close-up: same framing (tie in centre), Kit's card render scaled to match
+    kc = os.path.join(TMP, "kit-close.png")
+    sh(KIT, "-crop", "296x197+387+564", "+repage", "-resize", "420x280!", "-bordercolor", INK,
+       "-border", "2", kc)
+    comp(png, kc, xk + 5, 705, png)
+    kcard = os.path.join(TMP, "kit-card.png")
+    sh(KIT, "-crop", "820x880+190+230", "+repage", "-resize", "420x450", kcard)
+    comp(png, kcard, xk + 5, 150, png)
+
+    # game camera thumbs
+    for i, o in enumerate("ABC"):
+        v = front("tie", o, sw=10.5)
+        one, x3 = thumb_tile(v, f"thumb-{o}")
+        _, x3m = thumb_tile(v, f"thumb-{o}-mark", mark=True)
+        x = x0 + i * colw
+        comp(png, x3, x + 5, 1030, png)
+        comp(png, x3m, x + 195, 1030, png)
+        comp(png, one, x + 385, 1090, png)
+    kg = os.path.join(TMP, "kit-game-x3.png")
+    sh(os.path.join(V5, "lineup-grass-crop-x3.png"), "-crop", "180x270+590+60", "+repage", kg)
+    comp(png, kg, xk + 5, 1030, png)
+    kg1 = os.path.join(TMP, "kit-game-1x.png")
+    sh(kg, "-sample", "33.3333%", kg1)
+    comp(png, kg1, xk + 200, 1090, png)
+    gh = os.path.join(TMP, "v5-ghost-x3.png")
+    sh(os.path.join(V5, "lineup-grass-crop-x3.png"), "-crop", "130x150+430+110", "+repage", gh)
+    comp(png, gh, xk + 290, 1150, png)
+    sh(png, "-font", "Helvetica", "-pointsize", "15", "-fill", INK, "-annotate",
+       f"+{xk + 290}+1142", "v5 ghost (x3)", "-annotate", f"+{xk + 200}+1084", "Kit 1x", png)
+    return png
+
+
+# ============================================================ model sheet
+def arrow_arc(cx, cy, r, a0, a1, label, lx, ly):
+    import math
+    p0 = (cx + r * math.cos(math.radians(a0)), cy - r * math.sin(math.radians(a0)))
+    p1 = (cx + r * math.cos(math.radians(a1)), cy - r * math.sin(math.radians(a1)))
+    d = f"M{p0[0]:.1f},{p0[1]:.1f} A{r},{r} 0 0 0 {p1[0]:.1f},{p1[1]:.1f}"
+    # arrow head at p1, pointing along the arc (counter-clockwise on screen)
+    t = math.radians(a1 + 90)
+    hx, hy = math.cos(t), -math.sin(t)
+    nx, ny = -hy, hx
+    h1 = (p1[0] - hx * 12 + nx * 6, p1[1] - hy * 12 + ny * 6)
+    h2 = (p1[0] - hx * 12 - nx * 6, p1[1] - hy * 12 - ny * 6)
+    return (path(d, "none", NOTE, 3) +
+            path(f"M{p1[0]:.1f},{p1[1]:.1f} L{h1[0]:.1f},{h1[1]:.1f} L{h2[0]:.1f},{h2[1]:.1f} Z",
+                 NOTE, NOTE, 1) + text(lx, ly, label, 17, "bold", NOTE))
+
+
+def sheet():
+    W, H = 2400, 1860
+    i = [text(30, 50, "GHOSTED: Ghostie model sheet, sketch v1 (Illustrator, 2026-11-25)", 32, "bold"),
+         text(30, 82, "Picked tie: B, slipped (hangs down, off-centre on the arm_L side). Body, crown, "
+              "5-scallop hem, size, colours and the tilted rest pose are kept from v5. "
+              "Hand-drawn Bezier curves; palette rows 16, 27, 10, 22 only.", 18)]
+    # --- row 1: turnaround
+    y1, s1 = 130, 1.38
+    views = [("FRONT", front("tie", "B")), ("3/4 (front turned to viewer-left, as v5 hero)",
+             three_quarter("tie")), ("SIDE (arm_L toward viewer)", side("tie")), ("BACK", back())]
+    for k, (lab, v) in enumerate(views):
+        x = 30 + k * 450
+        i.append(text(x + 10, y1, lab, 20, "bold"))
+        i.append(shadow(x, y1 + 10, s1))
+        i.append(place(v, x, y1 + 10, s1))
+    # guide lines across the turnaround: crown, eye line, arm tips, hem
+    for yy, lab in [(36, "crown"), (150, "eye line"), (230, "arm_L tip"), (300, "hem cusps")]:
+        gy = y1 + 10 + yy * s1
+        i.append(f'<path d="M30,{gy:.0f} L1810,{gy:.0f}" fill="none" stroke="{NOTE}" '
+                 f'stroke-width="1" stroke-dasharray="6,6" stroke-opacity="0.55"/>')
+        i.append(text(1815, gy + 5, lab, 15, "normal", NOTE))
+
+    # --- palette and notes column
+    px = 1930
+    i.append(text(px, y1, "PALETTE (only these)", 20, "bold"))
+    for k, (hexv, lab) in enumerate([(BODY, "16 body #F8F4EA"), (ACC, "27 glasses, headset #C8C0D8"),
+                                     (TIE, "10 tie #C9A6D6"), (INK, "22 ink #2B1E16")]):
+        yy = y1 + 20 + k * 46
+        i.append(f'<rect x="{px}" y="{yy}" width="40" height="34" rx="6" fill="{hexv}" '
+                 f'stroke="{INK}" stroke-width="2"/>')
+        i.append(text(px + 52, yy + 23, lab, 17))
+    i.append(text(px, y1 + 225, "Shade: neutral band (x178/255", 16))
+    i.append(text(px, y1 + 247, "in the toon ramp), shown here", 16))
+    i.append(text(px, y1 + 269, "as a flat tint. No hue shift.", 16))
+    notes = ["SHAPE RULES", "- Dome + crown: one smooth arc,", "  no facets at card size.",
+             "- Hem: 5 soft lobes round the", "  body, 3 seen from the front.",
+             "- Arms: soft flaps that GROW", "  out of the side. One outline,", "  no crease, no wedge, no hook.",
+             "- arm_L (+x) higher; tips below", "  the eye line at all times.",
+             "- Rest tilt: 4 deg, hem lower", "  on the viewer-left.",
+             "- Eyes: two tall ink ovals.", "- NO MOUTH, nothing centred", "  under the eyes, ever."]
+    for k, ln in enumerate(notes):
+        i.append(text(px, y1 + 320 + k * 23, ln, 16, "bold" if k == 0 else "normal"))
+
+    # --- row 2: variants + wave
+    y2, s2 = 760, 1.18
+    i.append(text(30, y2 - 22, "VARIANTS (swap parts; body is the same)", 22, "bold", NOTE))
+    var = [("tie (B, slipped)", front("tie", "B")), ("glasses: round rims, no facets", front("glasses")),
+           ("headset: smooth band, oval cup", front("headset"))]
+    for k, (lab, v) in enumerate(var):
+        x = 30 + k * 380
+        i.append(text(x + 10, y2 + 10, lab, 18, "bold"))
+        i.append(shadow(x, y2 + 20, s2))
+        i.append(place(v, x, y2 + 20, s2))
+    xw = 30 + 3 * 380 + 30
+    i.append(text(xw + 10, y2 + 10, "WAVE: arm_L 0 to +40 deg up from rest", 18, "bold"))
+    i.append(shadow(xw, y2 + 20, s2))
+    i.append(place(front("tie", "B"), xw, y2 + 20, s2).replace(
+        f'fill="{BODY}" stroke="{INK}"', f'fill="none" stroke="{NOTE}" stroke-opacity="0.35"', 1))
+    i.append(place(front("tie", "B", wave=True), xw, y2 + 20, s2))
+    # arc arrow round the arm_L root (local 249,213 -> sheet)
+    import math
+    rx_, ry_ = 249, 213
+    ang = math.radians(-4)
+    lx = 150 + (rx_ - 150) * math.cos(ang) - (ry_ - 300) * math.sin(ang)
+    ly = 300 + (rx_ - 150) * math.sin(ang) + (ry_ - 300) * math.cos(ang)
+    ax, ay = xw + lx * s2, y2 + 20 + ly * s2
+    i.append(arrow_arc(ax, ay, 62, -22, 20, "+40 deg", ax + 20, ay - 78))
+    i.append(text(xw + 10, y2 + 470, "Faint blue = rest pose. The flap bends at its root;", 15))
+    i.append(text(xw + 10, y2 + 490, "the body outline stays closed at the root.", 15))
+    # float bob arrow
+    bx = xw + 30
+    i.append(path(f"M{bx},{y2 + 150} L{bx},{y2 + 260}", "none", NOTE, 3))
+    i.append(path(f"M{bx},{y2 + 140} L{bx - 7},{y2 + 154} L{bx + 7},{y2 + 154} Z", NOTE, NOTE, 1))
+    i.append(path(f"M{bx},{y2 + 270} L{bx - 7},{y2 + 256} L{bx + 7},{y2 + 256} Z", NOTE, NOTE, 1))
+    i.append(text(bx - 22, y2 + 128, "float bob", 15, "bold", NOTE))
+
+    # --- row 3: silhouette, game camera, tie spec
+    y3 = 1330
+    i.append(text(30, y3 - 12, "64 px SILHOUETTE (1x and x4)", 20, "bold", NOTE))
+    i.append(text(640, y3 - 12, "GAME CAMERA x3 (26 m, pitch 42), next to Kit; 1x below", 20, "bold", NOTE))
+    i.append(text(1560, y3 - 12, "TIE B BUILD SPEC (front view units, body = 280 tall)", 20, "bold", NOTE))
+    # tie spec drawing
+    sx, sy, ss = 1560, y3 + 10, 2.0
+    cx, cy = 222, 228
+    i.append(path(f"M{sx},{sy} L{sx + 420},{sy} L{sx + 420},{sy + 440} L{sx},{sy + 440} Z", BODY, INK, 2))
+    i.append(f'<g transform="translate({sx + 160 - cx * ss},{sy + 220 - cy * ss}) scale({ss})">'
+             f'{tie_parts("B", 5)}</g>')
+    spec = ["Knot: trapezoid 18 > 12 wide, 15 tall;",
+            "  top at 51% of body height (eye",
+            "  line 41%), centre +69 from the",
+            "  body centre (2/3 of the half-width).",
+            "Blade: 10 at the knot, 28 at the V",
+            "  shoulders, 77 long; V point 18 deep,",
+            "  symmetric. Swings 7 toward +x.",
+            "Collar: 2 wings, 42 span, body",
+            "  colour, thin ink. Ink: closed line",
+            "  round knot, blade, V, collar.",
+            "Est. 60-80 tris with the ink plate",
+            "  (budget 90). Viet to confirm."]
+    for k, ln in enumerate(spec):
+        i.append(text(1995, y3 + 30 + k * 23, ln, 15))
+    svg = write("ghostie-sheet.svg", W, H, "".join(i), CREAM)
+    png = os.path.join(OUT, "ghostie-sheet.png")
+    render(svg, png)
+
+    # silhouette 64 px
+    sil = (f'<g transform="translate(3,-2) scale(0.195)"><g transform="rotate(-4,150,300)">'
+           f'{front("tie", "B", silhouette=True)}</g></g>')
+    sv = write("silhouette-64.svg", 64, 64, sil, "#FFFFFF")
+    s1x = os.path.join(OUT, "silhouette-64.png")
+    render(sv, s1x)
+    s4 = os.path.join(TMP, "sil-x4.png")
+    sh(s1x, "-scale", "400%", "-bordercolor", INK, "-border", "1", s4)
+    comp(png, s1x, 40, y3 + 10, png)
+    comp(png, s4, 130, y3 + 10, png)
+
+    # game camera: three variants x3 + Kit x3
+    xs = 640
+    for k, var_ in enumerate(["tie", "glasses", "headset"]):
+        one, x3 = thumb_tile(front(var_, "B", sw=10.5), f"sheet-thumb-{var_}")
+        comp(png, x3, xs + k * 185, y3 + 10, png)
+        comp(png, one, xs + k * 185 + 60, y3 + 215, png)
+    kg = os.path.join(TMP, "kit-game-x3.png")
+    comp(png, kg, xs + 3 * 185, y3 + 10, png)
+    sh(png, "-font", "Helvetica", "-pointsize", "16", "-fill", INK,
+       "-annotate", f"+{xs}+{y3 + 300}", "tie, glasses, headset, then Kit (from v5/lineup-grass-crop-x3.png).",
+       "-annotate", f"+{xs}+{y3 + 322}", "The front view is squashed to 86% for the 42 deg pitch; the real",
+       "-annotate", f"+{xs}+{y3 + 344}", "20 deg yaw turns the +x side (tie side) further from the centre.",
+       png)
+    return png
+
+
+if __name__ == "__main__":
+    which = sys.argv[1:] or ["tie"]
+    if "tie" in which:
+        print(tie_options())
+    if "sheet" in which:
+        print(sheet())

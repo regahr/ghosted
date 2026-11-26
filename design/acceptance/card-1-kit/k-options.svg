@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="730" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="730" fill="#f8fafc"/>
+<text x="40" y="60" font-size="34" font-weight="bold" fill="#0f172a">Card 1: what happens with Kit v4?</text>
+<rect x="40" y="110" width="420" height="485" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="60" y="150" font-size="26" font-weight="bold" fill="#0f172a">1. Accept as is</text>
+<rect x="70" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="250" font-size="19" fill="#1e1b4b" text-anchor="middle">Kit v4 is locked</text>
+<line x1="250.0" y1="290" x2="250.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="242.0,304 258.0,304 250.0,315" fill="#334155"/>
+<rect x="70" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="345" font-size="19" fill="#1e1b4b" text-anchor="middle">kit.glb goes into the build</text>
+<line x1="250.0" y1="385" x2="250.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="242.0,399 258.0,399 250.0,410" fill="#334155"/>
+<rect x="70" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="250.0" y="440" font-size="19" fill="#1e1b4b" text-anchor="middle">Next card: the Ghosties</text>
+<text x="70" y="525" font-size="18" fill="#475569">Fastest. The stiff case arm</text>
+<text x="70" y="549" font-size="18" fill="#475569">stays (2 seats flagged it).</text>
+<rect x="490" y="110" width="420" height="580" rx="16" fill="#ffffff" stroke="#16a34a" stroke-width="4"/>
+<text x="510" y="150" font-size="26" font-weight="bold" fill="#0f172a">2. Accept + fix the arm</text>
+<rect x="760" y="170" width="130" height="32" rx="16" fill="#16a34a"/><text x="825" y="192" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">My pick</text>
+<rect x="520" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="240" font-size="19" fill="#1e1b4b" text-anchor="middle">Arm back to 20-25 deg,</text>
+<text x="700.0" y="264" font-size="19" fill="#1e1b4b" text-anchor="middle">small elbow bend</text>
+<line x1="700.0" y1="290" x2="700.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="692.0,304 708.0,304 700.0,315" fill="#334155"/>
+<rect x="520" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="335" font-size="19" fill="#1e1b4b" text-anchor="middle">Case hangs under the fist,</text>
+<text x="700.0" y="359" font-size="19" fill="#1e1b4b" text-anchor="middle">handle loop opens again</text>
+<line x1="700.0" y1="385" x2="700.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="692.0,399 708.0,399 700.0,410" fill="#334155"/>
+<rect x="520" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="430" font-size="19" fill="#1e1b4b" text-anchor="middle">Viet, Illustrator, Emil re-check</text>
+<text x="700.0" y="454" font-size="19" fill="#1e1b4b" text-anchor="middle">(nothing else changes)</text>
+<line x1="700.0" y1="480" x2="700.0" y2="502" stroke="#334155" stroke-width="3"/><polygon points="692.0,494 708.0,494 700.0,505" fill="#334155"/>
+<rect x="520" y="505" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="700.0" y="525" font-size="19" fill="#1e1b4b" text-anchor="middle">Kit locked. Before/after</text>
+<text x="700.0" y="549" font-size="19" fill="#1e1b4b" text-anchor="middle">shown on the next card</text>
+<text x="520" y="620" font-size="18" fill="#475569">About 1 small pass.</text>
+<text x="520" y="644" font-size="18" fill="#475569">The fix the seats named.</text>
+<rect x="940" y="110" width="420" height="580" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="960" y="150" font-size="26" font-weight="bold" fill="#0f172a">3. Redo</text>
+<rect x="970" y="220" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="250" font-size="19" fill="#1e1b4b" text-anchor="middle">You say what is wrong</text>
+<line x1="1150.0" y1="290" x2="1150.0" y2="312" stroke="#334155" stroke-width="3"/><polygon points="1142.0,304 1158.0,304 1150.0,315" fill="#334155"/>
+<rect x="970" y="315" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="345" font-size="19" fill="#1e1b4b" text-anchor="middle">Builder makes Kit v5</text>
+<line x1="1150.0" y1="385" x2="1150.0" y2="407" stroke="#334155" stroke-width="3"/><polygon points="1142.0,399 1158.0,399 1150.0,410" fill="#334155"/>
+<rect x="970" y="410" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="440" font-size="19" fill="#1e1b4b" text-anchor="middle">All 5 seats score again</text>
+<line x1="1150.0" y1="480" x2="1150.0" y2="502" stroke="#334155" stroke-width="3"/><polygon points="1142.0,494 1158.0,494 1150.0,505" fill="#334155"/>
+<rect x="970" y="505" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+<text x="1150.0" y="535" font-size="19" fill="#1e1b4b" text-anchor="middle">Card 1 comes back to you</text>
+<text x="970" y="620" font-size="18" fill="#475569">Use this if the look</text>
+<text x="970" y="644" font-size="18" fill="#475569">itself is not right for you.</text>
+</svg>

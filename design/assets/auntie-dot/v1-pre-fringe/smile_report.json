@@ -1,0 +1,28 @@
+{
+ "grass": {
+  "smile_px": 5,
+  "smile_box_wxh_px": [
+   8,
+   2
+  ],
+  "smile_top_below_eye_bottom_px": 2,
+  "smile_luma_min": 20.6,
+  "smile_luma_mean": 51.9,
+  "skin_luma_mean_round_it": 135.2,
+  "eye_luma_mean": 39.3,
+  "darkest_smile_px_vs_skin_contrast": 4.44
+ },
+ "path": {
+  "smile_px": 7,
+  "smile_box_wxh_px": [
+   7,
+   2
+  ],
+  "smile_top_below_eye_bottom_px": 2,
+  "smile_luma_min": 20.6,
+  "smile_luma_mean": 76.3,
+  "skin_luma_mean_round_it": 137.0,
+  "eye_luma_mean": 49.5,
+  "darkest_smile_px_vs_skin_contrast": 4.49
+ }
+}

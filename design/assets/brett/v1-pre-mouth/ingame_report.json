@@ -1,0 +1,550 @@
+{
+ "ingame": {
+  "visibleTris": 1362,
+  "calls": 18
+ },
+ "ingame-front": {
+  "visibleTris": 1362,
+  "calls": 18
+ },
+ "ingame-idle": {
+  "visibleTris": 1362,
+  "calls": 18
+ },
+ "ingame-like": {
+  "visibleTris": 1368,
+  "calls": 20
+ },
+ "ingame-bullets": {
+  "visibleTris": 1387,
+  "calls": 20
+ },
+ "lineup-grass": {
+  "brettTris": 1362,
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "brett": {
+   "feet": [
+    784.9,
+    568.8
+   ],
+   "haloRest": [
+    784.4,
+    495
+   ],
+   "swoopTopRest": [
+    788.3,
+    506.1
+   ],
+   "chin": [
+    784.6,
+    526.9
+   ],
+   "vPoint": [
+    783.8,
+    545
+   ],
+   "hem": [
+    784.2,
+    554.5
+   ]
+  },
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 424,
+   "y1": 498,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_brett_with_halo": {
+   "x0": 757,
+   "x1": 812,
+   "y0": 480,
+   "y1": 575,
+   "heightPx": 96,
+   "widthPx": 56
+  },
+  "px_brett": {
+   "x0": 757,
+   "x1": 812,
+   "y0": 495,
+   "y1": 575,
+   "heightPx": 81,
+   "widthPx": 56
+  },
+  "px_brett_at_kit_spot": {
+   "x0": 859,
+   "x1": 911,
+   "y0": 419,
+   "y1": 497,
+   "heightPx": 79,
+   "widthPx": 53
+  },
+  "px_brett_at_kit_spot_with_halo": {
+   "x0": 859,
+   "x1": 911,
+   "y0": 405,
+   "y1": 497,
+   "heightPx": 93,
+   "widthPx": 53
+  },
+  "px_brett_at_kit_spot_no_carry": {
+   "x0": 859,
+   "x1": 911,
+   "y0": 420,
+   "y1": 497,
+   "heightPx": 78,
+   "widthPx": 53
+  },
+  "hair": {
+   "eyePixels": {
+    "x0": 776,
+    "x1": 790,
+    "y0": 520,
+    "y1": 524,
+    "n": 23
+   },
+   "eyeTopPx": 520,
+   "hairLowestInEyeColumnsPx": 511,
+   "hairLowestAnywherePx": 512,
+   "gapPx": 9,
+   "grinLinePixels": {
+    "x0": 775,
+    "x1": 791,
+    "y0": 524,
+    "y1": 527,
+    "n": 4
+   },
+   "teethPixels": {
+    "x0": 777,
+    "x1": 788,
+    "y0": 525,
+    "y1": 527,
+    "n": 18
+   },
+   "haloPixels": {
+    "x0": 772,
+    "x1": 797,
+    "y0": 482,
+    "y1": 497,
+    "n": 177
+   },
+   "grinTopBelowEyeBottomPx": 0,
+   "forehead": {
+    "browPixels": {
+     "x0": 778,
+     "x1": 792,
+     "y0": 516,
+     "y1": 517,
+     "n": 7
+    },
+    "columns": 7,
+    "minPx": 5,
+    "maxPx": 8,
+    "medianPx": 6
+   }
+  },
+  "hair_no_carry": {
+   "eyePixels": {
+    "x0": 776,
+    "x1": 790,
+    "y0": 524,
+    "y1": 527,
+    "n": 17
+   },
+   "eyeTopPx": 524,
+   "hairLowestInEyeColumnsPx": 515,
+   "hairLowestAnywherePx": 515,
+   "gapPx": 9,
+   "grinLinePixels": {
+    "x0": 1000000000,
+    "x1": -1,
+    "y0": 1000000000,
+    "y1": -1,
+    "n": 0
+   },
+   "teethPixels": {
+    "x0": 777,
+    "x1": 788,
+    "y0": 528,
+    "y1": 530,
+    "n": 11
+   },
+   "haloPixels": {
+    "x0": 771,
+    "x1": 797,
+    "y0": 487,
+    "y1": 502,
+    "n": 179
+   },
+   "grinTopBelowEyeBottomPx": 1,
+   "forehead": {
+    "browPixels": {
+     "x0": 777,
+     "x1": 791,
+     "y0": 520,
+     "y1": 521,
+     "n": 4
+    },
+    "columns": 4,
+    "minPx": 7,
+    "maxPx": 8,
+    "medianPx": 8
+   }
+  },
+  "ratio_brett_at_kit_spot": 1.053,
+  "ratio_brett_own_spot": 1.08
+ },
+ "lineup-path": {
+  "brettTris": 1362,
+  "kitTop": [
+   886.9,
+   435.8
+  ],
+  "kitBot": [
+   884.7,
+   490.7
+  ],
+  "brett": {
+   "feet": [
+    576.8,
+    414.9
+   ],
+   "haloRest": [
+    569.4,
+    342.1
+   ],
+   "swoopTopRest": [
+    572.6,
+    352
+   ],
+   "chin": [
+    572.6,
+    373.5
+   ],
+   "vPoint": [
+    572.3,
+    390.4
+   ],
+   "hem": [
+    574,
+    400.1
+   ]
+  },
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 423,
+   "y1": 497,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_brett_with_halo": {
+   "x0": 549,
+   "x1": 599,
+   "y0": 329,
+   "y1": 419,
+   "heightPx": 91,
+   "widthPx": 51
+  },
+  "px_brett": {
+   "x0": 549,
+   "x1": 599,
+   "y0": 344,
+   "y1": 419,
+   "heightPx": 76,
+   "widthPx": 51
+  },
+  "px_brett_at_kit_spot": {
+   "x0": 859,
+   "x1": 911,
+   "y0": 418,
+   "y1": 496,
+   "heightPx": 79,
+   "widthPx": 53
+  },
+  "px_brett_at_kit_spot_with_halo": {
+   "x0": 859,
+   "x1": 911,
+   "y0": 404,
+   "y1": 496,
+   "heightPx": 93,
+   "widthPx": 53
+  },
+  "px_brett_at_kit_spot_no_carry": {
+   "x0": 859,
+   "x1": 911,
+   "y0": 419,
+   "y1": 496,
+   "heightPx": 78,
+   "widthPx": 53
+  },
+  "hair": {
+   "eyePixels": {
+    "x0": 563,
+    "x1": 575,
+    "y0": 365,
+    "y1": 369,
+    "n": 19
+   },
+   "eyeTopPx": 365,
+   "hairLowestInEyeColumnsPx": 357,
+   "hairLowestAnywherePx": 358,
+   "gapPx": 8,
+   "grinLinePixels": {
+    "x0": 568,
+    "x1": 568,
+    "y0": 373,
+    "y1": 373,
+    "n": 1
+   },
+   "teethPixels": {
+    "x0": 563,
+    "x1": 575,
+    "y0": 370,
+    "y1": 372,
+    "n": 13
+   },
+   "haloPixels": {
+    "x0": 559,
+    "x1": 582,
+    "y0": 331,
+    "y1": 344,
+    "n": 144
+   },
+   "grinTopBelowEyeBottomPx": 1,
+   "forehead": {
+    "browPixels": {
+     "x0": 565,
+     "x1": 576,
+     "y0": 362,
+     "y1": 362,
+     "n": 5
+    },
+    "columns": 5,
+    "minPx": 4,
+    "maxPx": 5,
+    "medianPx": 5
+   }
+  },
+  "hair_no_carry": {
+   "eyePixels": {
+    "x0": 563,
+    "x1": 575,
+    "y0": 369,
+    "y1": 372,
+    "n": 16
+   },
+   "eyeTopPx": 369,
+   "hairLowestInEyeColumnsPx": 361,
+   "hairLowestAnywherePx": 361,
+   "gapPx": 8,
+   "grinLinePixels": {
+    "x0": 566,
+    "x1": 576,
+    "y0": 374,
+    "y1": 376,
+    "n": 3
+   },
+   "teethPixels": {
+    "x0": 563,
+    "x1": 575,
+    "y0": 373,
+    "y1": 375,
+    "n": 12
+   },
+   "haloPixels": {
+    "x0": 557,
+    "x1": 580,
+    "y0": 335,
+    "y1": 348,
+    "n": 144
+   },
+   "grinTopBelowEyeBottomPx": 1,
+   "forehead": {
+    "browPixels": {
+     "x0": 562,
+     "x1": 576,
+     "y0": 365,
+     "y1": 366,
+     "n": 9
+    },
+    "columns": 9,
+    "minPx": 5,
+    "maxPx": 7,
+    "medianPx": 6
+   }
+  },
+  "ratio_brett_at_kit_spot": 1.053,
+  "ratio_brett_own_spot": 1.013
+ },
+ "lineup-grass-idle": {
+  "brettTris": 1362,
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "brett": {
+   "feet": [
+    784.9,
+    568.8
+   ],
+   "haloRest": [
+    784.4,
+    495
+   ],
+   "swoopTopRest": [
+    788.3,
+    506.1
+   ],
+   "chin": [
+    784.6,
+    526.9
+   ],
+   "vPoint": [
+    783.8,
+    545
+   ],
+   "hem": [
+    784.2,
+    554.5
+   ]
+  },
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-grass-like": {
+  "brettTris": 1368,
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "brett": {
+   "feet": [
+    784.9,
+    568.8
+   ],
+   "haloRest": [
+    784.4,
+    495
+   ],
+   "swoopTopRest": [
+    788.3,
+    506.1
+   ],
+   "chin": [
+    784.6,
+    526.9
+   ],
+   "vPoint": [
+    783.8,
+    545
+   ],
+   "hem": [
+    784.2,
+    554.5
+   ]
+  },
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-grass-bullets": {
+  "brettTris": 1387,
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "brett": {
+   "feet": [
+    784.9,
+    568.8
+   ],
+   "haloRest": [
+    784.4,
+    495
+   ],
+   "swoopTopRest": [
+    788.3,
+    506.1
+   ],
+   "chin": [
+    784.6,
+    526.9
+   ],
+   "vPoint": [
+    783.8,
+    545
+   ],
+   "hem": [
+    784.2,
+    554.5
+   ]
+  },
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-grass-nocarry": {
+  "brettTris": 1362,
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "brett": {
+   "feet": [
+    784.9,
+    568.8
+   ],
+   "haloRest": [
+    784.4,
+    495
+   ],
+   "swoopTopRest": [
+    788.3,
+    506.1
+   ],
+   "chin": [
+    784.6,
+    526.9
+   ],
+   "vPoint": [
+    783.8,
+    545
+   ],
+   "hem": [
+    784.2,
+    554.5
+   ]
+  },
+  "outlineW_m": 0.0213424816684965
+ },
+ "visibleTris": {
+  "rest": 1362,
+  "idle": 1362,
+  "like": 1368,
+  "bullets": 1387,
+  "talk": 1351,
+  "lost": 1350
+ }
+}

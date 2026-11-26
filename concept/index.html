@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ghosted: concept mock</title>
+<style>
+  :root{
+    --bg:#fde7c8; --ink:#3b2a1e; --ink2:#7a5a44; --card:#fffaf2; --line:#e9cfae;
+    --blue:#3b82f6; --green:#22a06b; --red:#e2574c; --gold:#f2b134; --purple:#8b5cf6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:var(--bg);font-family:"Nunito","Avenir Next","Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+  #c{position:absolute;inset:0}
+  .layer{position:absolute;inset:0;pointer-events:none}
+  .hidden{opacity:0;pointer-events:none}
+  .fade{transition:opacity .35s cubic-bezier(.23,1,.32,1), transform .35s cubic-bezier(.23,1,.32,1), filter .35s}
+  /* HUD */
+  #hud{position:absolute;top:16px;left:16px;right:16px;display:flex;gap:10px;align-items:center}
+  .stat{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:8px 14px;display:flex;gap:8px;align-items:center;font-weight:800;font-size:17px;box-shadow:0 3px 0 var(--line)}
+  .stat small{font-weight:700;color:var(--ink2);font-size:13px}
+  .stat .bar{width:90px;height:10px;background:#f3dcc0;border-radius:6px;overflow:hidden}
+  .stat .bar i{display:block;height:100%;background:var(--red);border-radius:6px;transition:width .5s}
+  #rate{margin-left:auto;background:#fff;border:2px dashed var(--red);color:var(--red)}
+  #weekbar{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:6px;background:var(--card);border:2px solid var(--line);padding:8px 12px;border-radius:14px;box-shadow:0 3px 0 var(--line)}
+  #weekbar span{width:26px;height:26px;border-radius:8px;background:#f3dcc0;display:grid;place-items:center;font-size:12px;font-weight:800;color:var(--ink2)}
+  #weekbar span.on{background:var(--blue);color:#fff}
+  #weekbar span.done{background:#cfe3ff;color:#2a5bb0}
+  #hope{position:absolute;bottom:16px;right:16px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:8px 14px;font-weight:800;box-shadow:0 3px 0 var(--line)}
+  #hope .bar{width:160px;height:12px;background:#f3dcc0;border-radius:6px;overflow:hidden;margin-top:4px}
+  #hope .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#ffd76e);transition:width .8s}
+  #copium{position:absolute;bottom:16px;left:16px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:8px 14px;font-weight:800;box-shadow:0 3px 0 var(--line)}
+  /* toast */
+  #toast{position:absolute;top:84px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;font-size:18px}
+  /* overlay panel */
+  .panel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);opacity:0;filter:blur(2px);background:var(--card);border:3px solid var(--line);border-radius:22px;box-shadow:0 10px 0 var(--line),0 30px 60px rgba(80,40,10,.25);padding:22px 26px}
+  .panel.show{transform:translate(-50%,-50%) scale(1);opacity:1;filter:none}
+  .panel h2{margin:0 0 4px;font-size:28px}
+  .panel .rule{color:var(--ink2);font-weight:700;margin-bottom:12px}
+  .timer{height:12px;background:#f3dcc0;border-radius:6px;overflow:hidden;margin:6px 0 12px}
+  .timer i{display:block;height:100%;width:100%;background:var(--blue);transition:width linear}
+  /* title */
+  #title{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,#fff3e0,#fbd9ad);z-index:20}
+  #title h1{font-size:92px;margin:0;letter-spacing:-2px;color:var(--ink)}
+  #title h1 b{color:var(--purple)}
+  #title p{font-size:22px;color:var(--ink2);font-weight:700;margin:6px 0 36px}
+  .gbtn{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #dadce0;border-radius:8px;padding:12px 22px;font-family:Roboto,Arial,sans-serif;font-size:18px;color:#3c4043;font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,.12);transition:transform .12s}
+  .gbtn.press{transform:scale(.97)}
+  /* cv tetris */
+  #cvgrid{display:grid;grid-template-columns:repeat(8,46px);grid-template-rows:repeat(7,46px);gap:4px;background:#f3dcc0;padding:6px;border-radius:12px;position:relative}
+  #cvgrid div{border-radius:8px}
+  .blk{position:absolute;border-radius:9px;color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center;transition:top .25s cubic-bezier(.23,1,.32,1),left .2s;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15)}
+  /* ats */
+  #ats{position:relative;width:640px;height:380px;background:linear-gradient(#e7f0ff,#fff);border-radius:14px;overflow:hidden;border:2px solid #cfe0ff}
+  .word{position:absolute;padding:6px 12px;border-radius:999px;font-weight:800;font-size:16px;white-space:nowrap}
+  .good{background:#d9f5e6;color:#14784b;border:2px solid #8fdcb5}
+  .bad{background:#ffe1dd;color:#b2382e;border:2px solid #f5aaa2}
+  #basket{position:absolute;bottom:14px;width:120px;height:46px;background:var(--blue);border-radius:10px 10px 20px 20px;color:#fff;font-weight:800;display:grid;place-items:center;transition:left .18s cubic-bezier(.23,1,.32,1)}
+  /* gag */
+  #gag{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);text-align:center}
+  #gag .big{font-size:64px;font-weight:900;color:var(--purple);text-shadow:0 4px 0 #fff}
+  #gag .sub{font-size:22px;font-weight:800;background:#fff;padding:8px 16px;border-radius:12px;display:inline-block;margin-top:8px;border:2px solid var(--line)}
+  .coin{display:inline-block;background:var(--gold);color:#5a3b00;font-weight:900;padding:6px 14px;border-radius:999px;margin-top:10px;box-shadow:0 3px 0 #c98a10}
+  #stamp{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%) rotate(-12deg) scale(2.2);opacity:0;border:6px solid var(--red);color:var(--red);font-size:44px;font-weight:900;padding:6px 22px;border-radius:12px;letter-spacing:2px;background:rgba(255,255,255,.85);transition:transform .28s cubic-bezier(.34,1.56,.64,1),opacity .15s}
+  #stamp.on{opacity:1;transform:translate(-50%,-50%) rotate(-12deg) scale(1)}
+  #plane{position:absolute;font-size:80px;left:1300px;top:120px;transition:left 0.9s cubic-bezier(.23,1,.32,1),top .9s cubic-bezier(.23,1,.32,1),transform .9s}
+  /* interview */
+  .q{font-size:24px;font-weight:800;margin:6px 0 16px}
+  .choice{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 16px;font-size:18px;font-weight:700;margin:8px 0;color:var(--ink);transition:transform .12s,background .2s,border-color .2s;font-family:inherit}
+  .choice.press{transform:scale(.97)}
+  .choice.pick{background:#e8f1ff;border-color:var(--blue)}
+  .faces{display:flex;gap:18px;justify-content:center;margin-bottom:6px}
+  .face{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;font-size:40px;background:#fff;border:3px solid var(--line)}
+  /* offer */
+  #offer{position:absolute;inset:0;display:grid;place-items:center}
+  #letter{background:#fff;border:3px solid var(--gold);border-radius:18px;padding:30px 44px;text-align:center;box-shadow:0 10px 0 #e9b54a,0 40px 80px rgba(120,70,0,.3);transform:translateY(60px) scale(.9);opacity:0;transition:all .6s cubic-bezier(.34,1.4,.64,1)}
+  #letter.on{transform:none;opacity:1}
+  #letter h1{font-size:64px;margin:0;color:var(--green)}
+  #letter p{font-size:22px;font-weight:700;margin:8px 0 0}
+  .conf{position:absolute;width:12px;height:18px;border-radius:3px}
+  /* linkedup */
+  #post{width:640px}
+  .ph{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+  .av{width:56px;height:56px;border-radius:50%;background:var(--blue);display:grid;place-items:center;color:#fff;font-size:26px;font-weight:900}
+  .ln{opacity:0;transform:translateY(6px);transition:all .3s cubic-bezier(.23,1,.32,1);font-size:18px;line-height:1.45;margin:2px 0}
+  .ln.on{opacity:1;transform:none}
+  .card{margin-top:12px;border-radius:14px;overflow:hidden;border:2px solid var(--line)}
+  .card .img{height:120px;background:linear-gradient(135deg,#ffd9a0,#ffb37a 60%,#8b5cf6);display:flex;align-items:center;padding:0 22px;color:#fff;font-size:30px;font-weight:900;text-shadow:0 2px 0 rgba(0,0,0,.15)}
+  .react{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-weight:800;color:var(--ink2)}
+  .btns{display:flex;gap:10px;margin-top:14px}
+  .btn{flex:1;border:none;border-radius:12px;padding:14px;font-size:18px;font-weight:800;font-family:inherit;transition:transform .12s}
+  .btn.press{transform:scale(.97)}
+  .b1{background:#f3dcc0;color:var(--ink)}
+  .b2{background:#0a66c2;color:#fff}
+  /* cursor */
+  #cur{position:absolute;left:640px;top:400px;width:28px;height:28px;z-index:50;transition:left .7s cubic-bezier(.23,1,.32,1),top .7s cubic-bezier(.23,1,.32,1)}
+  #cur svg{filter:drop-shadow(0 2px 2px rgba(0,0,0,.35))}
+  #label{position:absolute;top:76px;right:16px;z-index:60;background:rgba(59,42,30,.85);color:#fff;font-size:13px;font-weight:700;padding:4px 10px;border-radius:8px}
+  #endcard{position:absolute;inset:0;background:var(--ink);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:70}
+  #endcard h1{font-size:54px;margin:0}
+  #endcard p{font-size:22px;opacity:.8}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="hudwrap" class="layer fade hidden">
+  <div id="hud">
+    <div class="stat">❤️ Morale <div class="bar"><i id="morale" style="width:100%"></i></div></div>
+    <div class="stat">💰 Savings <span id="savings">$1,200</span></div>
+    <div class="stat">📨 <span id="apps">0</span> sent <small>/</small> <span id="replies">0</span> replies</div>
+    <div class="stat" id="rate">Acceptance rate: 2% 🙃</div>
+  </div>
+  <div id="copium">🪙 Copium <span id="cop">0</span></div>
+  <div id="weekbar"></div>
+  <div id="hope">Hope meter (pity counter)<div class="bar"><i id="hopebar"></i></div></div>
+</div>
+
+<div id="toast" class="fade hidden"></div>
+
+<div id="title">
+  <h1>GHOST<b>ED</b></h1>
+  <p>A job hunt roguelike. Acceptance rate: very low. Snacks: unlimited.</p>
+  <div class="gbtn" id="gbtn">
+    <svg width="22" height="22" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 7l7.4 5.7c4.3-4 6.9-9.9 6.9-17.2z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C1 16.4 0 20.1 0 24s1 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>
+    Sign in with Google
+  </div>
+</div>
+
+<div id="pCV" class="panel fade">
+  <h2>🧩 CV Tetris</h2>
+  <div class="rule">Fit your skills into one page. Full rows clear. 40 s.</div>
+  <div class="timer"><i id="cvT"></i></div>
+  <div id="cvgrid"></div>
+</div>
+
+<div id="pATS" class="panel fade">
+  <h2>🤖 ATS Catch</h2>
+  <div class="rule">Catch the keywords the robot likes. Dodge the red flags.</div>
+  <div class="timer"><i id="atsT"></i></div>
+  <div id="ats"><div id="basket">Your CV</div></div>
+</div>
+
+<div id="pINT" class="panel fade" style="width:620px">
+  <h2>🎤 Panel Interview</h2>
+  <div class="rule">3 interviewers. 1 question. No pressure.</div>
+  <div class="faces"><div class="face">🧐</div><div class="face">😐</div><div class="face" id="f3">🙂</div></div>
+  <div class="q">"Where do you see yourself in 5 years?"</div>
+  <button class="choice" id="c1">"In your seat. Lovingly."</button>
+  <button class="choice" id="c2">"Growing with this team and shipping things people use."</button>
+  <button class="choice" id="c3">"Honestly? Asleep."</button>
+</div>
+
+<div id="pPOST" class="panel fade">
+  <div id="post">
+    <div class="ph"><div class="av">R</div><div><b style="font-size:20px">Rega</b><br><small style="color:var(--ink2);font-weight:700">LinkedUp · now · 🌐</small></div></div>
+    <div class="ln">I'm thrilled to announce that I'm starting a new position as</div>
+    <div class="ln"><b>Senior Junior Developer at Definitely Real Corp</b> 🎉</div>
+    <div class="ln">After 47 applications, 31 ghosts and 1 take-home that was a free product,</div>
+    <div class="ln">I learned one thing: the right door only needs to open once.</div>
+    <div class="ln">#OpenToWork → #Closed 🙏</div>
+    <div class="card"><div class="img">I got the job. Season 3, week 11.</div></div>
+    <div class="react"><span>👏❤️💡 <span id="likes">0</span></span><span>Run time 24:10</span></div>
+    <div class="btns"><button class="btn b1" id="copy">📋 Copy text</button><button class="btn b2" id="share">Share on LinkedIn</button></div>
+  </div>
+</div>
+
+<div id="gag" class="fade hidden"></div>
+<div id="stamp">UNFORTUNATELY</div>
+<div id="plane">✈️</div>
+<div id="offer" class="hidden"><div id="letter"><div style="font-size:54px">✉️</div><h1>OFFER!</h1><p>Senior Junior Developer · Definitely Real Corp</p><p style="color:var(--ink2);font-size:18px">After 47 applications and 31 ghosts. The pity counter is full.</p></div></div>
+
+<div id="cur"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M3 2l7 19 2.5-7.5L20 11z" fill="#fff" stroke="#222" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+<div id="label">Concept mock · not the real build</div>
+<div id="endcard" class="hidden fade"><h1>GHOSTED</h1><p>Concept mock of the M1 to complete-version picks. Not the real build.</p></div>
+
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+const $ = id => document.getElementById(id);
+const wait = ms => new Promise(r => setTimeout(r, ms));
+window.__shots = [];
+const shot = name => window.__shot ? window.__shot(name) : null;
+
+// ---------- 3D toy diorama ----------
+const canvas = $('c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setPixelRatio(1);
+renderer.setSize(1280, 720, false);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#fde7c8');
+scene.fog = new THREE.Fog('#fde7c8', 40, 80);
+const camera = new THREE.PerspectiveCamera(28, 1280/720, 0.1, 200);
+const target = new THREE.Vector3(0, 0, 0);
+let camYaw = 0.75, camDist = 36, camH = 24;
+function placeCam(){ camera.position.set(target.x + Math.sin(camYaw)*camDist, camH, target.z + Math.cos(camYaw)*camDist); camera.lookAt(target); }
+placeCam();
+
+const grad = new THREE.DataTexture(new Uint8Array([120,120,120,255, 255,255,255,255]), 2, 1);
+grad.minFilter = grad.magFilter = THREE.NearestFilter; grad.needsUpdate = true;
+const toon = c => new THREE.MeshToonMaterial({color:c, gradientMap:grad});
+
+scene.add(new THREE.HemisphereLight('#fff6e8', '#d9a877', 1.6));
+const sun = new THREE.DirectionalLight('#fff1dc', 2.2);
+sun.position.set(12, 22, 8); sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, {left:-24,right:24,top:24,bottom:-24});
+scene.add(sun);
+
+// base slab (diorama block)
+const base = new THREE.Mesh(new THREE.BoxGeometry(30, 1.2, 30), toon('#e9c08f'));
+base.position.y = -0.6; base.receiveShadow = true; scene.add(base);
+const grass = new THREE.Mesh(new THREE.BoxGeometry(29.4, 0.2, 29.4), toon('#b9d98a'));
+grass.position.y = 0.1; grass.receiveShadow = true; scene.add(grass);
+// roads
+for (const [w,d,x,z] of [[29.4,3,0,0],[3,29.4,0,0]]) {
+  const r = new THREE.Mesh(new THREE.BoxGeometry(w,0.22,d), toon('#d8c3a5')); r.position.set(x,0.12,z); r.receiveShadow = true; scene.add(r);
+}
+function building(x, z, w, d, h, color, roof, label){
+  const g = new THREE.Group();
+  const b = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), toon(color)); b.position.y = h/2+0.2; b.castShadow = b.receiveShadow = true; g.add(b);
+  const r = new THREE.Mesh(new THREE.BoxGeometry(w+0.4,0.5,d+0.4), toon(roof)); r.position.y = h+0.45; r.castShadow = true; g.add(r);
+  const winMat = toon('#fff4c9');
+  for (let fy = 1.4; fy < h-0.4; fy += 1.6) for (let fx = -w/2+0.9; fx <= w/2-0.9; fx += 1.4) {
+    const wdw = new THREE.Mesh(new THREE.BoxGeometry(0.7,0.8,0.08), winMat); wdw.position.set(fx, fy, d/2+0.05); g.add(wdw);
+    const wdw2 = wdw.clone(); wdw2.rotation.y = Math.PI/2; wdw2.position.set(w/2+0.05, fy, fx*(d/w)); g.add(wdw2);
+  }
+  const door = new THREE.Mesh(new THREE.BoxGeometry(1,1.4,0.1), toon('#7a4b2a')); door.position.set(0,0.9,d/2+0.06); g.add(door);
+  // sign
+  const cv = document.createElement('canvas'); cv.width = 256; cv.height = 64;
+  const cx = cv.getContext('2d'); cx.fillStyle = '#fffaf2'; cx.fillRect(0,0,256,64); cx.fillStyle = '#3b2a1e'; cx.font = 'bold 30px Arial'; cx.textAlign='center'; cx.fillText(label,128,43);
+  const sign = new THREE.Mesh(new THREE.PlaneGeometry(3.2,0.8), new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cv)}));
+  sign.position.set(0, h+1.4, d/2); g.add(sign);
+  g.position.set(x,0,z); scene.add(g); return g;
+}
+const bJob = building(-8, 7, 5, 4, 3.4, '#f4b183', '#c8553d', 'Job Board Cafe');
+building(8, 8, 5, 5, 6, '#9cc7f0', '#4a7fb5', 'ATS Tower');
+building(-8, -8, 6, 5, 4.6, '#f7d9a8', '#8b5e3c', 'Recruiter HQ');
+const bLnk = building(8, -8, 4.5, 4.5, 9, '#c9b8f5', '#6d4fd6', 'LinkedUp Tower');
+// trees
+for (const [x,z] of [[-13,2],[-3,12],[3,12],[13,2],[-13,-3],[13,-3],[-3,-13],[3,-13],[-12,12],[12,12]]) {
+  const t = new THREE.Group();
+  const tr = new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.25,1,8), toon('#8b5e3c')); tr.position.y = 0.7; t.add(tr);
+  const lf = new THREE.Mesh(new THREE.IcosahedronGeometry(1,0), toon('#7fb46a')); lf.position.y = 1.9; lf.castShadow = true; t.add(lf);
+  t.position.set(x,0,z); scene.add(t);
+}
+// hero
+const hero = new THREE.Group();
+const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.45,0.8,4,12), toon('#3b82f6')); body.position.y = 1.0; body.castShadow = true; hero.add(body);
+const head = new THREE.Mesh(new THREE.SphereGeometry(0.42,16,12), toon('#ffd7b5')); head.position.y = 2.05; head.castShadow = true; hero.add(head);
+const tie = new THREE.Mesh(new THREE.BoxGeometry(0.16,0.5,0.05), toon('#e2574c')); tie.position.set(0,1.3,0.45); hero.add(tie);
+const brief = new THREE.Mesh(new THREE.BoxGeometry(0.5,0.35,0.15), toon('#7a4b2a')); brief.position.set(0.6,0.7,0); hero.add(brief);
+hero.position.set(0,0.2,0); scene.add(hero);
+// click marker ring
+const ring = new THREE.Mesh(new THREE.RingGeometry(0.5,0.7,24), new THREE.MeshBasicMaterial({color:'#3b82f6', transparent:true, opacity:0}));
+ring.rotation.x = -Math.PI/2; ring.position.y = 0.26; scene.add(ring);
+// ghosts
+const ghosts = [];
+function ghost(){
+  const g = new THREE.Group();
+  const m = new THREE.MeshToonMaterial({color:'#ffffff', gradientMap:grad, transparent:true, opacity:0.92});
+  const top = new THREE.Mesh(new THREE.SphereGeometry(0.7,16,12,0,Math.PI*2,0,Math.PI/2), m); top.position.y = 0.6; g.add(top);
+  const skirt = new THREE.Mesh(new THREE.CylinderGeometry(0.7,0.8,0.8,16,1,true), m); skirt.position.y = 0.2; g.add(skirt);
+  const eyeM = new THREE.MeshBasicMaterial({color:'#3b2a1e'});
+  for (const ex of [-0.22,0.22]) { const e = new THREE.Mesh(new THREE.SphereGeometry(0.09,8,8), eyeM); e.position.set(ex,0.75,0.62); g.add(e); }
+  g.visible = false; scene.add(g); ghosts.push(g); return g;
+}
+for (let i=0;i<9;i++) ghost();
+
+let walk = null, t0 = performance.now();
+function walkTo(x, z, ms){ return new Promise(res => { walk = {from:hero.position.clone(), to:new THREE.Vector3(x,0.2,z), start:performance.now(), ms, res};
+  ring.position.x = x; ring.position.z = z; ring.material.opacity = 0.9; hero.rotation.y = Math.atan2(x-hero.position.x, z-hero.position.z); }); }
+let camTween = null;
+function camTo(tx, tz, dist, h, yaw, ms){ return new Promise(res => { camTween = {f:{x:target.x,z:target.z,dist:camDist,h:camH,yaw:camYaw}, t:{x:tx,z:tz,dist,h,yaw}, start:performance.now(), ms, res}; }); }
+const ease = t => 1 - Math.pow(1-t, 3);
+let ghostShow = 0;
+function loop(now){
+  const t = (now - t0)/1000;
+  if (walk) { const k = Math.min(1,(now-walk.start)/walk.ms); hero.position.lerpVectors(walk.from, walk.to, ease(k)); body.position.y = 1.0 + Math.abs(Math.sin(k*18))*0.12; if (k>=1){ const r=walk.res; walk=null; body.position.y=1.0; r(); } }
+  ring.material.opacity *= 0.97;
+  if (camTween) { const k = Math.min(1,(now-camTween.start)/camTween.ms), e = ease(k), f = camTween.f, g = camTween.t;
+    target.x = f.x+(g.x-f.x)*e; target.z = f.z+(g.z-f.z)*e; camDist = f.dist+(g.dist-f.dist)*e; camH = f.h+(g.h-f.h)*e; camYaw = f.yaw+(g.yaw-f.yaw)*e;
+    if (k>=1){ const r = camTween.res; camTween = null; r(); } }
+  else camYaw += Math.sin(t*0.25)*0.0006;
+  placeCam();
+  ghosts.forEach((g,i) => { if (!g.visible) return; g.position.y = 2.2 + Math.sin(t*2+i)*0.3 + g.userData.rise; g.userData.rise += 0.004; g.rotation.y = Math.sin(t+i)*0.4; });
+  bLnk.children[0].material.emissive?.set(0,0,0);
+  renderer.render(scene, camera);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+// ---------- UI helpers ----------
+const cur = $('cur');
+async function moveCursor(x, y, ms=700){ cur.style.transition = `left ${ms}ms cubic-bezier(.23,1,.32,1), top ${ms}ms cubic-bezier(.23,1,.32,1)`; cur.style.left = x+'px'; cur.style.top = y+'px'; await wait(ms+40); }
+async function press(el){ el.classList.add('press'); await wait(140); el.classList.remove('press'); }
+async function toast(msg, ms=1800){ const t = $('toast'); t.textContent = msg; t.classList.remove('hidden'); await wait(ms); t.classList.add('hidden'); }
+function panel(id, on){ const p = $(id); if (on) { p.style.display='block'; requestAnimationFrame(()=>p.classList.add('show')); canvas.style.filter='blur(3px) saturate(.8)'; } else { p.classList.remove('show'); canvas.style.filter='none'; setTimeout(()=>p.style.display='none',350);} }
+for (const id of ['pCV','pATS','pINT','pPOST']) $(id).style.display='none';
+canvas.style.transition = 'filter .35s';
+const wb = $('weekbar'); for (let i=1;i<=12;i++){ const s=document.createElement('span'); s.textContent=i; wb.appendChild(s); }
+function setWeek(n){ [...wb.children].forEach((s,i)=>{ s.className = i+1<n?'done':(i+1===n?'on':''); }); }
+let apps=0, replies=0, cop=0;
+function setStats(){ $('apps').textContent=apps; $('replies').textContent=replies; $('cop').textContent=cop; }
+function proj(v){ const p = v.clone().project(camera); return {x:(p.x+1)/2*1280, y:(1-p.y)/2*720}; }
+function gag(html){ const g=$('gag'); g.innerHTML=html; g.classList.remove('hidden'); g.style.transform='translate(-50%,-50%) scale(.9)'; requestAnimationFrame(()=>g.style.transform='translate(-50%,-50%) scale(1)'); }
+function ungag(){ $('gag').classList.add('hidden'); }
+
+// ---------- timeline ----------
+async function run(){
+  await wait(600);
+  // S0 sign-in
+  await moveCursor(560, 470, 900); await moveCursor(640, 500, 500);
+  await shot('01-sign-in');
+  await press($('gbtn')); await wait(300);
+  $('title').style.transition='opacity .5s'; $('title').style.opacity='0'; await wait(500); $('title').style.display='none';
+  // S1 hub
+  $('hudwrap').classList.remove('hidden'); setWeek(1);
+  await camTo(0,4,30,30,0.0,1400);
+  await toast('Season 3 · Week 1. The city is hiring. Probably.', 1600);
+  await shot('02-hub');
+  const door = proj(new THREE.Vector3(-8,0.2,9.6));
+  await moveCursor(door.x, door.y, 700);
+  const walkP = walkTo(-8, 9.8, 2200); await wait(200);
+  await camTo(-7,9,22,13,-0.35,2000); await walkP;
+  await toast('Job Board Cafe · 12 new listings', 1200);
+  // S2 CV Tetris
+  panel('pCV', true);
+  const grid = $('cvgrid'); grid.innerHTML='';
+  for (let i=0;i<56;i++) grid.appendChild(document.createElement('div'));
+  const blocks = [
+    ['Python', '#3b82f6', 0, 6, 2], ['Teamwork', '#22a06b', 2, 6, 3], ['SQL', '#f2b134', 5, 6, 1], ['Excel', '#8b5cf6', 6, 6, 2],
+    ['React', '#e2574c', 0, 5, 2], ['5 yrs exp*', '#f4b183', 2, 5, 3], ['Git', '#3b82f6', 5, 5, 1], ['Agile', '#22a06b', 6, 5, 2],
+    ['Figma', '#8b5cf6', 0, 4, 3], ['Hobbies', '#c8553d', 3, 4, 2],
+  ];
+  const T = $('cvT'); T.style.transition='width 9s linear'; requestAnimationFrame(()=>T.style.width='10%');
+  const gr = grid.getBoundingClientRect(), pr = $('pCV').getBoundingClientRect();
+  for (const [label,color,col,row,w] of blocks) {
+    const b = document.createElement('div'); b.className='blk'; b.textContent=label; b.style.background=color;
+    b.style.width=(w*50-4)+'px'; b.style.height='46px'; b.style.left=(6+col*50)+'px'; b.style.top='-50px'; grid.appendChild(b);
+    await wait(60); b.style.top=(6+row*50)+'px'; await wait(420);
+  }
+  await shot('03-cv-tetris');
+  await wait(500);
+  for (const b of [...grid.querySelectorAll('.blk')].slice(0,8)) { b.style.transition='opacity .25s, transform .25s'; b.style.opacity='0'; b.style.transform='scale(1.15)'; }
+  await toast('2 rows cleared · CV score 82%', 1300);
+  panel('pCV', false); await wait(400);
+  // S3 ghosting
+  apps += 12; setStats();
+  await toast('You sent 12 applications. 📨', 1100);
+  await camTo(-8,10,26,16,-0.3,700);
+  ghosts.forEach((g,i)=>{ g.visible=true; g.userData.rise=0; g.position.set(-8+(i%3-1)*2.4, 2.2, 11.5+Math.floor(i/3)*1.5); });
+  await wait(500); gag('<div class="big">GHOSTED ×9</div><div class="sub">👀 "Seen" 3 weeks ago</div><br><div class="coin">+9 Copium</div>');
+  cop += 9; setStats(); $('morale').style.width='88%';
+  await wait(450); await shot('04-ghosted');
+  await wait(1900); ungag(); ghosts.forEach(g=>g.visible=false);
+  // S4 ATS Catch
+  setWeek(4); replies = 3;
+  const tw = walkTo(5.5, 10.5, 1600); await camTo(7,8,22,13,0.85,1600); await tw;
+  panel('pATS', true);
+  const ats = $('ats'), basket = $('basket'); basket.style.left='260px';
+  const AT = $('atsT'); AT.style.transition='width 7s linear'; AT.style.width='100%'; requestAnimationFrame(()=>AT.style.width='15%');
+  const words = [['React',1,60],['rockstar 🎸',0,430],['TypeScript',1,250],['ninja',0,480],['Supabase',1,60],['unpaid trial',0,440],['Next.js',1,300],['family 👨‍👩‍👧',0,40]];
+  let caught = 0;
+  for (const [w,good,x] of words) {
+    const el = document.createElement('div'); el.className='word '+(good?'good':'bad'); el.textContent=w; el.style.left=x+'px'; el.style.top='-40px'; ats.appendChild(el);
+    el.animate([{top:'-40px'},{top:'330px'}],{duration:1400,easing:'linear',fill:'forwards'}).onfinish=()=>{ if(!good){ el.style.transition='opacity .2s'; el.style.opacity='0'; } };
+    if (good) { basket.style.left=(x-20)+'px'; }
+    await wait(good? 1300 : 700);
+    if (good) { caught++; el.style.transition='opacity .2s, transform .2s'; el.style.transform='scale(1.3)'; el.style.opacity='0'; basket.textContent='+'+caught+' ✅'; }
+    if (caught===3 && good) await shot('05-ats-catch');
+  }
+  await wait(300);
+  await toast('Passed the robot. 3 recruiters want a call. 📞', 1400);
+  panel('pATS', false); setStats(); await wait(400);
+  // S5 rejection gag
+  setWeek(7); await camTo(5.5,12,24,15,-0.2,600);
+  const plane = $('plane'); plane.style.left='1300px'; plane.style.top='140px';
+  await wait(50); plane.style.left='560px'; plane.style.top='250px'; plane.style.transform='rotate(-20deg)';
+  await wait(700); $('stamp').classList.add('on');
+  gag('<div style="height:120px"></div><div class="sub">"We went with someone who has 12 years in a 3-year-old framework."</div><br><div class="coin">+1 Grit · +1 Hope</div>');
+  $('hopebar').style.width='66%'; $('morale').style.width='80%';
+  await wait(500); await shot('06-rejection');
+  await wait(2000); $('stamp').classList.remove('on'); ungag(); plane.style.left='-200px'; plane.style.top='600px';
+  // S6 interview
+  setWeek(10);
+  const tw2 = walkTo(-8, -5.6, 1600); await camTo(-7,-7,22,13,0.4,1600); await tw2;
+  panel('pINT', true); await wait(900);
+  await moveCursor(640, 435, 700); $('c2').classList.add('pick');
+  await wait(400); await press($('c2')); $('f3').textContent='😄';
+  await shot('07-interview');
+  await wait(900); panel('pINT', false); await wait(300);
+  $('hopebar').style.width='100%';
+  await toast('Panel passed. The pity counter is full. ✨', 1300);
+  // S7 offer
+  setWeek(11);
+  const tw3 = walkTo(8, -5.6, 1600); await camTo(8,-8,26,16,0.5,1600); await tw3;
+  $('offer').classList.remove('hidden'); canvas.style.filter='blur(3px)';
+  await moveCursor(1180, 620, 500); await wait(50); $('letter').classList.add('on');
+  const colors=['#e2574c','#f2b134','#22a06b','#3b82f6','#8b5cf6'];
+  for (let i=0;i<70;i++){ const c=document.createElement('div'); c.className='conf'; c.style.background=colors[i%5]; c.style.left=(640)+'px'; c.style.top='360px'; $('offer').appendChild(c);
+    const a=Math.random()*Math.PI*2, d=200+Math.random()*420;
+    c.animate([{transform:'translate(0,0) rotate(0)'},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d*0.7+200}px) rotate(${Math.random()*720}deg)`}],{duration:1800+Math.random()*800,easing:'cubic-bezier(.23,1,.32,1)',fill:'forwards'}); }
+  await wait(900); await shot('08-offer'); await wait(2200);
+  $('offer').classList.add('hidden');
+  // S8 LinkedUp
+  panel('pPOST', true); await wait(400);
+  for (const l of document.querySelectorAll('#post .ln')) { l.classList.add('on'); await wait(260); }
+  let n=0; const iv=setInterval(()=>{ n+=37; $('likes').textContent=n; if(n>900) clearInterval(iv); }, 60);
+  await wait(900); await shot('09-linkedup-post');
+  const cp=$('copy').getBoundingClientRect(); await moveCursor(cp.left+cp.width/2, cp.top+cp.height/2, 600);
+  await press($('copy')); $('copy').textContent='✅ Copied';
+  await wait(600);
+  const sh=$('share').getBoundingClientRect(); await moveCursor(sh.left+sh.width/2, sh.top+sh.height/2, 600);
+  await press($('share')); await toast('Opens the LinkedIn share window. You press Post yourself.', 1800);
+  panel('pPOST', false);
+  $('endcard').classList.remove('hidden'); await wait(2200);
+  window.__done = true;
+}
+window.__start = run;
+if (!new URLSearchParams(location.search).has('manual')) run();
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="710" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="710" fill="#f8fafc"/>
+<text x="40" y="60" font-size="34" font-weight="bold" fill="#0f172a">Q4. Look of the 3D world</text>
+<rect x="40" y="110" width="420" height="560" rx="16" fill="#ffffff" stroke="#16a34a" stroke-width="4"/>
+<text x="60" y="150" font-size="26" font-weight="bold" fill="#0f172a">a. Warm toy diorama</text>
+<rect x="310" y="170" width="130" height="32" rx="16" fill="#16a34a"/><text x="375" y="192" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">My pick</text>
+<rect x="70" y="220" width="360" height="300" rx="10" fill="#fde7c8"/>
+<polygon points="100.0,395 250.0,320 250.0,240 100.0,315" fill="#f4b183"/>
+<polygon points="250.0,320 400.0,395 400.0,315 250.0,240" fill="#e8956b"/>
+<polygon points="250.0,470 400.0,395 250.0,320 100.0,395" fill="#f7d9a8"/>
+<polygon points="270.0,405 330.0,375 290.0,355 230.0,385" fill="#8b5e3c"/>
+<rect x="190.0" y="370" width="22" height="40" rx="8" fill="#3b82f6"/><circle cx="201.0" cy="360" r="13" fill="#ffd7b5"/>
+<path d="M340.0,340 q0,-35 22,-35 q22,0 22,35 l-7,-6 l-7,6 l-8,-6 l-7,6 l-8,-6 z" fill="#ffffff" opacity="0.9"/>
+<rect x="70" y="540" width="52" height="40" rx="6" fill="#f4b183" stroke="#cbd5e1"/>
+<rect x="132" y="540" width="52" height="40" rx="6" fill="#f7d9a8" stroke="#cbd5e1"/>
+<rect x="194" y="540" width="52" height="40" rx="6" fill="#3b82f6" stroke="#cbd5e1"/>
+<rect x="256" y="540" width="52" height="40" rx="6" fill="#8b5e3c" stroke="#cbd5e1"/>
+<rect x="318" y="540" width="52" height="40" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="70" y="615" font-size="18" fill="#475569">Viet&#x27;s pick. Viet leads design</text>
+<text x="70" y="639" font-size="18" fill="#475569">for games (ruling 2026-11-15).</text>
+<rect x="490" y="110" width="420" height="560" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="510" y="150" font-size="26" font-weight="bold" fill="#0f172a">b. Dark neon</text>
+<rect x="520" y="220" width="360" height="300" rx="10" fill="#0F0F23"/>
+<polygon points="550.0,395 700.0,320 700.0,240 550.0,315" fill="#2a1f5c"/>
+<polygon points="700.0,320 850.0,395 850.0,315 700.0,240" fill="#1e1645"/>
+<polygon points="700.0,470 850.0,395 700.0,320 550.0,395" fill="#3b2d7a"/>
+<polygon points="720.0,405 780.0,375 740.0,355 680.0,385" fill="#7C3AED"/>
+<rect x="640.0" y="370" width="22" height="40" rx="8" fill="#F43F5E"/><circle cx="651.0" cy="360" r="13" fill="#E2E8F0"/>
+<path d="M790.0,340 q0,-35 22,-35 q22,0 22,35 l-7,-6 l-7,6 l-8,-6 l-7,6 l-8,-6 z" fill="#A78BFA" opacity="0.9"/>
+<rect x="520" y="540" width="52" height="40" rx="6" fill="#0F0F23" stroke="#cbd5e1"/>
+<rect x="582" y="540" width="52" height="40" rx="6" fill="#7C3AED" stroke="#cbd5e1"/>
+<rect x="644" y="540" width="52" height="40" rx="6" fill="#A78BFA" stroke="#cbd5e1"/>
+<rect x="706" y="540" width="52" height="40" rx="6" fill="#F43F5E" stroke="#cbd5e1"/>
+<rect x="768" y="540" width="52" height="40" rx="6" fill="#E2E8F0" stroke="#cbd5e1"/>
+<text x="520" y="615" font-size="18" fill="#475569">Lena&#x27;s pick (Gaming palette).</text>
+<text x="520" y="639" font-size="18" fill="#475569">Text contrast 15.3:1 on background.</text>
+<rect x="940" y="110" width="420" height="560" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+<text x="960" y="150" font-size="26" font-weight="bold" fill="#0f172a">c. Grey office, turns bright</text>
+<rect x="970" y="220" width="360" height="300" rx="10" fill="#e5e7eb"/>
+<polygon points="1000.0,395 1150.0,320 1150.0,240 1000.0,315" fill="#9ca3af"/>
+<polygon points="1150.0,320 1300.0,395 1300.0,315 1150.0,240" fill="#6b7280"/>
+<polygon points="1150.0,470 1300.0,395 1150.0,320 1000.0,395" fill="#d1d5db"/>
+<polygon points="1170.0,405 1230.0,375 1190.0,355 1130.0,385" fill="#4b5563"/>
+<rect x="1090.0" y="370" width="22" height="40" rx="8" fill="#facc15"/><circle cx="1101.0" cy="360" r="13" fill="#ffd7b5"/>
+<path d="M1240.0,340 q0,-35 22,-35 q22,0 22,35 l-7,-6 l-7,6 l-8,-6 l-7,6 l-8,-6 z" fill="#f3f4f6" opacity="0.9"/>
+<rect x="970" y="540" width="52" height="40" rx="6" fill="#9ca3af" stroke="#cbd5e1"/>
+<rect x="1032" y="540" width="52" height="40" rx="6" fill="#d1d5db" stroke="#cbd5e1"/>
+<rect x="1094" y="540" width="52" height="40" rx="6" fill="#4b5563" stroke="#cbd5e1"/>
+<rect x="1156" y="540" width="52" height="40" rx="6" fill="#facc15" stroke="#cbd5e1"/>
+<rect x="1218" y="540" width="52" height="40" rx="6" fill="#22c55e" stroke="#cbd5e1"/>
+<text x="970" y="615" font-size="18" fill="#475569">Starts grey. Colour comes back</text>
+<text x="970" y="639" font-size="18" fill="#475569">as you get closer to an offer.</text>
+</svg>

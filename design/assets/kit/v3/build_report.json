@@ -1,0 +1,140 @@
+{
+ "triangles": {
+  "body": 1292,
+  "head": 762,
+  "sprout": 84,
+  "briefcase": 182,
+  "hero_total": 2320,
+  "body_plus_head": 2054,
+  "face_hopeful": 70,
+  "face_ghosted": 82,
+  "face_rejected": 92,
+  "face_focused": 40,
+  "face_offer_joy": 69,
+  "eyes_hopeful": 76,
+  "eyes_ghosted": 60,
+  "eyes_rejected": 40,
+  "eyes_focused": 106,
+  "eyes_offer_joy": 92,
+  "visible_hero_per_expression": {
+   "hopeful": 2466,
+   "ghosted": 2462,
+   "rejected": 2452,
+   "focused": 2466,
+   "offer_joy": 2481
+  },
+  "visible_hero_max": 2481
+ },
+ "checks": {
+  "briefcase_vs_torso": 0,
+  "briefcase_vs_legs_shoes": 0,
+  "briefcase_vs_sleeveL": 0,
+  "handR_vs_torso": 0,
+  "handL_vs_torso": 0,
+  "blade_vs_flaps (tie tucks under collar, wanted)": 14,
+  "card_vs_tie": 0,
+  "head_vs_collar_contact (head rests in collar, wanted)": 52,
+  "grip_rule": "sections inside the fist are either deep (>= 8.5 mm) or one of the 2 exit sections",
+  "grip_sections_inside_fist": 4,
+  "grip_min_depth_mm (>= 8.5 or crossing)": 4.6,
+  "grip_deepest_mm": 20.7,
+  "grip_handle_sections_visible_left_right": [
+   2,
+   2
+  ],
+  "grip_exit_sections_mm (expected 2, one per side)": [
+   4.6,
+   4.6
+  ],
+  "leg_verts_below_collar_outside_shoe": 0,
+  "leg_verts_above_collar_inside_shoe": 0,
+  "leg_verts_in_seat_outside_trousers": 0,
+  "leg_verts_between_inside_trousers": 0,
+  "hair_edge_height_above_skin_mm max": 3.9,
+  "hair_edge_height_above_skin_mm min": 2.3,
+  "hair_tuck_ring_inside_head (all < 0)": -4.6,
+  "face_hopeful_deg_below_hair_edge": 8.8,
+  "face_ghosted_deg_below_hair_edge": 12.6,
+  "face_rejected_deg_below_hair_edge": 9.1,
+  "face_focused_deg_below_hair_edge": 15.4,
+  "face_offer_joy_deg_below_hair_edge": 6.6,
+  "sweat_ghosted_min_gap_to_hair_mm": 0.4,
+  "sweat_rejected_min_gap_to_hair_mm": 0.4,
+  "sprout_hopeful_min_clearance_mm": 52.2,
+  "sprout_ghosted_min_clearance_mm": 3.7,
+  "sprout_rejected_min_clearance_mm": 36.8,
+  "sprout_focused_min_clearance_mm": 55.3,
+  "sprout_offer_joy_min_clearance_mm": 69.0,
+  "culled_hidden_faces": {
+   "sleeves_in_torso": 8,
+   "hands_in_sleeves": 0,
+   "legs_in_trousers_and_shoes": 16
+  }
+ },
+ "toon": {
+  "texels": 32,
+  "bands2": [
+   [
+    -1.0,
+    178
+   ],
+   [
+    0.0001,
+    255
+   ]
+  ],
+  "bands3": [
+   [
+    -1.0,
+    178
+   ],
+   [
+    0.0625,
+    217
+   ],
+   [
+    0.5,
+    255
+   ]
+  ],
+  "skin_materials": [
+   "skin"
+  ],
+  "basic_materials": [
+   "ink",
+   "white",
+   "cheek",
+   "tongue",
+   "sweat"
+  ],
+  "sun": {
+   "color": "#fff3dc",
+   "intensity": 2.6,
+   "elev": 62,
+   "az": 25
+  },
+  "hemi": {
+   "sky": "#fff6e8",
+   "ground": "#e9c49a",
+   "intensity": 0.9
+  },
+  "ambient": {
+   "color": "#ffffff",
+   "intensity": 0.25
+  },
+  "outline": {
+   "color": "#2B1E16",
+   "width_m": 0.007
+  },
+  "contact_shadow": {
+   "color": "#2B1E16",
+   "opacity": 0.25,
+   "rx": 0.26,
+   "ry": 0.21
+  },
+  "tone_mapping": "Neutral",
+  "exposure": 1.0
+ },
+ "hero_height_m": 0.977,
+ "head_heights": 2.71
+}

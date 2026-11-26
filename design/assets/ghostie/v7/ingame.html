@@ -1,0 +1,288 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Ghostie in game</title>
+<style>html,body{margin:0;background:#FDE6C8}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"/concept/node_modules/three/build/three.module.js","three/addons/":"/concept/node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+// GHOSTED - the exported ghostie.glb in the game renderer, next to the locked Kit (assets/kit/kit.glb).
+// Same set-up as assets/kit/ingame.html: MeshToonMaterial with the toon.json thresholds, inverted-hull ink outline,
+// the render.html character light, Neutral tone mapping. v2: the ghost's shade band is Kit's neutral 178 grey
+// (ghost_toon.json). The .rgb gradient patch stays; for a grey map it gives exactly MeshToonMaterial's result.
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { mergeVertices, mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = 1.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const TOON = await (await fetch('../../kit/toon.json')).json();
+const GT = await (await fetch('ghost_toon.json')).json();
+function gradient(bands) {            // bands: [[threshold, value 0..255 | [r,g,b]], ...]
+  const n = TOON.texels, d = new Uint8Array(n * 4);
+  for (let i = 0; i < n; i++) {
+    const dot = 2 * (i + 0.5) / n - 1; let v = bands[0][1];
+    for (const [t, val] of bands) if (dot >= t) v = val;
+    const c = Array.isArray(v) ? v : [v, v, v]; d.set([c[0], c[1], c[2], 255], i * 4);
+  }
+  const t = new THREE.DataTexture(d, n, 1); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t;
+}
+const G2 = gradient(TOON.bands2), G3 = gradient(TOON.bands3);
+const GMAP = Object.fromEntries(Object.entries(GT.band_colors).map(([k, b]) => [k, gradient(b)]));
+function rgbToon(color, map) {
+  const m = new THREE.MeshToonMaterial({ color, gradientMap: map });
+  m.onBeforeCompile = s => { s.fragmentShader = s.fragmentShader.replace('#include <gradientmap_pars_fragment>',
+    THREE.ShaderChunk.gradientmap_pars_fragment.replace('return vec3( texture2D( gradientMap, coord ).r );', 'return texture2D( gradientMap, coord ).rgb;')); };
+  m.customProgramCacheKey = () => 'rgbToon'; return m;
+}
+
+function outlineMaterial(width) {
+  const m = new THREE.MeshBasicMaterial({ color: TOON.outline.color, side: THREE.BackSide });
+  m.userData.width = { value: width };
+  m.onBeforeCompile = s => {
+    s.uniforms.uWidth = m.userData.width;
+    s.vertexShader = 'uniform float uWidth;\nattribute float outlineW;\n' + s.vertexShader.replace('#include <begin_vertex>', 'vec3 transformed = position + normal * uWidth * outlineW;');
+  };
+  return m;
+}
+function hullFor(mesh, mat) {          // one hull per node, smooth normals (= Blender Solidify on the whole mesh)
+  const src = mesh.geometry, g = new THREE.BufferGeometry(); g.setAttribute('position', src.attributes.position.clone());
+  g.setAttribute('outlineW', new THREE.BufferAttribute(new Float32Array(src.attributes.position.count).fill(1), 1)); g.setIndex(src.index.clone());
+  if (mesh.isSkinnedMesh) { g.setAttribute('skinIndex', src.attributes.skinIndex.clone()); g.setAttribute('skinWeight', src.attributes.skinWeight.clone()); }
+  if (src.morphAttributes.position) { g.morphAttributes.position = src.morphAttributes.position.map(a => a.clone()); g.morphTargetsRelative = src.morphTargetsRelative; }
+  const m = mergeVertices(g, 1e-5); angleWeightedNormals(m);
+  if (m.morphAttributes.position) {
+    // v7: the wave morph. The hull's morph delta = the body delta + the change of the hull offset (normal x width),
+    // so the hull follows the morphed shape with its own normals (the shader offsets along the rest normal).
+    const P = m.attributes.position, N0 = m.attributes.normal, w = mat.userData.width.value;
+    m.morphAttributes.position = m.morphAttributes.position.map(D => {
+      const rel = m.morphTargetsRelative, q = new THREE.BufferGeometry(), arr = new Float32Array(P.count * 3);
+      for (let i = 0; i < P.count; i++) for (let c = 0; c < 3; c++) arr[i * 3 + c] = P.array[i * 3 + c] * (rel ? 1 : 0) + D.array[i * 3 + c];
+      q.setAttribute('position', new THREE.BufferAttribute(arr, 3)); q.setIndex(m.index); angleWeightedNormals(q);
+      const N1 = q.attributes.normal, out = new Float32Array(P.count * 3);
+      for (let i = 0; i < P.count; i++) for (let c = 0; c < 3; c++) out[i * 3 + c] = arr[i * 3 + c] - P.array[i * 3 + c] + (N1.array[i * 3 + c] - N0.array[i * 3 + c]) * w;
+      return new THREE.BufferAttribute(out, 3);
+    });
+    m.morphTargetsRelative = true;
+  }
+  let h;
+  if (mesh.isSkinnedMesh) { h = new THREE.SkinnedMesh(m, mat); h.bind(mesh.skeleton, mesh.bindMatrix); }   // v5: the hull rides the same skeleton
+  else h = new THREE.Mesh(m, mat);
+  if (m.morphAttributes.position) { h.updateMorphTargets(); mesh.userData.hull = h; }
+  h.name = mesh.name + '_outline'; return h;
+}
+// Blender (Solidify) offsets along angle-weighted vertex normals; three's computeVertexNormals is area-weighted. On the
+// ghost the narrow hem rim then counts for almost nothing and the hull stops protruding below the lip (v1 compare).
+function angleWeightedNormals(g) {
+  const P = g.attributes.position, I = g.index.array, N = new Float32Array(P.count * 3);
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), n = new THREE.Vector3(), e1 = new THREE.Vector3(), e2 = new THREE.Vector3();
+  for (let f = 0; f < I.length; f += 3) {
+    const ids = [I[f], I[f + 1], I[f + 2]]; a.fromBufferAttribute(P, ids[0]); b.fromBufferAttribute(P, ids[1]); c.fromBufferAttribute(P, ids[2]);
+    n.subVectors(c, b).cross(e1.subVectors(a, b)).normalize(); const V = [a, b, c];
+    for (let k = 0; k < 3; k++) { e1.subVectors(V[(k + 1) % 3], V[k]).normalize(); e2.subVectors(V[(k + 2) % 3], V[k]).normalize();
+      const ang = Math.acos(Math.min(1, Math.max(-1, e1.dot(e2)))); N[ids[k] * 3] += n.x * ang; N[ids[k] * 3 + 1] += n.y * ang; N[ids[k] * 3 + 2] += n.z * ang; }
+  }
+  for (let i = 0; i < P.count; i++) { n.fromArray(N, i * 3).normalize(); n.toArray(N, i * 3); }
+  g.setAttribute('normal', new THREE.BufferAttribute(N, 3));
+}
+
+// ---------------------------------------------------------------- Kit, exactly as assets/kit/ingame.html prepares it
+function prepareKit(gltf, outlineMat) {
+  const kit = gltf.scene;
+  const nodes = {}; kit.traverse(o => { nodes[o.name] = o; });
+  kit.traverse(o => {
+    if (!o.isMesh) return;
+    const src = o.material, name = src.name;
+    if (TOON.basic_materials.includes(name)) o.material = new THREE.MeshBasicMaterial({ color: src.color });
+    else o.material = new THREE.MeshToonMaterial({ color: src.color, gradientMap: TOON.skin_materials.includes(name) ? G3 : G2 });
+  });
+  for (const nm of ['body', 'head', 'briefcase', 'sprout']) {
+    const node = nodes[nm]; const geos = [];
+    const assoc = gltf.parser.associations;
+    const meshes = node.isMesh ? [node] : node.children.filter(c => c.isMesh && assoc.get(c) && assoc.get(c).primitives !== undefined);
+    for (const m of meshes) {
+      const g = new THREE.BufferGeometry(), src = m.geometry; g.setAttribute('position', src.attributes.position.clone());
+      const n = src.attributes.position.count, w = new Float32Array(n).fill(1);
+      if (src.attributes.color) for (let i = 0; i < n; i++) w[i] = src.attributes.color.getX(i);
+      g.setAttribute('outlineW', new THREE.BufferAttribute(w, 1)); g.setIndex(src.index.clone()); geos.push(g); }
+    let g = mergeVertices(mergeGeometries(geos), 1e-5); g.computeVertexNormals();
+    const hull = new THREE.Mesh(g, outlineMat); hull.name = nm + '_outline'; node.add(hull);
+  }
+  const faces = Object.keys(nodes).filter(k => /^face_[a-z_]+$/.test(k) && nodes[k].userData.sprout_scale_three_y !== undefined);
+  const eyes = Object.keys(nodes).filter(k => /^eyes_[a-z_]+$/.test(k) && nodes[k].userData.default_visible !== undefined);
+  kit.userData.setExpr = expr => {
+    for (const f of faces) nodes[f].visible = f === 'face_' + expr;
+    for (const e of eyes) nodes[e].visible = e === 'eyes_' + expr;
+    const f = nodes['face_' + expr].userData;
+    nodes.sprout.quaternion.fromArray(f.sprout_quat_three_xyzw);
+    if (f.sprout_scale_three_xyz) nodes.sprout.scale.fromArray(f.sprout_scale_three_xyz); else nodes.sprout.scale.set(1, f.sprout_scale_three_y, 1);
+  };
+  kit.userData.nodes = nodes; return kit;
+}
+
+// ---------------------------------------------------------------- the Ghostie
+function prepareGhost(gltf, outlineMat) {
+  const g = gltf.scene; const nodes = {}; g.traverse(o => { nodes[o.name] = o; });
+  g.traverse(o => {
+    if (!o.isMesh) return; const name = o.material.name;
+    o.material = GT.basic_materials.includes(name) ? new THREE.MeshBasicMaterial({ color: o.material.color }) : rgbToon(o.material.color, GMAP[name]);
+  });
+  for (const nm of GT.outline_nodes) {   // a multi-material node (headset: cup + ink ring) is a group: hull its first primitive
+    const n = nodes[nm], m = n.isMesh ? n : n.children.find(c => c.isMesh && c.name !== 'acc_headset_band');
+    n.add(hullFor(m, outlineMat)); }
+  g.userData.setVariant = v => { for (const a of GT.variants) if (nodes['acc_' + a]) nodes['acc_' + a].visible = a === v; };
+  // Emil: float = three sines (y 2.4 s, x 3.7 s, yaw 5.1 s); wave = arm_L swings up about its axis.
+  // v6 rest pose (sheet REST POSE): the 4 deg tilt is the float node's own rotation in the glb; arm_R droops by
+  // float.rest_arm_R_droop_deg. upright: true gives the sheet pose (no tilt, arms at bind) for the Blender compare.
+  const rest = nodes.float.position.clone(), restQ = nodes.float.quaternion.clone();
+  const armRest = { arm_L: nodes.arm_L.quaternion.clone(), arm_R: nodes.arm_R.quaternion.clone() };
+  const fx = nodes.float.userData, axF = {};
+  for (const a of ['arm_L', 'arm_R']) { const w = fx.wave_axis_float_blender[a]; axF[a] = new THREE.Vector3(w[0], w[2], -w[1]); }
+  function turnArm(a, deg) {
+    g.updateMatrixWorld(true);
+    const fq = nodes.float.getWorldQuaternion(new THREE.Quaternion()), pq = nodes[a].parent.getWorldQuaternion(new THREE.Quaternion());
+    const ap = axF[a].clone().applyQuaternion(fq).applyQuaternion(pq.invert()).normalize();
+    nodes[a].quaternion.copy(armRest[a]).premultiply(new THREE.Quaternion().setFromAxisAngle(ap, deg * Math.PI / 180));
+  }
+  g.userData.pose = ({ t = 0, wave = 0, upright = false } = {}) => {
+    nodes.float.position.set(rest.x + 0.03 * Math.sin(2 * Math.PI * t / 3.7), rest.y + 0.06 * Math.sin(2 * Math.PI * t / 2.4), rest.z);
+    const base = upright ? new THREE.Quaternion() : restQ;
+    nodes.float.quaternion.copy(base).premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), 8 * Math.PI / 180 * Math.sin(2 * Math.PI * t / 5.1)));
+    // v7 rest: arm_R droops and swings forward (about the float-space vertical); wave = the morph target (1 = +40 deg)
+    nodes.arm_L.quaternion.copy(armRest.arm_L);
+    if (upright) nodes.arm_R.quaternion.copy(armRest.arm_R);
+    else {
+      g.updateMatrixWorld(true);
+      const fq = nodes.float.getWorldQuaternion(new THREE.Quaternion()), pq = nodes.arm_R.parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+      const toBone = v => v.clone().applyQuaternion(fq).applyQuaternion(pq).normalize();
+      const sw = fx.rest_swing_axis_float_blender, axS = new THREE.Vector3(sw[0], sw[2], -sw[1]);
+      const qd = new THREE.Quaternion().setFromAxisAngle(toBone(axF.arm_R), -fx.rest_arm_R_droop_deg * Math.PI / 180);
+      const qs = new THREE.Quaternion().setFromAxisAngle(toBone(axS), fx.rest_arm_R_swing_deg * Math.PI / 180);
+      nodes.arm_R.quaternion.copy(armRest.arm_R).premultiply(qs.multiply(qd));
+    }
+    const k = Math.max(0, Math.min(1, wave / 40));
+    g.traverse(o => { if (o.isSkinnedMesh && o.morphTargetInfluences) o.morphTargetInfluences.fill(k); });
+  };
+  g.userData.nodes = nodes; return g;
+}
+function visibleTris(obj) {
+  let t = 0; obj.traverseVisible(o => { if (o.isMesh && !/_outline$/.test(o.name) && !o.userData.isBlob) t += o.geometry.index.count / 3; }); return t;
+}
+function blob(rx, ry, opacity, y) {
+  const m = new THREE.Mesh(new THREE.CircleGeometry(1, 40), new THREE.MeshBasicMaterial({ color: TOON.contact_shadow.color, transparent: true, opacity, toneMapped: false, depthWrite: false }));
+  m.rotation.x = -Math.PI / 2; m.scale.set(rx, ry, 1); m.position.set(0, y, 0); m.renderOrder = -1; m.userData.isBlob = true; return m;
+}
+function charLights(scene) {
+  const el = TOON.sun.elev * Math.PI / 180, az = TOON.sun.az * Math.PI / 180;
+  scene.add(new THREE.HemisphereLight(TOON.hemi.sky, TOON.hemi.ground, TOON.hemi.intensity));
+  const sun = new THREE.DirectionalLight(TOON.sun.color, TOON.sun.intensity);
+  sun.position.set(Math.sin(az) * Math.cos(el) * 40, Math.sin(el) * 40, Math.cos(az) * Math.cos(el) * 40); scene.add(sun);
+  scene.add(new THREE.AmbientLight(TOON.ambient.color, TOON.ambient.intensity));
+}
+
+const loader = new GLTFLoader();
+const ghostChar = prepareGhost(await loader.loadAsync('ghostie.glb'), outlineMaterial(TOON.outline.width_m));
+ghostChar.userData.nodes.root.add(blob(GT.contact_shadow.rx, GT.contact_shadow.ry, GT.contact_shadow.opacity_at_rest, -0.002));
+
+// a sheet render with the same camera as render_ghostie.py TURN_CAM (Blender (0,-2.7,0.62)->(0,0,0.40))
+window.renderChar = async ({ angle = -35, w = 900, h = 1200, variant = 'tie', cam = [0, 0.62, 2.7], target = [0, 0.40, 0], fov = 22, wave = 0, upright = true }) => {
+  renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  const scene = new THREE.Scene(); scene.background = new THREE.Color('#FDE6C8'); charLights(scene);
+  ghostChar.userData.setVariant(variant); ghostChar.userData.pose({ t: 0, wave, upright });
+  ghostChar.userData.nodes.root.rotation.y = angle * Math.PI / 180; scene.add(ghostChar);
+  const camera = new THREE.PerspectiveCamera(fov, w / h, 0.05, 100); camera.position.set(...cam); camera.lookAt(...target);
+  renderer.render(scene, camera); await new Promise(r => requestAnimationFrame(r)); renderer.render(scene, camera);
+  return { visibleGhostTris: visibleTris(ghostChar.userData.nodes.float), calls: renderer.info.render.calls };
+};
+
+// ---------------------------------------------------------------- Applyside patch (= assets/kit/ingame.html)
+const P = { grass: '#B5D67A', grassDeep: '#7FA65A', path: '#EBD3A6', plinth: '#E59F64', wood: '#7A4A2E', ink: '#2B1E16', panel: '#FFF8EE', coral: '#E2574C', cream: '#FFE8A6', cafeWall: '#F4A672', cafeRoof: '#D4503A', panelEdge: '#E9D3B4' };
+const toon = c => new THREE.MeshToonMaterial({ color: c, gradientMap: G2 });
+function mesh(geo, mat, pos = [0, 0, 0], rot = [0, 0, 0], cast = true, recv = false) { const m = new THREE.Mesh(geo, mat); m.position.set(...pos); m.rotation.set(...rot); m.castShadow = cast; m.receiveShadow = recv; return m; }
+function patch() {
+  const g = new THREE.Group();
+  g.add(mesh(new THREE.BoxGeometry(14, 0.8, 14), toon(P.plinth), [0, -0.4, 0], [0, 0, 0], false, true));
+  g.add(mesh(new THREE.BoxGeometry(13.6, 0.12, 13.6), toon(P.grass), [0, 0.06, 0], [0, 0, 0], false, true));
+  g.add(mesh(new THREE.BoxGeometry(13.6, 0.14, 4), toon(P.path), [0, 0.07, 0], [0, 0, 0], false, true));
+  g.add(mesh(new THREE.BoxGeometry(4, 0.14, 13.6), toon(P.path), [0, 0.07, 0], [0, 0, 0], false, true));
+  for (let i = -6; i <= 6; i += 2.5) if (Math.abs(i) > 2.2) g.add(mesh(new THREE.BoxGeometry(0.6, 0.15, 0.12), toon(P.panel), [i, 0.08, 0], [0, 0, 0], false, true));
+  const tree = (x, z, s = 1) => { const t = new THREE.Group(); t.add(mesh(new THREE.CylinderGeometry(0.15, 0.2, 0.9, 8), toon(P.wood), [0, 0.45, 0]));
+    t.add(mesh(new THREE.IcosahedronGeometry(0.9, 0), toon(P.grassDeep), [0, 1.5, 0])); t.add(mesh(new THREE.IcosahedronGeometry(0.6, 0), toon('#8fb866'), [0.35, 2.1, 0.1])); t.position.set(x, 0.12, z); t.scale.setScalar(s); return t; };
+  g.add(tree(-4.6, -4.4)); g.add(tree(4.8, 4.2, 0.9)); g.add(tree(-5.2, 4.6, 0.85));
+  const mailbox = new THREE.Group(); mailbox.add(mesh(new THREE.BoxGeometry(0.1, 0.8, 0.1), toon(P.ink), [0, 0.4, 0])); mailbox.add(mesh(new THREE.CapsuleGeometry(0.18, 0.3, 4, 8), toon(P.coral), [0, 0.9, 0], [Math.PI / 2, 0, 0])); mailbox.position.set(2.6, 0.12, -2.7); g.add(mailbox);
+  const board = new THREE.Group(); board.add(mesh(new THREE.BoxGeometry(1.6, 1.0, 0.1), toon('#C9A27A'), [0, 1.2, 0]));
+  for (const [px, py, c] of [[-0.5, 1.35, P.panel], [0, 1.1, P.cream], [0.45, 1.35, '#E3D3EE'], [-0.3, 0.95, '#CFE3F0'], [0.4, 0.95, P.panel]]) board.add(mesh(new THREE.BoxGeometry(0.3, 0.36, 0.02), toon(c), [px, py, 0.06]));
+  for (const x2 of [-0.7, 0.7]) board.add(mesh(new THREE.BoxGeometry(0.08, 1.2, 0.08), toon(P.wood), [x2, 0.6, 0])); board.position.set(-2.9, 0.12, -3.0); g.add(board);
+  const cafe = new THREE.Group(); cafe.add(mesh(new THREE.BoxGeometry(5, 3.2, 3.6), toon(P.cafeWall), [0, 1.6, 0])); cafe.add(mesh(new THREE.BoxGeometry(5.4, 0.4, 4.0), toon(P.cafeRoof), [0, 3.4, 0]));
+  cafe.add(mesh(new THREE.BoxGeometry(0.9, 1.4, 0.1), toon(P.wood), [0, 0.7, 1.85])); for (const x of [-1.6, 1.6]) cafe.add(mesh(new THREE.BoxGeometry(0.8, 0.8, 0.06), toon('#FFF4C9'), [x, 1.7, 1.83]));
+  cafe.add(mesh(new THREE.BoxGeometry(4, 0.12, 0.9), toon(P.panel), [0, 1.9, 2.2], [0.35, 0, 0]));
+  cafe.position.set(4.4, 0.12, -4.6); g.add(cafe);
+  return g;
+}
+
+const kitGltf = await loader.loadAsync('../../kit/kit.glb');
+const ghostGltfs = await Promise.all([0, 1, 2].map(() => loader.loadAsync('ghostie.glb')));
+let world = null;
+// Kit + 3 ghosts (tie, glasses, headset) at the 26 m follow camera. ground: 'grass' or 'path'.
+window.renderLineup = async ({ w = 1600, h = 900, dist = 26, pitch = 42, yaw = 20, outlinePx = 1.6, ground = 'grass', t = 0, wave = 0 }) => {
+  renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  const scene = new THREE.Scene(); scene.background = new THREE.Color('#FBE7CC');
+  const el = 62 * Math.PI / 180, az = 140 * Math.PI / 180;           // render.html world light, Applyside week 1
+  scene.add(new THREE.HemisphereLight('#ffe9c7', '#d9a877', 0.9));
+  const sun = new THREE.DirectionalLight('#fff3dc', 2.6); sun.position.set(Math.sin(az) * Math.cos(el) * 40, Math.sin(el) * 40, Math.cos(az) * Math.cos(el) * 40);
+  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -10, right: 10, top: 10, bottom: -10, near: 1, far: 120 }); sun.shadow.bias = -0.0015; sun.shadow.normalBias = 0.05;
+  scene.add(sun); scene.add(new THREE.AmbientLight('#ffffff', 0.25)); scene.add(patch());
+  const fov = 26, vh = 2 * dist * Math.tan(fov / 2 * Math.PI / 180), outW = outlinePx * vh / h;
+  if (!world) {
+    world = { kit: prepareKit(kitGltf, outlineMaterial(outW)), ghosts: ghostGltfs.map(gl => prepareGhost(gl, outlineMaterial(outW))) };
+    world.kit.userData.setExpr('hopeful');
+    const kb = blob(TOON.contact_shadow.rx, TOON.contact_shadow.ry, TOON.contact_shadow.opacity, 0.004); kb.position.x = 0.03; world.kit.userData.nodes.root.add(kb);
+    world.ghosts.forEach((g, i) => { g.userData.setVariant(GT.variants[i]); g.userData.nodes.root.add(blob(GT.contact_shadow.rx, GT.contact_shadow.ry, GT.contact_shadow.opacity_at_rest, 0.004)); });
+  }
+  const gy = ground === 'grass' ? 0.12 : 0.14;
+  const row = ground === 'grass' ? { z: 2.6, kx: -2.7, gx: [-5.1, -4.3, -3.5] } : { z: 0.1, kx: 1.3, gx: [-1.1, -0.3, 0.5] };
+  const kit = world.kit; kit.userData.nodes.root.position.set(row.kx, gy, row.z); kit.userData.nodes.root.rotation.y = 15 * Math.PI / 180; scene.add(kit);
+  const out = { ghostPx: [], ghostTris: [] };
+  world.ghosts.forEach((g, i) => { const r = g.userData.nodes.root; r.position.set(row.gx[i], gy, row.z + (i === 1 ? 0.35 : 0)); r.rotation.y = (10 - 12 * i) * Math.PI / 180;
+    g.userData.pose({ t: t + i * 0.9, wave }); scene.add(g); out.ghostTris.push(visibleTris(g.userData.nodes.float)); });
+  const camera = new THREE.PerspectiveCamera(fov, w / h, 0.5, 400); const p = pitch * Math.PI / 180, yw = yaw * Math.PI / 180;
+  const tgt = new THREE.Vector3((row.kx + row.gx[0]) / 2, 0.5, row.z);
+  camera.position.set(tgt.x + Math.sin(yw) * Math.cos(p) * dist, tgt.y + Math.sin(p) * dist, tgt.z + Math.cos(yw) * Math.cos(p) * dist); camera.lookAt(tgt);
+  renderer.render(scene, camera); await new Promise(r => requestAnimationFrame(r)); renderer.render(scene, camera);
+  const px = (x, y, z) => { const v = new THREE.Vector3(x, y, z).project(camera); return [Math.round((v.x + 1) / 2 * w), Math.round((1 - v.y) / 2 * h)]; };
+  out.kitTop = px(row.kx, gy + 0.977, row.z); out.kitBot = px(row.kx, gy, row.z);
+  out.ghostTop = px(row.gx[0], gy + 0.69, row.z); out.ghostBot = px(row.gx[0], gy + 0.22, row.z);
+  out.kitPx = out.kitBot[1] - out.kitTop[1]; out.ghostBodyPx = out.ghostBot[1] - out.ghostTop[1];
+  // v4 proof: eye dots vs arm tips, in screen pixels (y grows downward), per ghost
+  scene.updateMatrixWorld(true);
+  const sp = v => { const q = v.clone().project(camera); return [Math.round((q.x + 1) / 2 * w * 10) / 10, Math.round((1 - q.y) / 2 * h * 10) / 10]; };
+  out.eyeVsArm = world.ghosts.map((g, i) => {
+    const n = g.userData.nodes, box = new THREE.Box3().setFromObject(n.eyes), eye = sp(box.getCenter(new THREE.Vector3()));
+    const body = n.body.isSkinnedMesh ? n.body : n.body.children.find(c => c.isSkinnedMesh), P = body.geometry.attributes.position;
+    const SI = body.geometry.attributes.skinIndex, SW = body.geometry.attributes.skinWeight, bones = body.skeleton.bones;
+    const tips = {}, high = {};
+    for (const a of ['arm_L', 'arm_R']) { const bi = bones.findIndex(b => b.name === a); const head = n[a].getWorldPosition(new THREE.Vector3());
+      let best = null, bd = -1, hy = 1e9;
+      const rc = n.float.userData.arm_root_centre_float_blender[a]; n.float.updateMatrixWorld(true);
+      const root = n.float.localToWorld(new THREE.Vector3(rc[0], rc[2], -rc[1]));   // the tip is measured from the root centre, not the bone head
+      for (let k = 0; k < P.count; k++) { let wgt = 0; for (let c = 0; c < 4; c++) if (SI.getComponent(k, c) === bi) wgt += SW.getComponent(k, c);
+        if (wgt < 0.9) continue; const v = body.getVertexPosition(k, new THREE.Vector3()); body.localToWorld(v);
+        const d = v.distanceTo(root); if (d > bd) { bd = d; best = v; } const q = sp(v); if (q[1] < hy) hy = q[1]; }
+      tips[a] = sp(best); high[a] = hy; }
+    // eye dots: centre and the lowest eye vertex on screen
+    const E = n.eyes.isMesh ? n.eyes : n.eyes.children.find(c => c.isMesh), EP = E.geometry.attributes.position; let eb = -1;
+    for (let k = 0; k < EP.count; k++) { const q = sp(E.localToWorld(new THREE.Vector3().fromBufferAttribute(EP, k))); if (q[1] > eb) eb = q[1]; }
+    const lm = {};
+    if (n.acc_tie) { const tu = n.acc_tie.userData;
+      for (const key of ['collar_top', 'knot_top', 'v_point']) { const b = tu[key + '_float_blender']; if (b) lm[key] = sp(n.float.localToWorld(new THREE.Vector3(b[0], b[2], -b[1]))); } }
+    return { ghost: GT.variants[i], wave, eyeCentreY: eye[1], eyeBottomY: eb, collarTop: lm.collar_top, knotTop: lm.knot_top, vPoint: lm.v_point,
+             tipL: tips.arm_L, tipR: tips.arm_R, armHighestY: high,
+             tipMarginBelowEyeBottomPx: Math.round((Math.min(tips.arm_L[1], tips.arm_R[1]) - eb) * 10) / 10 };
+  });
+  out.centre = px(tgt.x, 0.4, tgt.z); out.outlineW_m = outW; return out;
+};
+window.__ready = true;
+</script></body></html>

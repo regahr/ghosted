@@ -1,0 +1,152 @@
+{
+ "triangles": {
+  "body": 192,
+  "eyes": 16,
+  "arm_L": 15,
+  "arm_R": 15,
+  "acc_tie": 28,
+  "acc_glasses": 52,
+  "acc_headset": 60,
+  "base_body_eyes_arms": 238,
+  "variant_totals": {
+   "tie": 266,
+   "glasses": 290,
+   "headset": 298
+  }
+ },
+ "checks": {
+  "eyes_offset_mm_min_max (must be > 0, sits on surface)": [
+   1.12,
+   2.2
+  ],
+  "acc_tie_front_faces_offset_mm_min_max (visible faces, must be > 0)": [
+   2.99,
+   5.8
+  ],
+  "acc_tie_wall_faces_offset_mm_min_max (base edge may sink: hidden contact line)": [
+   0.37,
+   5.55
+  ],
+  "acc_tie_all_faces_offset_mm_min_max (must be >= -0.5)": [
+   0.37,
+   5.8
+  ],
+  "acc_tie_vertex_offset_mm_min_max": [
+   0.4,
+   5.0
+  ],
+  "acc_glasses_front_faces_offset_mm_min_max (visible faces, must be > 0)": [
+   2.25,
+   3.0
+  ],
+  "acc_glasses_wall_faces_offset_mm_min_max (base edge may sink: hidden contact line)": [
+   0.37,
+   3.0
+  ],
+  "acc_glasses_all_faces_offset_mm_min_max (must be >= -0.5)": [
+   0.37,
+   3.0
+  ],
+  "acc_glasses_vertex_offset_mm_min_max": [
+   0.4,
+   3.0
+  ],
+  "acc_headset_front_faces_offset_mm_min_max (visible faces, must be > 0)": [
+   3.32,
+   8.5
+  ],
+  "acc_headset_wall_faces_offset_mm_min_max (base edge may sink: hidden contact line)": [
+   -0.57,
+   8.5
+  ],
+  "acc_headset_all_faces_offset_mm_min_max (must be >= -0.5)": [
+   -0.57,
+   8.5
+  ],
+  "acc_headset_vertex_offset_mm_min_max": [
+   0.4,
+   8.5
+  ],
+  "arm_L_base_ring_depth_mm (must be < 0: base hidden in body)": [
+   -53.84,
+   -31.88
+  ],
+  "arm_L_base_ring_worst_mm_at_wave_+-20deg (must be < 0)": -14.88,
+  "arm_R_base_ring_depth_mm (must be < 0: base hidden in body)": [
+   -52.96,
+   -31.71
+  ],
+  "arm_R_base_ring_worst_mm_at_wave_+-20deg (must be < 0)": -15.35,
+  "earcup_to_armL_min_gap_mm": 76.4,
+  "hem_thickness_mm": 20.0,
+  "hem_scallops": 4,
+  "hem_notch_depth_mm": 40.0,
+  "eye_to_glasses_inner_edge_min_gap_mm": 2.3
+ },
+ "size": {
+  "body_height_m": 0.46,
+  "float_m": 0.22,
+  "crown_m": 0.69,
+  "hem_width_m": 0.476,
+  "kit_height_m": 0.977
+ },
+ "ghost_toon": {
+  "band_colors": {
+   "ghost": [
+    [
+     -1.0,
+     [
+      184,
+      170,
+      255
+     ]
+    ],
+    [
+     0.0001,
+     [
+      255,
+      255,
+      255
+     ]
+    ]
+   ],
+   "acc": [
+    [
+     -1.0,
+     [
+      178,
+      178,
+      178
+     ]
+    ],
+    [
+     0.0001,
+     [
+      255,
+      255,
+      255
+     ]
+    ]
+   ]
+  },
+  "basic_materials": [
+   "ink"
+  ],
+  "outline_nodes": [
+   "body",
+   "arm_L",
+   "arm_R"
+  ],
+  "float_rest_m": 0.22,
+  "variants": [
+   "tie",
+   "glasses",
+   "headset"
+  ],
+  "contact_shadow": {
+   "rx": 0.2,
+   "ry": 0.17,
+   "opacity_at_rest": 0.22
+  }
+ }
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="760" font-family="Helvetica, Arial, sans-serif">
+<rect width="1300" height="760" fill="#f8fafc"/>
+<text x="40" y="58" font-size="32" font-weight="bold" fill="#0f172a">Where do the tie and the headset go on a ghost?</text>
+<!-- panel 1 -->
+<rect x="40" y="90" width="590" height="640" rx="16" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+<text x="60" y="130" font-size="24" font-weight="bold" fill="#0f172a">1. Today (sketch v1): never decided</text>
+<g transform="translate(185,160)">
+<path d="M150,20 C230,20 270,80 272,170 L280,420 C250,445 220,425 190,440 C160,455 130,425 100,440 C70,455 40,430 20,420 L28,170 C30,80 70,20 150,20 Z" fill="#F8F4EA" stroke="#2B1E16" stroke-width="5"/>
+<ellipse cx="115" cy="200" rx="11" ry="16" fill="#2B1E16"/><ellipse cx="185" cy="200" rx="11" ry="16" fill="#2B1E16"/>
+<path d="M150,22 C215,22 262,70 270,150" fill="none" stroke="#C8C0D8" stroke-width="12"/>
+<ellipse cx="270" cy="175" rx="16" ry="26" fill="#C8C0D8" stroke="#2B1E16" stroke-width="3"/>
+<path d="M222,250 L240,250 L236,262 L226,262 Z M226,262 L236,262 L248,330 L232,350 L220,330 Z" fill="#C9A6D6" stroke="#2B1E16" stroke-width="3"/>
+</g>
+<text x="60" y="640" font-size="19" fill="#b91c1c">Headset: band slips down one side, one cup only.</text>
+<text x="60" y="666" font-size="19" fill="#b91c1c">Tie: pushed far right, as a workaround so the</text>
+<text x="60" y="692" font-size="19" fill="#b91c1c">top-down camera does not read it as a mouth.</text>
+<!-- panel 2 -->
+<rect x="670" y="90" width="590" height="640" rx="16" fill="#fff" stroke="#16a34a" stroke-width="4"/>
+<text x="690" y="130" font-size="24" font-weight="bold" fill="#0f172a">2. Decide a ghost "body map" first</text>
+<rect x="1110" y="146" width="130" height="32" rx="16" fill="#16a34a"/><text x="1175" y="168" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">My pick</text>
+<g transform="translate(815,160)">
+<path d="M150,20 C230,20 270,80 272,170 L280,420 C250,445 220,425 190,440 C160,455 130,425 100,440 C70,455 40,430 20,420 L28,170 C30,80 70,20 150,20 Z" fill="#F8F4EA" stroke="#2B1E16" stroke-width="5"/>
+<line x1="-10" y1="150" x2="310" y2="150" stroke="#6366f1" stroke-dasharray="6 6"/><text x="-120" y="155" font-size="16" fill="#6366f1">eyes + ears</text>
+<line x1="-10" y1="235" x2="310" y2="235" stroke="#6366f1" stroke-dasharray="6 6"/><text x="-120" y="240" font-size="16" fill="#6366f1">neck line</text>
+<ellipse cx="115" cy="150" rx="11" ry="16" fill="#2B1E16"/><ellipse cx="185" cy="150" rx="11" ry="16" fill="#2B1E16"/>
+<path d="M33,140 C40,40 260,40 267,140" fill="none" stroke="#C8C0D8" stroke-width="12"/>
+<ellipse cx="32" cy="150" rx="15" ry="24" fill="#C8C0D8" stroke="#2B1E16" stroke-width="3"/>
+<ellipse cx="268" cy="150" rx="15" ry="24" fill="#C8C0D8" stroke="#2B1E16" stroke-width="3"/>
+<path d="M122,232 L150,248 L178,232 L170,250 L150,256 L130,250 Z" fill="#F8F4EA" stroke="#2B1E16" stroke-width="3"/>
+<path d="M141,250 L159,250 L156,264 L144,264 Z M144,264 L156,264 L168,350 L150,372 L132,350 Z" fill="#C9A6D6" stroke="#2B1E16" stroke-width="3"/>
+</g>
+<text x="690" y="640" font-size="19" fill="#0f172a">Ears at the eye line: headset centred, 2 cups.</text>
+<text x="690" y="666" font-size="19" fill="#0f172a">Eyes moved up; a collar marks the neck line.</text>
+<text x="690" y="692" font-size="19" fill="#0f172a">Tie centred below it. Must pass a REAL game-camera</text>
+<text x="690" y="718" font-size="19" fill="#0f172a">render with no mouth read before you see it.</text>
+</svg>

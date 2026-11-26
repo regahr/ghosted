@@ -1,0 +1,148 @@
+{
+ "triangles": {
+  "body": 1180,
+  "decals": 108,
+  "eyes_open": 40,
+  "eyes_happy": 16,
+  "mouth_smile": 12,
+  "mouth_talk": 9,
+  "card": 22,
+  "visible_rest (body + decals + eyes_open + mouth_smile)": 1340,
+  "visible_talk": 1337,
+  "visible_card (rest + card)": 1362,
+  "visible_happy": 1316,
+  "body_by_part": {
+   "head": 288,
+   "bun": 60,
+   "ears": 32,
+   "neck": 16,
+   "body": 240,
+   "arm_L": 144,
+   "arm_R": 144,
+   "legs": 88,
+   "band": 104,
+   "cups": 64
+  }
+ },
+ "meshes": {
+  "all": [
+   "body",
+   "card",
+   "decals",
+   "eyes_happy",
+   "eyes_open",
+   "mouth_smile",
+   "mouth_talk"
+  ],
+  "non_swap (<= 3)": [
+   "body",
+   "decals"
+  ],
+  "swap": [
+   "eyes_open",
+   "eyes_happy",
+   "mouth_smile",
+   "mouth_talk"
+  ],
+  "prop": [
+   "card"
+  ]
+ },
+ "checks": {
+  "body_nonmanifold_edges": 0,
+  "body_boundary_edges (neck tube ends, body top ring, leg ends, band ends)": 64,
+  "body_faces_against_analytic_normals": 0,
+  "height_m": 0.98,
+  "unit_mm": 3.267,
+  "talk_hand_centre_to_target_mm": 0.0,
+  "card_hand_centre_to_target_mm": 0.0,
+  "faces_rewound_to_analytic_normals": 436,
+  "hairline_front_view_y_by_deg": [
+   [
+    0,
+    89.0
+   ],
+   [
+    25,
+    89.0
+   ],
+   [
+    50,
+    94.0
+   ],
+   [
+    72,
+    98.0
+   ],
+   [
+    90,
+    100.0
+   ],
+   [
+    104,
+    103.0
+   ],
+   [
+    120,
+    117.0
+   ],
+   [
+    145,
+    150.0
+   ],
+   [
+    180,
+    167.0
+   ]
+  ],
+  "skin_unweighted": 0,
+  "smile_width_units": 2.6,
+  "card_pose_elbow_sketch": [
+   -78.1,
+   235.8,
+   25.3
+  ]
+ },
+ "poses": {
+  "talk": {
+   "arm_R_up": [
+    0.6989246606826782,
+    -0.6924977898597717,
+    -0.17874805629253387,
+    47.43478952152479
+   ],
+   "arm_R_lo": [
+    -0.5996022820472717,
+    -0.7674360275268555,
+    0.22697807848453522,
+    106.54932546717646
+   ],
+   "head": [
+    0.0,
+    1.0,
+    0.0,
+    8.0
+   ]
+  },
+  "card": {
+   "arm_R_up": [
+    -0.7561327815055847,
+    0.011676848866045475,
+    0.6543183326721191,
+    7.369122685151669
+   ],
+   "arm_R_lo": [
+    -0.4274291396141052,
+    -0.08835732936859131,
+    -0.8997205495834351,
+    30.29113081800868
+   ],
+   "torso": [
+    1.0,
+    0.0,
+    0.0,
+    2.0
+   ]
+  }
+ }
+}

@@ -1,0 +1,1537 @@
+{
+  "objective": "low-poly toon game NPC barista with cup prop, 1400 triangles, 26 m isometric camera",
+  "status": "candidates",
+  "candidate_groups": {
+    "recipes": {
+      "status": "candidates",
+      "query": "low-poly toon game NPC barista with cup prop, 1400 triangles, 26 m isometric camera",
+      "algorithm": "weighted-field-bm25",
+      "index_version": 4,
+      "expanded_terms": [],
+      "hint": "",
+      "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+      "results": [
+        {
+          "id": "recipe.modular-camera-rig",
+          "revision": 1,
+          "title": "Modular camera rig compatibility",
+          "path": "data/recipes/modular-camera-rig.json",
+          "collection": "recipes",
+          "kind": "recipe",
+          "score": 61.838442,
+          "exact_id": false,
+          "exact_alias": false,
+          "matched_fields": [
+            "title.en",
+            "aliases.en",
+            "summary",
+            "objective",
+            "tags",
+            "example_prompts",
+            "subject_terms"
+          ],
+          "summary": "Create an invented accessory rig with explicit slot rules and reversible changes."
+        },
+        {
+          "id": "recipe.stage-previsualization-cue-stack",
+          "revision": 1,
+          "title": "Stage previsualization with a versioned cue stack",
+          "path": "data/recipes/stage-previsualization-cue-stack.json",
+          "collection": "recipes",
+          "kind": "recipe",
+          "score": 41.260364,
+          "exact_id": false,
+          "exact_alias": false,
+          "matched_fields": [
+            "title.en",
+            "aliases.en",
+            "summary",
+            "intent_signals",
+            "example_prompts",
+            "subject_terms"
+          ],
+          "summary": "Coordinate performer blocking, camera, lighting and scenic cues in a reversible previsualization without claiming live show-control execution."
+        },
+        {
+          "id": "recipe.sliding-block-escape",
+          "revision": 1,
+          "title": "Sliding block escape board",
+          "path": "data/recipes/sliding-block-escape.json",
+          "collection": "recipes",
+          "kind": "recipe",
+          "score": 15.686265,
+          "exact_id": false,
+          "exact_alias": false,
+          "matched_fields": [
+            "aliases.en",
+            "objective",
+            "example_prompts"
+          ],
+          "summary": "Slide authored rectangular blocks along constrained axes toward a visible exit."
+        }
+      ],
+      "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+    }
+  },
+  "context": {
+    "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+    "bundle_hash": "fc6ce6b82a197ee3c23f01212204e0ebcb4f328c616365566f0588cfe3e2486f",
+    "selected_ids": [
+      "recipe.modular-camera-rig",
+      "recipe.stage-previsualization-cue-stack",
+      "recipe.sliding-block-escape"
+    ],
+    "records": [
+      {
+        "schema_version": 1,
+        "id": "recipe.modular-camera-rig",
+        "revision": 1,
+        "status": "active",
+        "record_kind": "creative",
+        "title": {
+          "en": "Modular camera rig compatibility"
+        },
+        "aliases": {
+          "en": [
+            "camera accessory assembly",
+            "product configuration slots"
+          ]
+        },
+        "direction_ids": [
+          "products-assemblies"
+        ],
+        "summary": "Create an invented accessory rig with explicit slot rules and reversible changes.",
+        "objective": "Build a fictional modular camera rig where a handle, monitor and battery attach to named slots.",
+        "tags": [
+          "camera rig",
+          "mount slot",
+          "accessory"
+        ],
+        "subject_terms": [
+          "camera rig",
+          "mount slot",
+          "accessory",
+          "tripod plate",
+          "compatibility"
+        ],
+        "intent_signals": [
+          "attach compatible modules",
+          "configure a product assembly"
+        ],
+        "example_prompts": [
+          "Build a fictional modular camera rig where a handle, monitor and battery attach to named slots.",
+          "Show why an accessory cannot fit an occupied mounting point."
+        ],
+        "entities": [
+          {
+            "name": "Camera cage",
+            "guidance": "Create frame rails, corner joins and named mount sockets around a camera-shaped body."
+          },
+          {
+            "name": "Accessories",
+            "guidance": "Distinct monitor frame, battery block and top handle, each with a visible mounting foot."
+          },
+          {
+            "name": "Mount guides",
+            "guidance": "Show socket axis and occupancy only during attachment."
+          }
+        ],
+        "object_craft": [
+          {
+            "family": "Camera cage",
+            "structure": "Create frame rails, corner joins and named mount sockets around a camera-shaped body.",
+            "material": "Anodized-looking aluminum and textured grip inserts."
+          },
+          {
+            "family": "Accessories",
+            "structure": "Distinct monitor frame, battery block and top handle, each with a visible mounting foot.",
+            "material": "Glass-like screen, polymer battery and rubber-looking handle."
+          },
+          {
+            "family": "Mount guides",
+            "structure": "Show socket axis and occupancy only during attachment.",
+            "material": "Muted neutral guides with text status."
+          }
+        ],
+        "state_contract": {
+          "model": "Authored compatibility table keyed by slot type; mounted accessory IDs, rigid local transforms and selected candidate.",
+          "authority": "Domain state owns identities, values and accepted transitions. Derive labels and meshes from that state; camera and display offsets are separate.",
+          "actions": [
+            "Preview an accessory at a socket.",
+            "Attach if compatible and free.",
+            "Detach and undo the last change."
+          ]
+        },
+        "invariants": [
+          "Each slot has at most one attachment and each accessory one parent.",
+          "Invalid preview does not mutate committed assembly.",
+          "Undo restores occupancy and transforms together."
+        ],
+        "motion_guidance": [
+          "Snap only after confirmation of a valid candidate; rejected parts return to their tray.",
+          "Keep preview ghost separate from committed meshes and accessible selection labels."
+        ],
+        "known_limits": [
+          "Fictional interface dimensions; no claim of compatibility with commercial camera hardware.",
+          "Authored recipe only; runtime and rendered geometry checks have not run."
+        ],
+        "claims": [],
+        "creative_affordances": [
+          "Clearly different silhouettes make configuration changes visible without requiring brand assets."
+        ],
+        "physical_contract": {
+          "model": "display-transform",
+          "scope": "Slot-based assembly editor.",
+          "state": [
+            "slot occupancy",
+            "accessory IDs",
+            "mount transforms"
+          ],
+          "colliders": [
+            "Attachment envelopes for authored clearance checks."
+          ],
+          "driving": [
+            "Discrete attach/detach operations."
+          ],
+          "contact": [
+            "No load or fastening simulation."
+          ],
+          "timestep": "Use a declared fixed update step for changing model state; interpolate presentation only. Pause clears accumulated playback time.",
+          "checks": [
+            "Occupied slot rejects attach without duplicating the accessory."
+          ]
+        },
+        "_path": "data/recipes/modular-camera-rig.json"
+      },
+      {
+        "schema_version": 1,
+        "id": "recipe.stage-previsualization-cue-stack",
+        "revision": 1,
+        "status": "active",
+        "record_kind": "mixed",
+        "title": {
+          "en": "Stage previsualization with a versioned cue stack"
+        },
+        "aliases": {
+          "en": [
+            "lighting camera blocking previs",
+            "multi-department stage cues"
+          ]
+        },
+        "direction_ids": [
+          "characters-motion-art",
+          "environments-dioramas"
+        ],
+        "summary": "Coordinate performer blocking, camera, lighting and scenic cues in a reversible previsualization without claiming live show-control execution.",
+        "objective": "Build a stage model where I scrub cues, inspect department ownership and recover cleanly from interruption or a missing asset.",
+        "tags": [
+          "stage previsualization",
+          "cue stack",
+          "blocking"
+        ],
+        "subject_terms": [
+          "cue ID",
+          "department track",
+          "standby",
+          "go",
+          "model time",
+          "performer blocking",
+          "camera cue",
+          "lighting cue"
+        ],
+        "intent_signals": [
+          "stage lighting cue with camera and performer blocking",
+          "versioned cue stack previs"
+        ],
+        "example_prompts": [
+          "Preview a scene change with performer blocking, camera move and lighting cues, then interrupt and resume from a checkpoint."
+        ],
+        "negative_signals": [
+          "Not a live safety system, SMPTE certification, lighting-console protocol or guaranteed real-time show control."
+        ],
+        "not_for": [
+          "No pyrotechnics, machinery safety, performer tracking, live command transmission or timing certification."
+        ],
+        "entities": [
+          {
+            "name": "Stage and anchors",
+            "guidance": "Blender authors the stage, scenic units, performer marks, camera rails and named light targets; every cue target resolves by stable ID."
+          },
+          {
+            "name": "Cue stack",
+            "guidance": "Store immutable cue ID, revision, department, trigger mode, start/end, dependencies, target patch and reversible checkpoint policy outside glTF."
+          }
+        ],
+        "state_contract": {
+          "model": "A cue-stack revision contains ordered cues across blocking, scenic, camera and lighting tracks. A cue may trigger at model time, after a prior cue, or by explicit Go; ties use declared order. Standby changes no show state. Go commits one cue transaction or enters an error without partial target changes. Scrub reconstructs continuous target values and discrete latched cues from the selected revision. Interruption pauses model time and stores a checkpoint; resume, rollback or reset follows an explicit operator choice. Missing target IDs block only according to the cue\u2019s declared required/optional policy.",
+          "authority": "Three.js owns the versioned semantic state, model time, history and reset; Blender/glTF assets are named presentation resources only.",
+          "actions": [
+            "Inspect standby and dependency readiness.",
+            "Go one cue or scrub the authored timeline.",
+            "Interrupt, resume or rollback to a checkpoint.",
+            "Compare cue-stack revisions without mutating the selected one."
+          ]
+        },
+        "invariants": [
+          "Cue ID/revision/department and target ownership are stable.",
+          "Standby never commits target state; Go is atomic at the semantic layer.",
+          "Same revision and model time reconstruct the same cue state.",
+          "Previsualization never sends live control commands."
+        ],
+        "motion_guidance": [
+          "Drive presentation from a seekable model time and derive every visible transform from current state; pause and scrub never advance hidden semantic state.",
+          "Provide a static sequence/list and reduced-motion mode that preserves text, order, choices and status."
+        ],
+        "creative_affordances": [
+          "Choose typography, assets, palette, staging and metaphor per the supplied brief and licensed material; no house style is mandatory.",
+          "Blender owns expressive geometry, rigs, sets and cue anchors; Three.js owns time, branch/state, captions, interruption and checkpoints."
+        ],
+        "known_limits": [
+          "Authored visualization of a finite cue stack; timing, collision, sightline and device outputs are not validated for a venue.",
+          "Authored, source-reviewed guidance only; no Blender export, audio playback, visitor study, show-control link, browser or renderer was run."
+        ],
+        "claims": [
+          {
+            "id": "claim.art-webanimations-timing-state",
+            "statement": "Web Animations defines a timing model with current time, start time, playback rate and play/pause operations, allowing animation presentation to be derived from an owned timeline.",
+            "scope": "Browser animation timing semantics only; department cue transactions and safety policy are authored separately.",
+            "source_refs": [
+              {
+                "source_id": "source.art-w3c-web-animations",
+                "locator": "Timing model; Animation current time, start time, playback rate, play and pause procedures"
+              }
+            ]
+          }
+        ],
+        "object_craft": [
+          {
+            "family": "Cueable stage model",
+            "structure": "Build named marks, scenic pivots, camera rails and light aim targets; keep a cue table visible beside the spatial view.",
+            "material": "Department tracks use shape and labels as well as color; standby, active and error states remain distinct."
+          }
+        ],
+        "physical_contract": {
+          "model": "none",
+          "scope": "Spatial layout and motion communicate authored media/state; geometry and collisions have no physical authority.",
+          "timestep": "Evaluate from seekable authored time or discrete event state; no physics integration.",
+          "state": [
+            "versioned authored content",
+            "model time or event cursor",
+            "selection, accessibility and error state"
+          ],
+          "colliders": [
+            "optional interaction hit regions only"
+          ],
+          "driving": [
+            "authored cues and user actions"
+          ],
+          "contact": [
+            "none"
+          ],
+          "checks": [
+            "seek/reset state equality",
+            "missing asset/data fallback",
+            "presentation controls leave semantic data unchanged"
+          ]
+        },
+        "related_ids": [
+          "knowledge.theme-ceremonial-stage",
+          "recipe.construction-sequence-playback",
+          "knowledge.reasoning-algorithm-trace-as-data"
+        ],
+        "_path": "data/recipes/stage-previsualization-cue-stack.json"
+      },
+      {
+        "schema_version": 1,
+        "id": "recipe.sliding-block-escape",
+        "revision": 1,
+        "status": "active",
+        "record_kind": "creative",
+        "title": {
+          "en": "Sliding block escape board"
+        },
+        "aliases": {
+          "en": [
+            "3D sliding puzzle",
+            "block escape game"
+          ]
+        },
+        "direction_ids": [
+          "spatial-puzzles"
+        ],
+        "summary": "Slide authored rectangular blocks along constrained axes toward a visible exit.",
+        "objective": "Build an authored sliding-block escape puzzle with axis-constrained moves, undo and a visible goal exit.",
+        "tags": [
+          "sliding block",
+          "escape puzzle",
+          "grid board"
+        ],
+        "subject_terms": [
+          "sliding block",
+          "escape puzzle",
+          "grid board",
+          "legal move",
+          "exit"
+        ],
+        "intent_signals": [
+          "slide a block to an exit",
+          "show legal moves"
+        ],
+        "example_prompts": [
+          "Build an authored sliding-block escape puzzle with axis-constrained moves, undo and a visible goal exit.",
+          "Show all legal displacements for the selected block without moving other pieces."
+        ],
+        "entities": [
+          {
+            "name": "Board and exit",
+            "guidance": "Build shallow board walls with one explicit goal opening; align grid and block footprints."
+          },
+          {
+            "name": "Blocks",
+            "guidance": "Create rectangular prisms with stable IDs and direction engravings."
+          }
+        ],
+        "object_craft": [
+          {
+            "family": "Board and exit",
+            "structure": "Build shallow board walls with one explicit goal opening; align grid and block footprints.",
+            "material": "Matte tray with contrasting exit trim."
+          },
+          {
+            "family": "Blocks",
+            "structure": "Create rectangular prisms with stable IDs and direction engravings.",
+            "material": "Smooth colored wood-looking finish; small visual gaps do not alter occupancy."
+          }
+        ],
+        "state_contract": {
+          "model": "Integer grid occupancy, immutable block dimensions, one allowed movement axis per block, goal block and exit rule; no rotations.",
+          "authority": "Domain state owns identities, values and accepted transitions. Derive labels and meshes from that state; camera and display offsets are separate.",
+          "actions": [
+            "Select block and preview legal travel.",
+            "Commit a slide.",
+            "Undo or reset authored instance."
+          ]
+        },
+        "invariants": [
+          "Swept cells across the whole move are empty; empty destination alone is insufficient.",
+          "Only the goal block may leave through the designated opening.",
+          "Undo restores block poses and move count without rounding drift."
+        ],
+        "motion_guidance": [
+          "Tween accepted grid displacement with input locked or queued until commit completes.",
+          "Reject perpendicular dragging with axis feedback."
+        ],
+        "known_limits": [
+          "Puzzle rules and layout are authored, not a claim about a named commercial puzzle.",
+          "Do not advertise shortest solution without an actual exhaustive or appropriately proven search.",
+          "Authored recipe only; runtime and rendered geometry checks have not run."
+        ],
+        "claims": [],
+        "creative_affordances": [
+          "Shallow walls and engraved axes make legal movement visible even before interaction."
+        ],
+        "physical_contract": {
+          "model": "display-transform",
+          "scope": "Grid-constrained puzzle moves.",
+          "state": [
+            "block coordinates",
+            "occupancy",
+            "move stack"
+          ],
+          "colliders": [
+            "Swept grid occupancy and board bounds."
+          ],
+          "driving": [
+            "Axis-only accepted moves."
+          ],
+          "contact": [
+            "Discrete rule rejection, not friction or pushing dynamics."
+          ],
+          "timestep": "Use a declared fixed update step for changing model state; interpolate presentation only. Pause clears accumulated playback time.",
+          "checks": [
+            "Reject jump over occupied intermediate cells; undo restores move count."
+          ]
+        },
+        "_path": "data/recipes/sliding-block-escape.json"
+      }
+    ],
+    "sources": [
+      {
+        "id": "source.art-w3c-web-animations",
+        "url": "https://www.w3.org/TR/web-animations-1/",
+        "title": "Web Animations Level 1",
+        "accessed_at": "2026-09-08",
+        "locator": "Timing model; Animation current time, start time, playback rate, play and pause procedures",
+        "scope": "Browser animation timing/playback semantics; no stage-control protocol or real-time guarantee.",
+        "version": "W3C Working Draft 2023-06-05; live specification read 2026-09-08.",
+        "redistribution": "Link and independently authored summary only; specification text is not bundled."
+      }
+    ],
+    "notice": "These are authored records and source metadata, not new source reads or runtime verification. Apply only the guidance relevant to the task."
+  },
+  "next_step": "Interpret the user constraints and negation yourself. Select useful records, research factual claims, then synthesize a coherent design with custom choices. Do not present this retrieval output as a completed design system or treat absent matches as a capability limit. Assess each blueprint against the intended silhouette, structure, behavior and finish. Reuse, adapt, reject or combine it with custom or sourced geometry by actual fit. A matching noun does not require using its kit; document choices when useful.",
+  "blueprints": [
+    {
+      "id": "knowledge.blueprint-barrel",
+      "title": "Blueprint: coopered barrel",
+      "asset": "templates/kits/props/barrel.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        0.73,
+        0.73
+      ],
+      "poly_budget": 3448,
+      "sockets": [
+        "lid",
+        "base",
+        "tap"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "bulged barrel profile: 34 cm at the belly falling to 27 cm at both heads",
+          "five iron hoops breaking the wooden surface by 1 cm each",
+          "stave ends standing 5 cm proud of the sunken head, the chime"
+        ],
+        "medium": [
+          "sixteen separate staves with a 6 percent gap between each pair",
+          "four stave courses whose joins are covered by the three middle hoops",
+          "a closed head sunk 5 cm below the stave ends, with two raised seam battens over it"
+        ],
+        "fine": [
+          "six rivet domes on every hoop, thirty in all, 2.4 cm across",
+          "1.2 cm chamfer on every stave edge, cut as geometry",
+          "per-stave hue jitter of 5 percent across the sixty-four stave segments",
+          "a bung boss on the top head, offset by a seeded amount from the centre"
+        ]
+      },
+      "params": {
+        "height": 0.94,
+        "radius": 0.34,
+        "staves": 16,
+        "seed": 1,
+        "bulge": 0.2,
+        "gap": 0.06
+      }
+    },
+    {
+      "id": "knowledge.blueprint-biped-walker",
+      "title": "Blueprint: biped walker",
+      "asset": "templates/kits/creatures/biped-walker.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        0.54,
+        0.74
+      ],
+      "poly_budget": 2058,
+      "sockets": [
+        "harness",
+        "head",
+        "back"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "standing figure 1.75 m to the crown, shoulders 0.44 m across tapering to a belted waist",
+          "hat crown and brim breaking the head outline, and a tunic hem cutting the thigh line",
+          "arms held clear of the body so the gap between arm and torso reads at any distance",
+          "in motion: opposite arm and leg lead together, and the torso leans 6 degrees into the walk"
+        ],
+        "medium": [
+          "two-joint legs and arms - thigh, shin, boot and upper arm, forearm, hand",
+          "belt with a buckle, boot soles standing 2.5 cm proud, and a collar at the neck",
+          "boots that stay flat through stance and roll over the toe through swing",
+          "hip bob of 2.6 cm at twice the stride rate, with a 3 degree hip counter-rotation"
+        ],
+        "fine": [
+          "cuff band turned at each wrist, 8 mm thick",
+          "eyes 3.8 cm across with a 1.2 cm highlight, shaded by the hat brim above them",
+          "a nose block on the face, so the head has a front at the detail distance",
+          "fourteen hem stitches around the tunic skirt, jittered per seed"
+        ]
+      },
+      "params": {
+        "scale": 1,
+        "strideM": 0.72,
+        "strideHz": 0.95,
+        "speed": 0,
+        "seed": 1,
+        "tunic": "#7a6f9c",
+        "yawRateRad": 2.4
+      }
+    },
+    {
+      "id": "knowledge.blueprint-cart",
+      "title": "Blueprint: two-wheeled farm cart",
+      "asset": "templates/kits/props/cart.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        3.15,
+        1.55
+      ],
+      "poly_budget": 2592,
+      "sockets": [
+        "bed",
+        "yoke",
+        "axle",
+        "tail"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "two 93 cm wheels standing clear of a bed 62 cm above the ground",
+          "two draught shafts reaching 1.5 m forward to a cross bar",
+          "a raked prop leg under the tail, so the cart stands rather than floats"
+        ],
+        "medium": [
+          "eight tapered spokes and a barrel hub on each wheel",
+          "six bed planks with 12 mm gaps between them, framed by an edge rail",
+          "three stanchions and a side board on each long side"
+        ],
+        "fine": [
+          "a 4.8 cm iron tyre band standing proud of the felloe on both wheels",
+          "a domed hub cap on the outer face of each wheel",
+          "twelve nail domes down the bed plank ends, 2.6 cm across",
+          "per-spoke hue jitter of 5 percent so the sixteen spokes differ"
+        ]
+      },
+      "params": {
+        "width": 1.7,
+        "depth": 0.98,
+        "wheelRadius": 0.44,
+        "seed": 1,
+        "planks": 6,
+        "sideHeight": 0.34
+      }
+    },
+    {
+      "id": "knowledge.blueprint-clothesline",
+      "title": "Blueprint: pegged clothesline",
+      "asset": "templates/kits/props/clothesline.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        4.62,
+        0.7
+      ],
+      "poly_budget": 1232,
+      "sockets": [
+        "left",
+        "right",
+        "line"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "two 1.98 m poles carrying a rope that dips 22 cm at the middle of the span",
+          "five sheets of different widths and drops breaking the gap between the poles",
+          "a splayed foot block at the base of each pole"
+        ],
+        "medium": [
+          "a cross arm and two diagonal braces at the head of each pole",
+          "the rope built from fourteen chords of the sag curve, not one straight bar",
+          "each sheet yawed up to 14 degrees in plan and leaning up to 9 degrees"
+        ],
+        "fine": [
+          "two pegs on every sheet, 7.5 cm tall, gripping the line at the sheet corners",
+          "a darker hem strip 5 cm deep along the bottom edge of every sheet",
+          "per-sheet hue jitter of 28 percent of the hue wheel, so one panel is plainly a different colour of cloth from its neighbour"
+        ]
+      },
+      "params": {
+        "span": 4.2,
+        "height": 1.98,
+        "sheets": 5,
+        "seed": 1,
+        "sag": 0.22
+      }
+    },
+    {
+      "id": "knowledge.blueprint-crate",
+      "title": "Blueprint: nailed shipping crate",
+      "asset": "templates/kits/props/crate.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        0.67,
+        0.68
+      ],
+      "poly_budget": 2156,
+      "sockets": [
+        "lid",
+        "base",
+        "label"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "four corner posts standing 1.8 cm proud of every face, breaking the cube",
+          "a battened lid overhanging the box by 2 cm on all four sides",
+          "a diagonal brace crossing two opposite faces at 40 degrees"
+        ],
+        "medium": [
+          "four planks a side with an 11 mm gap between each pair and at both ends",
+          "lid planks running across the side planks, with two battens over them",
+          "the brace laid over the planks, not flush with them",
+          "a dark inner liner behind the plank gaps, so a gap reads as depth not as sky"
+        ],
+        "fine": [
+          "thirty-two dome nail heads, 2.8 cm across, two at each plank end",
+          "9 mm chamfer on every plank edge and 1.1 cm on the posts",
+          "per-plank hue jitter of 5 percent across the sixteen side planks"
+        ]
+      },
+      "params": {
+        "size": 0.62,
+        "planks": 4,
+        "seed": 1,
+        "braced": true
+      }
+    },
+    {
+      "id": "knowledge.blueprint-fence-run",
+      "title": "Blueprint: paddock fence run",
+      "asset": "templates/kits/props/fence-run.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        4.75,
+        0.2
+      ],
+      "poly_budget": 2160,
+      "sockets": [
+        "start",
+        "end",
+        "gate"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "four posts spaced 1.53 m apart along a 4.6 m run",
+          "three rail courses dipping 5.5 cm at the middle of every bay",
+          "a chamfered four-sided cap on every post, 10 cm tall"
+        ],
+        "medium": [
+          "each rail bay built from four chords of the sag curve, not one straight bar",
+          "per-post lean of up to 3 degrees off vertical and 9 degrees in plan",
+          "rails set 26, 56 and 86 percent of the way up the post",
+          "rails nailed to one face of the posts, standing clear of the post line"
+        ],
+        "fine": [
+          "twenty-four nail domes, 4.2 cm across, a pair at every rail-to-post joint",
+          "1.4 cm chamfer on the posts and 1 cm on the rails",
+          "per-post hue jitter of 6 percent so no two posts share a tone"
+        ]
+      },
+      "params": {
+        "length_m": 4.6,
+        "posts": 4,
+        "height": 1.18,
+        "seed": 1,
+        "sag": 0.055
+      }
+    },
+    {
+      "id": "knowledge.blueprint-iron-lantern",
+      "title": "Blueprint: iron post lantern (Blender glTF)",
+      "asset": "templates/kits/gltf/iron-lantern.glb",
+      "kind": "gltf-asset",
+      "footprint_m": [
+        0.46,
+        0.67
+      ],
+      "poly_budget": 1944,
+      "sockets": [
+        "base",
+        "lamp",
+        "hook"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "3.55 m post-and-head profile: a 2.36 m post over a stepped base, a 44 cm glazed head and a four-sided pyramid cap with a finial",
+          "hook arm reaching 44 cm off the post at 2.6 m, breaking the vertical so the lantern reads as ironwork rather than a bollard",
+          "0.46 m x 0.67 m footprint including the arm, small enough to sit against a wall or a path edge"
+        ],
+        "medium": [
+          "four 3.5 cm corner posts framing the head, with the glass sitting inboard of them so the head reads as a cage, not a cube",
+          "four glazing panes 28 cm wide carrying an emissive factor of (1.0, 0.58, 0.22) at strength 1.8, exported through KHR_materials_emissive_strength",
+          "two brass collars at 0.62 m and 2.46 m and a diagonal stay under the hook arm at 38 degrees"
+        ],
+        "fine": [
+          "6 mm two-segment chamfer on every iron edge, so the post reads as forged stock with rounded arrises rather than as a extruded rectangle",
+          "the 12 cm brass finial and the 26 cm pyramid cap, four-sided and rotated 45 degrees so a corner faces the viewer",
+          "three material slots separated by roughness and metalness: iron 0.50/0.30, brass 0.30/0.35, glazing 0.16/0.0"
+        ]
+      },
+      "params": {
+        "scale": 1
+      }
+    },
+    {
+      "id": "knowledge.blueprint-lantern-post",
+      "title": "Blueprint: wrought iron lantern post",
+      "asset": "templates/kits/props/lantern-post.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        0.82,
+        0.49
+      ],
+      "poly_budget": 2248,
+      "sockets": [
+        "base",
+        "hook",
+        "lamp"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "a 2.82 m shaft with a glazed head hanging 39 cm off its axis",
+          "a three-step base flare widening from 17 cm to 38 cm at the ground",
+          "the pyramid cap and ball finial breaking the top of the head"
+        ],
+        "medium": [
+          "a bracket arm with a seven-link scroll curling under it from post to arm",
+          "three collars dividing the shaft into four segments, each 6 cm proud of it",
+          "four glazing bars, one across the middle of each emissive pane"
+        ],
+        "fine": [
+          "eighteen bolt domes, 3.8 cm across: four per collar, four on the base plate, two on the arm",
+          "1.8 cm chamfer on the shaft and 2.4 cm on the base blocks",
+          "per-instance hue jitter of 5 percent on the glass colour, applied through materialFor so the shared material cache is never mutated"
+        ]
+      },
+      "params": {
+        "height": 2.82,
+        "headSize": 0.34,
+        "seed": 1,
+        "iron": "#5f636d",
+        "glass": "#ffd9a0"
+      }
+    },
+    {
+      "id": "knowledge.blueprint-long-hall",
+      "title": "Blueprint: five-bay timber long hall",
+      "asset": "templates/kits/buildings/long-hall.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        12.0,
+        5.5
+      ],
+      "poly_budget": 11344,
+      "sockets": [
+        "door",
+        "porch-door",
+        "chimney-west",
+        "chimney-east",
+        "sign",
+        "lean-to"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "12 m ridge at 5.15 m with a 30 cm eave overhang, unbroken along the whole length",
+          "two brick chimneys with stone caps and clay pots breaking the ridge at 6.54 m",
+          "monopitch porch standing 1.4 m clear of the front wall on two posts and stone pads"
+        ],
+        "medium": [
+          "five-bay rhythm: six frame posts per long wall standing 7 cm proud of the plaster, with top plate, sill beam, mid rail and corner braces kept clear of the openings",
+          "windows recessed 12 cm behind a 24 cm wall with a 7 cm frame and two glazing bars, cut as real holes",
+          "roof laid as lapped tile courses, roughly three per metre of slope, with a barge board at each verge",
+          "two plank doors set back in their reveals under timber hoods, each on a projecting stone step"
+        ],
+        "fine": [
+          "hexagonal peg heads 9 cm across at every frame joint, three per post: sill, mid rail and plate",
+          "sill drip groove under each window, a 2.4 cm shadow line below the sill lip",
+          "clenched nail heads and strap hinges on the door leaves, 2.4 cm across",
+          "one slipped tile per slope and per-course hue jitter of about 4 percent",
+          "worn lighter arris along each stone step nosing and along the sill beams"
+        ]
+      },
+      "params": {
+        "width": 12,
+        "depth": 5.5,
+        "wallHeight": 3,
+        "bayCount": 5,
+        "roofPitchDeg": 38,
+        "seed": 1
+      }
+    },
+    {
+      "id": "knowledge.blueprint-market-stall",
+      "title": "Blueprint: trestle market stall",
+      "asset": "templates/kits/buildings/market-stall.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        2.8,
+        1.9
+      ],
+      "poly_budget": 3104,
+      "sockets": [
+        "front",
+        "counter",
+        "goods-left",
+        "goods-right",
+        "sign",
+        "keeper",
+        "ridge"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "pitched canopy ridge at 2.72 m with a scalloped valance hanging off the front eave",
+          "stacked crates and a produce heap breaking the straight line of the counter top",
+          "four corner posts on stone pads, with the counter overhanging the front pair"
+        ],
+        "medium": [
+          "eight canopy stripes alternating cloth and red, each drooping toward mid-span so the roof reads as cloth over a frame",
+          "counter of three separate boards with real gaps, on four splayed trestle legs and a kick board",
+          "five crates standing on the counter boards with a darker slat band across each, two of them stacked a course higher",
+          "two faceted sacks tied at the neck leaning at the front corner, and a hanging price board on two eye hooks"
+        ],
+        "fine": [
+          "two rope lashings at every post head, 14 cm across, each seeded to a different angle",
+          "twenty-two pieces of produce with per-piece hue jitter, scale and rotation",
+          "chipped paint patch on the price board and its painted crossed glyph standing 8 mm proud",
+          "chamfered arrises on the posts, counter boards and crates, cut as geometry"
+        ]
+      },
+      "params": {
+        "width": 2.8,
+        "depth": 1.9,
+        "height": 2.4,
+        "stripes": 8,
+        "seed": 1
+      }
+    },
+    {
+      "id": "knowledge.blueprint-quadruped-walker",
+      "title": "Blueprint: quadruped walker",
+      "asset": "templates/kits/creatures/quadruped-walker.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        0.44,
+        1.32
+      ],
+      "poly_budget": 2472,
+      "sockets": [
+        "harness",
+        "head",
+        "back"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "barrel trunk tapering from a 0.43 m chest to a 0.34 m rump, back line 0.88 m above the ground",
+          "neck leaning forward 24 degrees into a horned head that breaks the back line at 1.18 m",
+          "tail carried up and away from the rump, and four legs whose gaps are readable between them",
+          "in motion: the diagonal pairs split the silhouette, one pair grounded while the other swings"
+        ],
+        "medium": [
+          "three-segment legs - thigh, shin and fetlock - with the foreleg elbow folding back and the hind stifle folding forward",
+          "muzzle, ears with a pale inner surface, and horns swept back off the skull",
+          "hooves that stay flat on the ground through stance and roll over the toe through swing",
+          "body bob of 2.2 cm at twice the stride rate, with the head nodding once per stride"
+        ],
+        "fine": [
+          "each hoof split into two claws about 3.6 cm across, chamfered at 1.2 cm",
+          "eyes 4.8 cm across with a 1.4 cm highlight, and 2.2 cm nostril dots on the muzzle",
+          "three growth rings turned into each horn",
+          "per-seed jitter on ear splay and hoof claw offset, so two animals are not one animal twice"
+        ]
+      },
+      "params": {
+        "scale": 1,
+        "strideM": 0.62,
+        "strideHz": 1.1,
+        "speed": 0,
+        "seed": 1,
+        "coat": "#b39a78",
+        "yawRateRad": 1.8
+      }
+    },
+    {
+      "id": "knowledge.blueprint-reeds",
+      "title": "Blueprint: instanced water reeds",
+      "asset": "templates/kits/nature/reeds.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        1.6,
+        1.32
+      ],
+      "poly_budget": 2030,
+      "sockets": [
+        "base",
+        "tip",
+        "edge"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "forty blades whose heights vary from half to 1.1 times the height parameter",
+          "a low faceted tussock the blades grow out of",
+          "the clump fanning out rather than standing as a bundle"
+        ],
+        "medium": [
+          "every blade swept along its own azimuth, so no two curve the same way",
+          "two blade curvatures in the clump, one gentle and one strongly hooked",
+          "about a third of the blades carrying an elongated seed head at the tip"
+        ],
+        "fine": [
+          "blades tapering from 14 mm at the sheath to 3 mm at the tip",
+          "the seed head carried in the same geometry space as the blade, so it can never drift off its stem",
+          "per-blade hue jitter of 8 percent across the whole clump"
+        ]
+      },
+      "params": {
+        "count": 40,
+        "seed": 1,
+        "spread": 0.62,
+        "height": 1.25,
+        "blade": "#7c9455"
+      }
+    },
+    {
+      "id": "knowledge.blueprint-rock-cluster",
+      "title": "Blueprint: glacial rock cluster",
+      "asset": "templates/kits/nature/rock-cluster.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        2.26,
+        2.67
+      ],
+      "poly_budget": 800,
+      "sockets": [
+        "base",
+        "perch",
+        "shelter"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "eight boulders whose masses differ by more than three to one",
+          "every boulder sunk a quarter of its height into the ground plane",
+          "no boulder spherical: each shape is jittered before it is placed"
+        ],
+        "medium": [
+          "flat facets meeting at hard edges across every stone",
+          "three separate boulder shapes, so the cluster is not one stone scaled thrice",
+          "a ring of fourteen pebbles tying the cluster to the ground"
+        ],
+        "fine": [
+          "chipped facet corners from welded per-vertex jitter of up to 32 percent",
+          "pebbles between 5 and 13 cm across, each with its own shape and attitude",
+          "per-instance hue jitter of 6 percent on the boulders and 8 on the pebbles"
+        ]
+      },
+      "params": {
+        "count": 8,
+        "seed": 1,
+        "spread": 1.05,
+        "rock": "#8e8b84"
+      }
+    },
+    {
+      "id": "knowledge.blueprint-round-tower",
+      "title": "Blueprint: battered round stone tower",
+      "asset": "templates/kits/buildings/round-tower.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        5.2,
+        5.2
+      ],
+      "poly_budget": 5144,
+      "sockets": [
+        "door",
+        "banner",
+        "walkway",
+        "lantern",
+        "stair-foot"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "shaft tapering from a 5.24 m splayed plinth to a 3.5 m crown, so the outline is never a parallel-sided tube",
+          "crenellated crown and conical cap breaking the sky, with a banner pole reaching 11.97 m",
+          "external stair wedge running 4.8 m out from the tower centre to the raised door at 1.7 m"
+        ],
+        "medium": [
+          "fourteen merlons with embrasures between them around a corbel ring that projects 34 cm past the shaft",
+          "five projecting string courses dividing the shaft, plus the splayed plinth at the base",
+          "five arrow slits climbing the shaft on a slow spiral, each in a dressed frame standing 14 cm proud of the curved wall so the recess reads without cutting a hole in the drum",
+          "an emissive first-floor window with glazing bars, and a seven-voussoir semicircular arch over the recessed plank door",
+          "a landing on two corbels at door height, reached by a seven-step flight"
+        ],
+        "fine": [
+          "a lighter capstone on every third merlon, 14 cm thick, chamfered on its arris",
+          "worn lighter nosing on each stair tread, seeded in length so no two rub the same",
+          "a lighter keystone at the crown of the door arch, and every voussoir yawed back onto the curve of the drum rather than laid on one flat plane",
+          "three banner panels each hanging at a different seeded angle"
+        ]
+      },
+      "params": {
+        "height": 8,
+        "baseRadius": 2.2,
+        "topRadius": 1.75,
+        "merlons": 14,
+        "slits": 5,
+        "doorHeight": 1.7,
+        "seed": 1
+      }
+    },
+    {
+      "id": "knowledge.blueprint-signboard",
+      "title": "Blueprint: hanging signboard",
+      "asset": "templates/kits/props/signboard.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        1.02,
+        0.35
+      ],
+      "poly_budget": 2156,
+      "sockets": [
+        "base",
+        "bracket",
+        "swing-a",
+        "swing-b"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "a 2.62 m post with an arm cantilevered 86 cm out and a board hung under it",
+          "a three-step stone and timber foot widening to 35 cm at the ground",
+          "the board hanging clear of the post, free to swing on two points"
+        ],
+        "medium": [
+          "a seven-link scroll brace curving from the post to the arm",
+          "a raised border moulding on both faces of the board, 4.5 cm wide",
+          "two eye rings, each dropping the board on a four-link chain",
+          "an iron band around the post at 46 percent of its height"
+        ],
+        "fine": [
+          "a carved boss 10 cm across at the centre of each board face",
+          "six bolt domes, 3.6 cm across: four on the mid-post band and two on the arm",
+          "1.5 cm chamfer on the board and 1.7 cm on the post",
+          "per-seed jitter on the boss placement, so no two signs are stamped alike"
+        ]
+      },
+      "params": {
+        "height": 2.62,
+        "reach": 0.86,
+        "boardWidth": 0.78,
+        "boardHeight": 0.52,
+        "seed": 1,
+        "postWidth": 0.11
+      }
+    },
+    {
+      "id": "knowledge.blueprint-stone-bridge",
+      "title": "Blueprint: segmental-arch stone bridge",
+      "asset": "templates/kits/buildings/stone-bridge.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        9.4,
+        3.4
+      ],
+      "poly_budget": 6048,
+      "sockets": [
+        "deck-centre",
+        "deck-west",
+        "deck-east",
+        "keystone",
+        "lantern"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "6 m segmental arch springing at 0.9 m and rising 1.5 m, a real void with daylight through it",
+          "parapet running the full 9.4 m length on both faces, capped 3.87 m above the river bed",
+          "four cutwaters wedged into the flow at the springings, breaking the elevation at both ends"
+        ],
+        "medium": [
+          "fifteen voussoirs around the arc, alternating light and dark, each a separate block with a chamfered arris",
+          "spandrel masonry sliced into 22 courses that start on the arch extrados, alternating light and dark so the joints read as coursing",
+          "cobbled deck of about 154 stones in courses across the width, each seeded in scale and rotation",
+          "projecting string course under the parapet on both faces, with two coursing bands in the parapet itself"
+        ],
+        "fine": [
+          "keystone raised 7 cm proud of its neighbours and lighter than the ring, with its own capping block",
+          "worn lighter arris along the parapet coping, seeded in length on each face",
+          "one slumped coping stone out of line, tilted a few degrees, the bridge's only asymmetry",
+          "moss patches at both springings where the masonry meets the water line"
+        ]
+      },
+      "params": {
+        "span": 6,
+        "width": 3.4,
+        "rise": 1.5,
+        "springHeight": 0.9,
+        "voussoirCount": 15,
+        "approach": 1.7,
+        "parapetHeight": 0.95,
+        "seed": 1
+      }
+    },
+    {
+      "id": "knowledge.blueprint-stone-guildhall",
+      "title": "Blueprint: stone guildhall (Blender glTF)",
+      "asset": "templates/kits/gltf/stone-guildhall.glb",
+      "kind": "gltf-asset",
+      "footprint_m": [
+        8.0,
+        6.57
+      ],
+      "poly_budget": 8908,
+      "sockets": [
+        "door",
+        "banner",
+        "chimney",
+        "lantern"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "gable block 8.0 m wide and 6.57 m deep with the ridge at 7.30 m, roughly twice the height of the timber cottage it stands beside",
+          "40 degree tiled roof with a 34 cm eave overhang and a capped ridge, broken at 2.2 m off centre by a stone chimney whose cap tops out at 8.17 m",
+          "stone plinth 35 cm proud of the wall face and an entrance step standing 70 cm outside the front wall"
+        ],
+        "medium": [
+          "twelve openings cut clean through 42 cm walls: two upper and two lower windows on each front and back wall, three per gable-end wall, plus the door",
+          "glazing set back 20 cm from the outer face so every reveal is a shadowed recess rather than a flat panel",
+          "string course ledge at 3.02 m dividing the wall into two storeys, a recessed timber door leaf 16 cm inside its opening, and twelve roof courses each lapping 10 cm over the one below"
+        ],
+        "fine": [
+          "2 cm single-segment chamfer on every stone arris, applied by a bevel modifier limited to 35 degrees and baked in by export_apply",
+          "mullion and transom bars 5 cm square crossing each window 15 cm inside the reveal",
+          "four named material slots with distinct roughness (stone 0.88, tile 0.74, timber 0.62, glazing 0.12) so the surfaces separate under one light"
+        ]
+      },
+      "params": {
+        "scale": 1
+      }
+    },
+    {
+      "id": "knowledge.blueprint-timber-cottage",
+      "title": "Blueprint: timber-framed cottage",
+      "asset": "templates/kits/buildings/timber-cottage.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        4.2,
+        3.4
+      ],
+      "poly_budget": 3468,
+      "sockets": [
+        "door",
+        "chimney",
+        "sign",
+        "lean-to"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "gable roof with 42 deg pitch and 25 cm eave overhang, ridge at 3.93 m above the ground plane",
+          "brick chimney breaking the ridge line and topped with a stone cap at 4.73 m",
+          "door step and threshold standing 16 cm outside the front wall plane"
+        ],
+        "medium": [
+          "four exposed frame timbers per long wall, 16 cm wide and standing 7 cm proud of the plaster",
+          "windows inset 12 cm behind the wall face with a 6 cm frame, cut as real holes through a 22 cm wall",
+          "roof tiles laid as overlapping strips, three rows visible per metre of slope"
+        ],
+        "fine": [
+          "3 cm bevel on every timber edge, cut as geometry rather than shaded on",
+          "sill drip groove under each window, a 2.5 cm shadow line below the sill lip",
+          "peg heads at the frame joints, 7 cm across, two per timber",
+          "per-instance hue jitter of 4 percent on the tile strips"
+        ]
+      },
+      "params": {
+        "width": 4.2,
+        "depth": 3.4,
+        "storeys": 1,
+        "seed": 1,
+        "roofPitchDeg": 42
+      }
+    },
+    {
+      "id": "knowledge.blueprint-tree-conifer",
+      "title": "Blueprint: conifer with countable boughs",
+      "asset": "templates/kits/nature/tree-conifer.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        2.51,
+        2.55
+      ],
+      "poly_budget": 1184,
+      "sockets": [
+        "base",
+        "leader",
+        "nest"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "a narrow leaning cone 5.1 m tall over a bare bole for its lowest sixth",
+          "a leader spike standing clear above the top whorl",
+          "five root wedges splaying out of the base"
+        ],
+        "medium": [
+          "eight whorls of decreasing radius, each turned to its own angle",
+          "the bole visible between the upper whorls, tapering from 16 cm to 3 cm",
+          "a skirt of needle mass inside every whorl, with boughs poking past its rim"
+        ],
+        "fine": [
+          "nine countable boughs in every whorl, each at its own reach and droop",
+          "flat-shaded facets on every bough and skirt, so the crown catches light in planes",
+          "per-bough hue jitter of 10 percent across the seventy-two boughs"
+        ]
+      },
+      "params": {
+        "seed": 1,
+        "age": 1,
+        "lean": 0.06,
+        "height": 4.2,
+        "radius": 0.16,
+        "needle": "#4b7554"
+      }
+    },
+    {
+      "id": "knowledge.blueprint-tree-round",
+      "title": "Blueprint: round-crowned broadleaf tree",
+      "asset": "templates/kits/nature/tree-round.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        3.02,
+        2.78
+      ],
+      "poly_budget": 860,
+      "sockets": [
+        "base",
+        "canopy",
+        "swing"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "a crown of seven overlapping lobes, never a single sphere",
+          "a trunk leaning about 5 degrees, with the lean growing up the tree",
+          "six root wedges splaying out of the base into the ground"
+        ],
+        "medium": [
+          "four branches reaching out to the lobes they carry",
+          "a bark collar over each of the three trunk segment joins",
+          "lobes of five different sizes, the crown lobe 15 percent larger than the rest"
+        ],
+        "fine": [
+          "flat-shaded facets across every lobe, so the crown catches light in planes",
+          "the trunk narrowing from 19 cm at the flare to 6 cm under the crown",
+          "per-lobe hue jitter of 10 percent across the seven lobes"
+        ]
+      },
+      "params": {
+        "seed": 1,
+        "age": 1,
+        "lean": 0.09,
+        "height": 3.4,
+        "radius": 0.19,
+        "leaf": "#6a9150"
+      }
+    },
+    {
+      "id": "knowledge.blueprint-watermill",
+      "title": "Blueprint: watermill with a turning wheel",
+      "asset": "templates/kits/buildings/watermill.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        6.0,
+        4.5
+      ],
+      "poly_budget": 10192,
+      "sockets": [
+        "wheel",
+        "door",
+        "loading-door",
+        "launder",
+        "ridge",
+        "sign"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "3.2 m wheel hanging clear of the +X gable and breaking the building outline from every angle",
+          "launder crossing above the wheel on two trestles, with a spilling lip over the crown",
+          "hoist beam projecting 1.3 m from the gable below the ridge at 6.83 m"
+        ],
+        "medium": [
+          "two wooden rims with an iron strap inside each, seven pairs of radial spokes and fourteen paddles running the full 84 cm width between the rims",
+          "stone ground storey and plastered timber upper storey divided by a projecting string course",
+          "four frame posts per upper long wall standing 7 cm proud, with top plate, sill beam and corner braces",
+          "first-floor loading door recessed 10 cm in its reveal directly under the hoist beam"
+        ],
+        "fine": [
+          "bright iron bolt heads at every spoke root, 8 cm across, on the outer rim face",
+          "hexagonal peg heads at the frame joints and clenched nail heads on the door leaves",
+          "sill drip groove under each window, a 2.4 cm shadow line below the sill lip",
+          "each paddle darkened by a different seeded amount, so the wet side of the wheel varies"
+        ]
+      },
+      "params": {
+        "width": 6,
+        "depth": 4.5,
+        "wheelRadius": 1.6,
+        "paddles": 14,
+        "roofPitchDeg": 42,
+        "speedRadPerSec": 0.55,
+        "seed": 1
+      }
+    },
+    {
+      "id": "knowledge.blueprint-well",
+      "title": "Blueprint: stone draw-well",
+      "asset": "templates/kits/props/well.js",
+      "kind": "procedural-js",
+      "footprint_m": [
+        1.47,
+        1.5
+      ],
+      "poly_budget": 2716,
+      "sockets": [
+        "rim",
+        "crank",
+        "bucket",
+        "base"
+      ],
+      "detail_ladder": {
+        "silhouette": [
+          "a shingled gable 2.7 m up over a 1.32 m round stone drum",
+          "two posts carrying the roof clear of the well mouth",
+          "a bucket hanging over the mouth on its rope, clear of the coping"
+        ],
+        "medium": [
+          "three courses of twelve dressed blocks, each course offset half a block",
+          "a coping ring of twelve cap stones overhanging the drum by 3.7 cm",
+          "shingle courses laid five to the metre of slope, each lapping the one below",
+          "a cranked arm and handle standing off the end of the windlass",
+          "two posts rising to the ridge beam with a rafter from the ridge to each eave over every post, so the roof is carried rather than floating"
+        ],
+        "fine": [
+          "five rope coils wound over the windlass barrel, each 2.8 cm thick",
+          "two iron bands on the windlass ends and an iron hoop around the bucket",
+          "1.8 cm chamfer on the blocks and 1.6 cm on the coping",
+          "per-block hue jitter of 7 percent across the thirty-six drum blocks"
+        ]
+      },
+      "params": {
+        "radius": 0.66,
+        "postHeight": 1.28,
+        "seed": 1,
+        "blocks": 12,
+        "wall": 0.24,
+        "drumHeight": 0.72,
+        "roofPitchDeg": 38
+      }
+    }
+  ],
+  "quality_brief": {
+    "scope": "shipped-kit-pipelines",
+    "delivery": "web-desktop",
+    "ceiling": "T3",
+    "ceiling_reason": "Blender 4.3.0 >= 4.2 found via standard install path + --version",
+    "capture_mode_expected": "gpu",
+    "role_rules": {
+      "hero": "host bake ceiling or proved shipped GLB reuse, capped by the delivery target",
+      "mid": "T2 (procedural surface, no shipped bytes)",
+      "background": "T1 (instanced repeat, flat material)"
+    },
+    "per_blueprint": {
+      "knowledge.blueprint-barrel": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-biped-walker": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-cart": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-clothesline": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-crate": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-fence-run": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-iron-lantern": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-lantern-post": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-long-hall": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-market-stall": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-quadruped-walker": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-reeds": {
+        "role": "background",
+        "tier": "T1",
+        "reason": "instanced repeat: flat material, one draw call; the record declares T1 proved"
+      },
+      "knowledge.blueprint-rock-cluster": {
+        "role": "background",
+        "tier": "T1",
+        "reason": "instanced repeat: flat material, one draw call; the record declares T1 proved"
+      },
+      "knowledge.blueprint-round-tower": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-signboard": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-stone-bridge": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-stone-guildhall": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-timber-cottage": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-tree-conifer": {
+        "role": "background",
+        "tier": "T1",
+        "reason": "instanced repeat: flat material, one draw call; the record declares T1 proved"
+      },
+      "knowledge.blueprint-tree-round": {
+        "role": "background",
+        "tier": "T1",
+        "reason": "instanced repeat: flat material, one draw call; the record declares T1 proved"
+      },
+      "knowledge.blueprint-watermill": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      },
+      "knowledge.blueprint-well": {
+        "role": "mid",
+        "tier": "T2",
+        "reason": "mid ground: procedural surface, no shipped bytes; the record declares T2 proved"
+      }
+    },
+    "draw_call_note": "Background and repeated objects stay one InstancedMesh at T1 and are never wrapped in a LOD. Eval run 3 measured 4,773 draw calls at 5 fps with every object built as a separate mesh - that measurement is the concrete reason this note exists. An instanced field is one draw call whatever the count; a LOD per repeat adds a per-frame update and removes no draws.",
+    "note": "Shipped-kit pipeline recommendations, not limits on artistic quality or construction. Choose kit, adapted kit, custom geometry or sourced assets by object fit. Blender availability does not grade the result; inspect identity, structure, surface and factual fidelity at the intended viewing scale. T0 is an optional layout proxy. Keep the declared proof status when reporting a kit tier."
+  }
+}

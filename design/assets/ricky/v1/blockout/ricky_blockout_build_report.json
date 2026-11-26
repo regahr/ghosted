@@ -1,0 +1,127 @@
+{
+ "triangles": {
+  "body": 656,
+  "decals": 68,
+  "mouth_grin": 12,
+  "mouth_o": 12,
+  "visible_rest (body + decals + mouth_grin)": 736,
+  "body_by_part": {
+   "head": 88,
+   "quiff": 32,
+   "jacket": 88,
+   "arm_L": 120,
+   "arm_R": 120,
+   "legs": 72,
+   "cups": 48,
+   "band": 48,
+   "mic": 40
+  }
+ },
+ "meshes": {
+  "all": [
+   "body",
+   "decals",
+   "mouth_grin",
+   "mouth_o"
+  ],
+  "non_swap (<= 3)": [
+   "body",
+   "decals"
+  ],
+  "swap": [
+   "mouth_grin",
+   "mouth_o"
+  ]
+ },
+ "checks": {
+  "body_nonmanifold_edges": 0,
+  "body_boundary_edges (head bottom ring, jacket top ring, leg ends, band ends)": 70,
+  "faces_facing_in_by_shell": {},
+  "height_m": 1.19,
+  "unit_mm": 3.914,
+  "phone_hand_centre_to_target_mm": 0.0,
+  "decal_offsets_units": "eyes 0.45, glints 0.75, V ink 0.40 / shirt 0.70, tie ink 1.0 / tie 1.3, knot 1.6 / 1.9",
+  "faces_rewound_to_analytic_normals": 254,
+  "skin_unweighted": 0
+ },
+ "hairline_front_view_y_by_deg": [
+  [
+   0,
+   63.0
+  ],
+  [
+   22.5,
+   64.0
+  ],
+  [
+   45,
+   66.0
+  ],
+  [
+   67.5,
+   70.0
+  ],
+  [
+   90,
+   75.0
+  ],
+  [
+   112.5,
+   80.0
+  ],
+  [
+   135,
+   102.0
+  ],
+  [
+   157.5,
+   120.0
+  ],
+  [
+   180,
+   126.0
+  ]
+ ],
+ "poses": {
+  "phone": {
+   "arm_R_up": [
+    0.15239505469799042,
+    0.9825746417045593,
+    -0.10641009360551834,
+    114.49487086827395
+   ],
+   "arm_R_lo": [
+    0.043057020753622055,
+    0.9937346577644348,
+    -0.10314089804887772,
+    77.86785850067551
+   ]
+  },
+  "hop_up": {
+   "arm_L_up": [
+    0.8718217015266418,
+    -0.23595578968524933,
+    0.4292457401752472,
+    47.63573368690657
+   ],
+   "arm_L_lo": [
+    -0.9795235991477966,
+    -0.18995586037635803,
+    -0.0667128935456276,
+    91.62949439514645
+   ],
+   "arm_R_up": [
+    0.8718217015266418,
+    0.23595578968524933,
+    -0.4292457401752472,
+    47.63573368690657
+   ],
+   "arm_R_lo": [
+    -0.9795235991477966,
+    0.18995586037635803,
+    0.0667128935456276,
+    91.62949439514645
+   ]
+  }
+ }
+}

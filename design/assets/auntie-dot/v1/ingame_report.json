@@ -1,0 +1,638 @@
+{
+ "ingame": {
+  "visibleTris": 1340,
+  "calls": 14
+ },
+ "ingame-front": {
+  "visibleTris": 1340,
+  "calls": 14
+ },
+ "ingame-talk": {
+  "visibleTris": 1337,
+  "calls": 14
+ },
+ "ingame-card": {
+  "visibleTris": 1362,
+  "calls": 18
+ },
+ "ingame-sway": {
+  "visibleTris": 1340,
+  "calls": 14
+ },
+ "lineup-grass": {
+  "atsTris": 875,
+  "dotTris": 1340,
+  "ats": {
+   "feet": [
+    726.1,
+    608.4
+   ],
+   "top": [
+    699,
+    533.9
+   ],
+   "headTopFront": [
+    722.8,
+    557.6
+   ],
+   "chinFront": [
+    723.5,
+    576.6
+   ],
+   "neckRingTop": [
+    723.8,
+    576
+   ],
+   "neckRingBot": [
+    724.1,
+    583.9
+   ],
+   "crownFront": [
+    725.1,
+    579.8
+   ],
+   "bodyCrownZ50": [
+    723.5,
+    593.4
+   ],
+   "slotTop": [
+    723.7,
+    598.7
+   ],
+   "slotBot": [
+    723.8,
+    601.6
+   ],
+   "screenTL": [
+    701.9,
+    559.5
+   ],
+   "screenBR": [
+    744.2,
+    575.2
+   ],
+   "eyeL": [
+    714,
+    563
+   ],
+   "eyeLb": [
+    714.3,
+    569.4
+   ],
+   "hem": [
+    724.2,
+    611.8
+   ]
+  },
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "dot": {
+   "feet": [
+    823.7,
+    653.8
+   ],
+   "bunTop": [
+    824.8,
+    594.7
+   ],
+   "hairlineC": [
+    823.3,
+    616.4
+   ],
+   "eyeTop": [
+    818.2,
+    622.6
+   ],
+   "eyeBot": [
+    818.2,
+    625.8
+   ],
+   "mouth": [
+    823.1,
+    628.8
+   ],
+   "chin": [
+    824.1,
+    623.1
+   ],
+   "cupR": [
+    813.8,
+    638.6
+   ],
+   "button": [
+    822.7,
+    643.3
+   ],
+   "hands": [
+    822.2,
+    655.3
+   ],
+   "hem": [
+    822.9,
+    657.5
+   ]
+  },
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 424,
+   "y1": 498,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_dot": {
+   "x0": 797,
+   "x1": 849,
+   "y0": 590,
+   "y1": 661,
+   "heightPx": 72,
+   "widthPx": 53
+  },
+  "px_dot_at_kit_spot": {
+   "x0": 861,
+   "x1": 909,
+   "y0": 430,
+   "y1": 497,
+   "heightPx": 68,
+   "widthPx": 49
+  },
+  "hair": {
+   "sideHair": {
+    "lowestSideHairPx": 614,
+    "lowestSideHairVsEyeTopPx": 9,
+    "gapLeftPx": null,
+    "gapRightPx": null
+   },
+   "eyePixels": {
+    "x0": 817,
+    "x1": 829,
+    "y0": 623,
+    "y1": 625,
+    "n": 12
+   },
+   "eyeTopPx": 623,
+   "hairLowestInEyeColumnsPx": 614,
+   "hairLowestAnywherePx": 614,
+   "gapPx": 9,
+   "browPixels": {
+    "x0": 816,
+    "x1": 826,
+    "y0": 620,
+    "y1": 621,
+    "n": 4
+   },
+   "browTopPx": 620,
+   "hairOrHairlineLowestInEyeColumnsPx": 615,
+   "foreheadPx": 4,
+   "smilePixels": {
+    "x0": 819,
+    "x1": 826,
+    "y0": 627,
+    "y1": 628,
+    "n": 5
+   },
+   "smileTopBelowEyeBottomPx": 2
+  },
+  "ratio_dot_to_kit": 0.96,
+  "ratio_dot_at_kit_spot": 0.907
+ },
+ "lineup-path": {
+  "atsTris": 875,
+  "dotTris": 1340,
+  "ats": {
+   "feet": [
+    1075.4,
+    537.7
+   ],
+   "top": [
+    1059.9,
+    463.8
+   ],
+   "headTopFront": [
+    1083.2,
+    486.6
+   ],
+   "chinFront": [
+    1080.7,
+    505.5
+   ],
+   "neckRingTop": [
+    1080.5,
+    505
+   ],
+   "neckRingBot": [
+    1079.5,
+    512.9
+   ],
+   "crownFront": [
+    1079.2,
+    509.2
+   ],
+   "bodyCrownZ50": [
+    1079,
+    522
+   ],
+   "slotTop": [
+    1078.3,
+    527.3
+   ],
+   "slotBot": [
+    1077.9,
+    530.2
+   ],
+   "screenTL": [
+    1062.4,
+    488.5
+   ],
+   "screenBR": [
+    1101.4,
+    504
+   ],
+   "eyeL": [
+    1073.7,
+    492
+   ],
+   "eyeLb": [
+    1072.9,
+    498.3
+   ],
+   "hem": [
+    1076.6,
+    540.3
+   ]
+  },
+  "kitTop": [
+   886.9,
+   435.8
+  ],
+  "kitBot": [
+   884.7,
+   490.7
+  ],
+  "dot": {
+   "feet": [
+    656.3,
+    434.5
+   ],
+   "bunTop": [
+    653.4,
+    376.9
+   ],
+   "hairlineC": [
+    651.8,
+    395.8
+   ],
+   "eyeTop": [
+    647.6,
+    401.8
+   ],
+   "eyeBot": [
+    647.8,
+    404.9
+   ],
+   "mouth": [
+    652.5,
+    407.9
+   ],
+   "chin": [
+    654.3,
+    404.2
+   ],
+   "cupR": [
+    644.6,
+    417.2
+   ],
+   "button": [
+    652.7,
+    421.6
+   ],
+   "hands": [
+    652.8,
+    432.8
+   ],
+   "hem": [
+    654.7,
+    436.5
+   ]
+  },
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 423,
+   "y1": 497,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_dot": {
+   "x0": 631,
+   "x1": 677,
+   "y0": 374,
+   "y1": 439,
+   "heightPx": 66,
+   "widthPx": 47
+  },
+  "px_dot_at_kit_spot": {
+   "x0": 861,
+   "x1": 909,
+   "y0": 429,
+   "y1": 496,
+   "heightPx": 68,
+   "widthPx": 49
+  },
+  "hair": {
+   "sideHair": {
+    "lowestSideHairPx": 394,
+    "lowestSideHairVsEyeTopPx": 8,
+    "gapLeftPx": null,
+    "gapRightPx": null
+   },
+   "eyePixels": {
+    "x0": 646,
+    "x1": 657,
+    "y0": 402,
+    "y1": 404,
+    "n": 10
+   },
+   "eyeTopPx": 402,
+   "hairLowestInEyeColumnsPx": 394,
+   "hairLowestAnywherePx": 394,
+   "gapPx": 8,
+   "browPixels": {
+    "x0": 656,
+    "x1": 657,
+    "y0": 400,
+    "y1": 400,
+    "n": 2
+   },
+   "browTopPx": 400,
+   "hairOrHairlineLowestInEyeColumnsPx": 394,
+   "foreheadPx": 5,
+   "smilePixels": {
+    "x0": 649,
+    "x1": 655,
+    "y0": 406,
+    "y1": 407,
+    "n": 7
+   },
+   "smileTopBelowEyeBottomPx": 2
+  },
+  "ratio_dot_to_kit": 0.88,
+  "ratio_dot_at_kit_spot": 0.907
+ },
+ "lineup-grass-talk": {
+  "atsTris": 875,
+  "dotTris": 1337,
+  "ats": {
+   "feet": [
+    726.1,
+    608.4
+   ],
+   "top": [
+    699,
+    533.9
+   ],
+   "headTopFront": [
+    722.8,
+    557.6
+   ],
+   "chinFront": [
+    723.5,
+    576.6
+   ],
+   "neckRingTop": [
+    723.8,
+    576
+   ],
+   "neckRingBot": [
+    724.1,
+    583.9
+   ],
+   "crownFront": [
+    725.1,
+    579.8
+   ],
+   "bodyCrownZ50": [
+    723.5,
+    593.4
+   ],
+   "slotTop": [
+    723.7,
+    598.7
+   ],
+   "slotBot": [
+    723.8,
+    601.6
+   ],
+   "screenTL": [
+    701.9,
+    559.5
+   ],
+   "screenBR": [
+    744.2,
+    575.2
+   ],
+   "eyeL": [
+    714,
+    563
+   ],
+   "eyeLb": [
+    714.3,
+    569.4
+   ],
+   "hem": [
+    724.2,
+    611.8
+   ]
+  },
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "dot": {
+   "feet": [
+    823.7,
+    653.8
+   ],
+   "bunTop": [
+    824.8,
+    594.7
+   ],
+   "hairlineC": [
+    823.3,
+    616.4
+   ],
+   "eyeTop": [
+    818.2,
+    622.6
+   ],
+   "eyeBot": [
+    818.2,
+    625.8
+   ],
+   "mouth": [
+    823.1,
+    628.8
+   ],
+   "chin": [
+    824.1,
+    623.1
+   ],
+   "cupR": [
+    813.8,
+    638.6
+   ],
+   "button": [
+    822.7,
+    643.3
+   ],
+   "hands": [
+    822.2,
+    655.3
+   ],
+   "hem": [
+    822.9,
+    657.5
+   ]
+  },
+  "outlineW_m": 0.0213424816684965
+ },
+ "lineup-grass-card": {
+  "atsTris": 875,
+  "dotTris": 1362,
+  "ats": {
+   "feet": [
+    726.1,
+    608.4
+   ],
+   "top": [
+    699,
+    533.9
+   ],
+   "headTopFront": [
+    722.8,
+    557.6
+   ],
+   "chinFront": [
+    723.5,
+    576.6
+   ],
+   "neckRingTop": [
+    723.8,
+    576
+   ],
+   "neckRingBot": [
+    724.1,
+    583.9
+   ],
+   "crownFront": [
+    725.1,
+    579.8
+   ],
+   "bodyCrownZ50": [
+    723.5,
+    593.4
+   ],
+   "slotTop": [
+    723.7,
+    598.7
+   ],
+   "slotBot": [
+    723.8,
+    601.6
+   ],
+   "screenTL": [
+    701.9,
+    559.5
+   ],
+   "screenBR": [
+    744.2,
+    575.2
+   ],
+   "eyeL": [
+    714,
+    563
+   ],
+   "eyeLb": [
+    714.3,
+    569.4
+   ],
+   "hem": [
+    724.2,
+    611.8
+   ]
+  },
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "dot": {
+   "feet": [
+    823.7,
+    653.8
+   ],
+   "bunTop": [
+    824.8,
+    594.7
+   ],
+   "hairlineC": [
+    823.3,
+    616.4
+   ],
+   "eyeTop": [
+    818.2,
+    622.6
+   ],
+   "eyeBot": [
+    818.2,
+    625.8
+   ],
+   "mouth": [
+    823.1,
+    628.8
+   ],
+   "chin": [
+    824.1,
+    623.1
+   ],
+   "cupR": [
+    813.8,
+    638.6
+   ],
+   "button": [
+    822.7,
+    643.3
+   ],
+   "hands": [
+    822.2,
+    655.3
+   ],
+   "hem": [
+    822.9,
+    657.5
+   ]
+  },
+  "outlineW_m": 0.0213424816684965
+ },
+ "visibleTris": {
+  "rest": 1340,
+  "talk": 1337,
+  "card": 1362,
+  "happy": 1316
+ }
+}

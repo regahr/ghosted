@@ -1,0 +1,28 @@
+import http from 'node:http';
+import fs from 'node:fs';
+import path from 'node:path';
+import { chromium } from 'playwright';
+const root = path.resolve('.');
+const types = {'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript'};
+const srv = http.createServer((req,res)=>{ const p = path.join(root, decodeURIComponent(req.url.split('?')[0]) === '/' ? 'index.html' : decodeURIComponent(req.url.split('?')[0]));
+  if (!p.startsWith(root) || !fs.existsSync(p)) { res.writeHead(404); return res.end(); }
+  res.writeHead(200, {'content-type': types[path.extname(p)] || 'application/octet-stream'}); fs.createReadStream(p).pipe(res); }).listen(0, '127.0.0.1');
+await new Promise(r=>srv.on('listening',r));
+const port = srv.address().port;
+fs.mkdirSync('out/shots', {recursive:true}); fs.mkdirSync('out/video', {recursive:true});
+const browser = await chromium.launch({ args:['--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist'] });
+const ctx = await browser.newContext({ viewport:{width:1280,height:720}, deviceScaleFactor:1, recordVideo:{dir:'out/video', size:{width:1280,height:720}} });
+const page = await ctx.newPage();
+page.on('console', m => console.log('console:', m.type(), m.text()));
+page.on('pageerror', e => console.log('pageerror:', e.message));
+const t0 = Date.now();
+await page.exposeFunction('__shot', async name => { await page.screenshot({path:`out/shots/${name}.png`}); console.log('shot', name, ((Date.now()-t0)/1000).toFixed(1)); });
+await page.goto(`http://127.0.0.1:${port}/?manual`);
+await page.waitForTimeout(1500);
+const startAt = (Date.now()-t0)/1000;
+console.log('startAt', startAt.toFixed(2));
+fs.writeFileSync('out/startAt.txt', String(startAt));
+await page.evaluate(()=>window.__start());
+await page.waitForFunction(()=>window.__done === true, null, {timeout:180000});
+console.log('done at', ((Date.now()-t0)/1000).toFixed(1));
+await ctx.close(); await browser.close(); srv.close();

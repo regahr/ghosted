@@ -1,0 +1,104 @@
+{
+  "status": "candidates",
+  "query": "necklace headset accessory around neck attachment character",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "recipe.modular-camera-rig",
+      "revision": 1,
+      "title": "Modular camera rig compatibility",
+      "path": "data/recipes/modular-camera-rig.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 57.127382,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "tags",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Create an invented accessory rig with explicit slot rules and reversible changes."
+    },
+    {
+      "id": "knowledge.style-cartoon",
+      "revision": 2,
+      "title": "Cartoon expression",
+      "path": "data/knowledge/style-profile/style-cartoon.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 33.494413,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "intent_signals",
+        "subject_terms"
+      ],
+      "summary": "Organize the subject around an expressive pose, clear feature hierarchy and playful contrast of large and small shapes."
+    },
+    {
+      "id": "recipe.expression-attention-rig",
+      "revision": 1,
+      "title": "Expression rig with attention and gaze",
+      "path": "data/recipes/expression-attention-rig.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 32.816784,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts"
+      ],
+      "summary": "Give a character a small, well-chosen set of expression controls and let attention drive where those controls are aimed."
+    },
+    {
+      "id": "knowledge.deformable-prop-support-cage",
+      "revision": 1,
+      "title": "Deformable prop with a construction-aware support cage",
+      "path": "data/knowledge/object-archetype/deformable-prop-support-cage.json",
+      "collection": "knowledge",
+      "kind": "object-archetype",
+      "score": 32.14825,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "subject_terms"
+      ],
+      "summary": "Organize a soft prop around a low-complexity cage, protected openings, attachment zones and thickness checks so expressive deformation does not silently destroy construction."
+    },
+    {
+      "id": "knowledge.camera-orbit-follow-rig",
+      "revision": 1,
+      "title": "Orbit rig that follows a moving subject until the user takes over",
+      "path": "data/knowledge/composition-profile/camera-orbit-follow-rig.json",
+      "collection": "knowledge",
+      "kind": "composition-profile",
+      "score": 28.761827,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "summary",
+        "objective",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Orbit the camera around a subject with damping and clamped limits, tween focus over 0.9 s, keep following a moving character, and hand control back the moment the user drags."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

@@ -1,0 +1,119 @@
+{
+  "status": "candidates",
+  "query": "hinged arm stamp slam anticipation motion, tread belt scroll",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.flat-belt-traction-bound",
+      "revision": 1,
+      "title": "Flat-belt traction bound before slip",
+      "path": "data/knowledge/physical-behavior/flat-belt-traction-bound.json",
+      "collection": "knowledge",
+      "kind": "physical-behavior",
+      "score": 95.6052,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Compare demanded pulley torque with available belt traction without inventing a post-slip speed."
+    },
+    {
+      "id": "knowledge.motion-style-with-state-legibility",
+      "revision": 1,
+      "title": "Motion style with state legibility",
+      "path": "data/knowledge/style-profile/motion-style-with-state-legibility.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 62.509571,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Define a reusable timing and pose grammar whose selected, active, waiting, complete and error states remain distinguishable at hold frames, interruption points and reduced motion."
+    },
+    {
+      "id": "recipe.robot-arm-forward-frames",
+      "revision": 1,
+      "title": "Robot arm forward-kinematics frames",
+      "path": "data/recipes/robot-arm-forward-frames.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 56.142334,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "summary",
+        "objective",
+        "tags",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Connect joint coordinates to an articulated arm and inspectable endpoint frame."
+    },
+    {
+      "id": "knowledge.reasoning-motion-source-selection",
+      "revision": 1,
+      "title": "Pick the motion source that matches the requirement",
+      "path": "data/knowledge/reasoning-rule/reasoning-motion-source-selection.json",
+      "collection": "knowledge",
+      "kind": "reasoning-rule",
+      "score": 48.315449,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "example_prompts",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Choose authored clips, procedural functions or solved dynamics by what the motion must respond to, and keep one owner per transform."
+    },
+    {
+      "id": "recipe.stair-flight-geometry",
+      "revision": 1,
+      "title": "Stair flight geometry and handrail height",
+      "path": "data/recipes/stair-flight-geometry.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 47.308381,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "objective",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Generate a stair from riser and tread dimensions and check it against published provisions instead of eyeballing it."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

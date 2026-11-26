@@ -1,0 +1,338 @@
+{
+ "lineup-grass": {
+  "atsTris": 875,
+  "dotTris": 734,
+  "ats": {
+   "feet": [
+    726.1,
+    608.4
+   ],
+   "top": [
+    699,
+    533.9
+   ],
+   "headTopFront": [
+    722.8,
+    557.6
+   ],
+   "chinFront": [
+    723.5,
+    576.6
+   ],
+   "neckRingTop": [
+    723.8,
+    576
+   ],
+   "neckRingBot": [
+    724.1,
+    583.9
+   ],
+   "crownFront": [
+    725.1,
+    579.8
+   ],
+   "bodyCrownZ50": [
+    723.5,
+    593.4
+   ],
+   "slotTop": [
+    723.7,
+    598.7
+   ],
+   "slotBot": [
+    723.8,
+    601.6
+   ],
+   "screenTL": [
+    701.9,
+    559.5
+   ],
+   "screenBR": [
+    744.2,
+    575.2
+   ],
+   "eyeL": [
+    714,
+    563
+   ],
+   "eyeLb": [
+    714.3,
+    569.4
+   ],
+   "hem": [
+    724.2,
+    611.8
+   ]
+  },
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "dot": {
+   "feet": [
+    823.7,
+    653.8
+   ],
+   "bunTop": [
+    824.8,
+    593.5
+   ],
+   "hairlineC": [
+    823.3,
+    615.6
+   ],
+   "eyeTop": [
+    818.1,
+    622
+   ],
+   "eyeBot": [
+    818.1,
+    625.2
+   ],
+   "mouth": [
+    823.1,
+    628.2
+   ],
+   "chin": [
+    824.1,
+    622.5
+   ],
+   "cupR": [
+    813.6,
+    638.3
+   ],
+   "button": [
+    822.6,
+    643.1
+   ],
+   "hands": [
+    822.2,
+    655.4
+   ],
+   "hem": [
+    822.9,
+    657.6
+   ]
+  },
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 424,
+   "y1": 498,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_dot": {
+   "x0": 797,
+   "x1": 849,
+   "y0": 589,
+   "y1": 659,
+   "heightPx": 71,
+   "widthPx": 53
+  },
+  "px_dot_at_kit_spot": {
+   "x0": 860,
+   "x1": 909,
+   "y0": 429,
+   "y1": 496,
+   "heightPx": 68,
+   "widthPx": 50
+  },
+  "hair": {
+   "eyePixels": {
+    "x0": 816,
+    "x1": 829,
+    "y0": 622,
+    "y1": 624,
+    "n": 14
+   },
+   "eyeTopPx": 622,
+   "hairLowestInEyeColumnsPx": 613,
+   "hairLowestAnywherePx": 613,
+   "gapPx": 9,
+   "smilePixels": {
+    "x0": 819,
+    "x1": 825,
+    "y0": 627,
+    "y1": 627,
+    "n": 3
+   },
+   "smileTopBelowEyeBottomPx": 3
+  },
+  "ratio_dot_to_kit": 0.947,
+  "ratio_dot_at_kit_spot": 0.907
+ },
+ "lineup-path": {
+  "atsTris": 875,
+  "dotTris": 734,
+  "ats": {
+   "feet": [
+    1075.4,
+    537.7
+   ],
+   "top": [
+    1059.9,
+    463.8
+   ],
+   "headTopFront": [
+    1083.2,
+    486.6
+   ],
+   "chinFront": [
+    1080.7,
+    505.5
+   ],
+   "neckRingTop": [
+    1080.5,
+    505
+   ],
+   "neckRingBot": [
+    1079.5,
+    512.9
+   ],
+   "crownFront": [
+    1079.2,
+    509.2
+   ],
+   "bodyCrownZ50": [
+    1079,
+    522
+   ],
+   "slotTop": [
+    1078.3,
+    527.3
+   ],
+   "slotBot": [
+    1077.9,
+    530.2
+   ],
+   "screenTL": [
+    1062.4,
+    488.5
+   ],
+   "screenBR": [
+    1101.4,
+    504
+   ],
+   "eyeL": [
+    1073.7,
+    492
+   ],
+   "eyeLb": [
+    1072.9,
+    498.3
+   ],
+   "hem": [
+    1076.6,
+    540.3
+   ]
+  },
+  "kitTop": [
+   886.9,
+   435.8
+  ],
+  "kitBot": [
+   884.7,
+   490.7
+  ],
+  "dot": {
+   "feet": [
+    656.3,
+    434.5
+   ],
+   "bunTop": [
+    653.3,
+    375.7
+   ],
+   "hairlineC": [
+    651.7,
+    395
+   ],
+   "eyeTop": [
+    647.4,
+    401.1
+   ],
+   "eyeBot": [
+    647.6,
+    404.3
+   ],
+   "mouth": [
+    652.4,
+    407.4
+   ],
+   "chin": [
+    654.3,
+    403.5
+   ],
+   "cupR": [
+    644.4,
+    416.8
+   ],
+   "button": [
+    652.6,
+    421.3
+   ],
+   "hands": [
+    652.7,
+    432.8
+   ],
+   "hem": [
+    654.7,
+    436.6
+   ]
+  },
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 423,
+   "y1": 497,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_dot": {
+   "x0": 630,
+   "x1": 677,
+   "y0": 373,
+   "y1": 439,
+   "heightPx": 67,
+   "widthPx": 48
+  },
+  "px_dot_at_kit_spot": {
+   "x0": 860,
+   "x1": 909,
+   "y0": 428,
+   "y1": 495,
+   "heightPx": 68,
+   "widthPx": 50
+  },
+  "hair": {
+   "eyePixels": {
+    "x0": 646,
+    "x1": 657,
+    "y0": 401,
+    "y1": 403,
+    "n": 13
+   },
+   "eyeTopPx": 401,
+   "hairLowestInEyeColumnsPx": 393,
+   "hairLowestAnywherePx": 393,
+   "gapPx": 8,
+   "smilePixels": {
+    "x0": 654,
+    "x1": 654,
+    "y0": 406,
+    "y1": 406,
+    "n": 1
+   },
+   "smileTopBelowEyeBottomPx": 3
+  },
+  "ratio_dot_to_kit": 0.893,
+  "ratio_dot_at_kit_spot": 0.907
+ }
+}

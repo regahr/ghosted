@@ -1,0 +1,161 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Kit in game</title>
+<style>html,body{margin:0;background:#FDE6C8}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"/concept/node_modules/three/build/three.module.js","three/addons/":"/concept/node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+// GHOSTED - the exported kit.glb in the game renderer: MeshToonMaterial (2 bands, 3 on skin), inverted-hull ink
+// outline, the render.html character light, Neutral tone mapping. Toon thresholds come from toon.json, the same
+// file the Blender toon shader reads, so both switch bands at the same N.L.
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { mergeVertices, mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = 1.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const TOON = await (await fetch('toon.json')).json();
+function gradient(bands) {
+  const n = TOON.texels, d = new Uint8Array(n * 4);
+  for (let i = 0; i < n; i++) {
+    const dot = 2 * (i + 0.5) / n - 1; let v = bands[0][1];
+    for (const [t, val] of bands) if (dot >= t) v = val;
+    d.set([v, v, v, 255], i * 4);
+  }
+  const t = new THREE.DataTexture(d, n, 1); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t;
+}
+const G2 = gradient(TOON.bands2), G3 = gradient(TOON.bands3);
+
+function outlineMaterial(width) {
+  const m = new THREE.MeshBasicMaterial({ color: TOON.outline.color, side: THREE.BackSide });
+  m.userData.width = { value: width };
+  m.onBeforeCompile = s => {
+    s.uniforms.uWidth = m.userData.width;
+    s.vertexShader = 'uniform float uWidth;\n' + s.vertexShader.replace('#include <begin_vertex>', 'vec3 transformed = position + normal * uWidth;');
+  };
+  return m;
+}
+const OUT_CHAR = outlineMaterial(TOON.outline.width_m);
+
+function prepareKit(gltf, outlineMat) {
+  const kit = gltf.scene;
+  const nodes = {}; kit.traverse(o => { nodes[o.name] = o; });
+  kit.traverse(o => {
+    if (!o.isMesh) return;
+    const src = o.material, name = src.name;
+    if (TOON.basic_materials.includes(name)) o.material = new THREE.MeshBasicMaterial({ color: src.color });
+    else o.material = new THREE.MeshToonMaterial({ color: src.color, gradientMap: TOON.skin_materials.includes(name) ? G3 : G2 });
+    o.castShadow = false; o.receiveShadow = false;
+  });
+  // one hull per node (all primitives merged, smooth normals, like Blender's Solidify on the whole mesh)
+  for (const nm of ['body', 'head', 'briefcase', 'sprout']) {
+    const node = nodes[nm]; const geos = [];
+    const assoc = gltf.parser.associations;
+    const meshes = node.isMesh ? [node] : node.children.filter(c => c.isMesh && assoc.get(c) && assoc.get(c).primitives !== undefined);
+    for (const m of meshes) { const g = new THREE.BufferGeometry(); g.setAttribute('position', m.geometry.attributes.position.clone()); g.setIndex(m.geometry.index.clone()); geos.push(g); }
+    let g = mergeVertices(mergeGeometries(geos), 1e-5); g.computeVertexNormals();
+    const hull = new THREE.Mesh(g, outlineMat); hull.name = nm + '_outline';
+    if (node.isMesh) { hull.position.set(0, 0, 0); node.add(hull); } else node.add(hull);
+  }
+  const faces = Object.keys(nodes).filter(k => /^face_[a-z_]+$/.test(k) && nodes[k].userData.sprout_scale_three_y !== undefined);
+  kit.userData.setExpr = expr => {
+    for (const f of faces) nodes[f].visible = f === 'face_' + expr;
+    const f = nodes['face_' + expr].userData;
+    nodes.sprout.quaternion.fromArray(f.sprout_quat_three_xyzw); nodes.sprout.scale.set(1, f.sprout_scale_three_y, 1);
+  };
+  kit.userData.nodes = nodes;
+  return kit;
+}
+
+function blob(bgIsOpaque = true) {
+  const cs = TOON.contact_shadow;
+  const m = new THREE.Mesh(new THREE.CircleGeometry(1, 40), new THREE.MeshBasicMaterial({ color: cs.color, transparent: true, opacity: cs.opacity, toneMapped: false, depthWrite: false }));
+  m.rotation.x = -Math.PI / 2; m.scale.set(cs.rx, cs.ry, 1); m.position.set(0.03, -0.008, 0.01); m.renderOrder = -1; return m;
+}
+
+function charLights(scene) {   // = design/render.html charStage: lights(scene, 1, '#fff6e8', '#e9c49a', 3, 25)
+  const el = TOON.sun.elev * Math.PI / 180, az = TOON.sun.az * Math.PI / 180;
+  scene.add(new THREE.HemisphereLight(TOON.hemi.sky, TOON.hemi.ground, TOON.hemi.intensity));
+  const sun = new THREE.DirectionalLight(TOON.sun.color, TOON.sun.intensity);
+  sun.position.set(Math.sin(az) * Math.cos(el) * 40, Math.sin(el) * 40, Math.cos(az) * Math.cos(el) * 40); scene.add(sun);
+  scene.add(new THREE.AmbientLight(TOON.ambient.color, TOON.ambient.intensity));
+}
+
+const loader = new GLTFLoader();
+const gltfChar = await loader.loadAsync('kit.glb');
+const gltfWorld = await loader.loadAsync('kit.glb');
+
+let tris = 0;
+gltfChar.scene.traverse(o => { if (o.isMesh && !/^face_/.test(o.parent?.name || '') && !/^face_/.test(o.name)) tris += o.geometry.index.count / 3; });
+
+window.renderChar = async ({ angle = -35, w = 900, h = 1200, expr = 'hopeful', cam = [0, 0.6, 3.4], target = [0, 0.5, 0], fov = 22 }) => {
+  renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  const scene = new THREE.Scene(); scene.background = new THREE.Color('#FDE6C8');
+  charLights(scene);
+  const kit = gltfChar.scene.userData.setExpr ? gltfChar.scene : prepareKit(gltfChar, OUT_CHAR);
+  kit.userData.setExpr(expr);
+  const root = kit.userData.nodes.root; root.rotation.y = angle * Math.PI / 180;
+  if (!root.userData.blob) { root.userData.blob = blob(); root.add(root.userData.blob); }
+  scene.add(kit);
+  const camera = new THREE.PerspectiveCamera(fov, w / h, 0.05, 100); camera.position.set(...cam); camera.lookAt(...target);
+  renderer.render(scene, camera); await new Promise(r => requestAnimationFrame(r)); renderer.render(scene, camera);
+  return { tris, calls: renderer.info.render.calls };
+};
+
+// ---------------------------------------------------------------- a small Applyside patch (palette: Lena 24)
+const P = { grass: '#B5D67A', grassDeep: '#7FA65A', path: '#EBD3A6', plinth: '#E59F64', wood: '#7A4A2E', ink: '#2B1E16', panel: '#FFF8EE', coral: '#E2574C', cream: '#FFE8A6', cafeWall: '#F4A672', cafeRoof: '#D4503A', panelEdge: '#E9D3B4' };
+const toon = c => new THREE.MeshToonMaterial({ color: c, gradientMap: G2 });
+function mesh(geo, mat, pos = [0, 0, 0], rot = [0, 0, 0], cast = true, recv = false) { const m = new THREE.Mesh(geo, mat); m.position.set(...pos); m.rotation.set(...rot); m.castShadow = cast; m.receiveShadow = recv; return m; }
+function patch() {
+  const g = new THREE.Group();
+  g.add(mesh(new THREE.BoxGeometry(14, 0.8, 14), toon(P.plinth), [0, -0.4, 0], [0, 0, 0], false, true));
+  g.add(mesh(new THREE.BoxGeometry(13.6, 0.12, 13.6), toon(P.grass), [0, 0.06, 0], [0, 0, 0], false, true));
+  g.add(mesh(new THREE.BoxGeometry(13.6, 0.14, 4), toon(P.path), [0, 0.07, 0], [0, 0, 0], false, true));
+  g.add(mesh(new THREE.BoxGeometry(4, 0.14, 13.6), toon(P.path), [0, 0.07, 0], [0, 0, 0], false, true));
+  for (let i = -6; i <= 6; i += 2.5) if (Math.abs(i) > 2.2) g.add(mesh(new THREE.BoxGeometry(0.6, 0.15, 0.12), toon(P.panel), [i, 0.08, 0], [0, 0, 0], false, true));
+  const tree = (x, z, s = 1) => { const t = new THREE.Group(); t.add(mesh(new THREE.CylinderGeometry(0.15, 0.2, 0.9, 8), toon(P.wood), [0, 0.45, 0]));
+    t.add(mesh(new THREE.IcosahedronGeometry(0.9, 0), toon(P.grassDeep), [0, 1.5, 0])); t.add(mesh(new THREE.IcosahedronGeometry(0.6, 0), toon('#8fb866'), [0.35, 2.1, 0.1])); t.position.set(x, 0.12, z); t.scale.setScalar(s); return t; };
+  g.add(tree(-4.6, -4.4)); g.add(tree(4.8, 4.2, 0.9)); g.add(tree(-5.2, 4.6, 0.85));
+  const mailbox = new THREE.Group(); mailbox.add(mesh(new THREE.BoxGeometry(0.1, 0.8, 0.1), toon(P.ink), [0, 0.4, 0])); mailbox.add(mesh(new THREE.CapsuleGeometry(0.18, 0.3, 4, 8), toon(P.coral), [0, 0.9, 0], [Math.PI / 2, 0, 0])); mailbox.position.set(2.6, 0.12, -2.7); g.add(mailbox);
+  const board = new THREE.Group(); board.add(mesh(new THREE.BoxGeometry(1.6, 1.0, 0.1), toon('#C9A27A'), [0, 1.2, 0]));
+  for (const [px, py, c] of [[-0.5, 1.35, P.panel], [0, 1.1, P.cream], [0.45, 1.35, '#E3D3EE'], [-0.3, 0.95, '#CFE3F0'], [0.4, 0.95, P.panel]]) board.add(mesh(new THREE.BoxGeometry(0.3, 0.36, 0.02), toon(c), [px, py, 0.06]));
+  for (const x2 of [-0.7, 0.7]) board.add(mesh(new THREE.BoxGeometry(0.08, 1.2, 0.08), toon(P.wood), [x2, 0.6, 0])); board.position.set(-2.9, 0.12, -3.0); g.add(board);
+  const cafe = new THREE.Group(); cafe.add(mesh(new THREE.BoxGeometry(5, 3.2, 3.6), toon(P.cafeWall), [0, 1.6, 0])); cafe.add(mesh(new THREE.BoxGeometry(5.4, 0.4, 4.0), toon(P.cafeRoof), [0, 3.4, 0]));
+  cafe.add(mesh(new THREE.BoxGeometry(0.9, 1.4, 0.1), toon(P.wood), [0, 0.7, 1.85])); for (const x of [-1.6, 1.6]) cafe.add(mesh(new THREE.BoxGeometry(0.8, 0.8, 0.06), toon('#FFF4C9'), [x, 1.7, 1.83]));
+  cafe.add(mesh(new THREE.BoxGeometry(4, 0.12, 0.9), toon(P.panel), [0, 1.9, 2.2], [0.35, 0, 0]));
+  cafe.position.set(4.4, 0.12, -4.6); g.add(cafe);
+  return g;
+}
+
+window.renderWorld = async ({ w = 1600, h = 900, dist = 26, pitch = 42, yaw = 20, outlinePx = 1.6, kitYaw = -30, crop = null }) => {
+  renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  const scene = new THREE.Scene(); scene.background = new THREE.Color('#FBE7CC');
+  // = render.html world light for Applyside week 1: lights(scene, 1, '#ffe9c7', '#d9a877', 18)
+  const el = 62 * Math.PI / 180, az = 140 * Math.PI / 180;
+  scene.add(new THREE.HemisphereLight('#ffe9c7', '#d9a877', 0.9));
+  const sun = new THREE.DirectionalLight('#fff3dc', 2.6); sun.position.set(Math.sin(az) * Math.cos(el) * 40, Math.sin(el) * 40, Math.cos(az) * Math.cos(el) * 40);
+  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -10, right: 10, top: 10, bottom: -10, near: 1, far: 120 }); sun.shadow.bias = -0.0015; sun.shadow.normalBias = 0.05;
+  scene.add(sun); scene.add(new THREE.AmbientLight('#ffffff', 0.25));
+  scene.add(patch());
+  const fov = 26, vh = 2 * dist * Math.tan(fov / 2 * Math.PI / 180);
+  const outW = outlinePx * vh / h;                       // constant ~1.6 px ink line at the follow camera
+  const kit = gltfWorld.scene.userData.setExpr ? gltfWorld.scene : prepareKit(gltfWorld, outlineMaterial(outW));
+  kit.userData.setExpr('hopeful');
+  const root = kit.userData.nodes.root; root.position.set(0.6, 0.14, 0.9); root.rotation.y = kitYaw * Math.PI / 180;
+  if (!root.userData.blob) { const b = new THREE.Mesh(new THREE.CircleGeometry(1, 40), new THREE.MeshBasicMaterial({ color: TOON.contact_shadow.color, transparent: true, opacity: TOON.contact_shadow.opacity, toneMapped: false, depthWrite: false }));
+    b.rotation.x = -Math.PI / 2; b.scale.set(TOON.contact_shadow.rx, TOON.contact_shadow.ry, 1); b.position.set(0.03, 0.004, 0.01); root.add(b); root.userData.blob = b; }
+  scene.add(kit);
+  const camera = new THREE.PerspectiveCamera(fov, w / h, 0.5, 400); const p = pitch * Math.PI / 180, yw = yaw * Math.PI / 180;
+  const tgt = new THREE.Vector3(0.6, 0.5, 0.9);
+  camera.position.set(tgt.x + Math.sin(yw) * Math.cos(p) * dist, tgt.y + Math.sin(p) * dist, tgt.z + Math.cos(yw) * Math.cos(p) * dist); camera.lookAt(tgt);
+  renderer.render(scene, camera); await new Promise(r => requestAnimationFrame(r)); renderer.render(scene, camera);
+  const v = new THREE.Vector3(); const box = new THREE.Box3().setFromObject(kit.userData.nodes.body);
+  const top = new THREE.Vector3(0.6, 1.05, 0.9).project(camera), bot = new THREE.Vector3(0.6, 0.14, 0.9).project(camera);
+  return { kitPx: Math.round((top.y - bot.y) / 2 * h), outlineW_m: outW };
+};
+window.__ready = true;
+</script></body></html>

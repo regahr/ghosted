@@ -1,0 +1,110 @@
+{
+  "status": "candidates",
+  "query": "cute sheet ghost character skinned arm join toon outline low poly",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.style-low-poly",
+      "revision": 2,
+      "title": "Low-poly shape economy",
+      "path": "data/knowledge/style-profile/style-low-poly.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 138.604642,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Spend geometric detail on the contour and meaningful part boundaries rather than distributing it evenly."
+    },
+    {
+      "id": "knowledge.style-cel-shaded",
+      "revision": 2,
+      "title": "Cel-shaded bands",
+      "path": "data/knowledge/style-profile/style-cel-shaded.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 57.621295,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Compose deliberately limited light bands to make form readable through graphic value regions."
+    },
+    {
+      "id": "recipe.robot-arm-forward-frames",
+      "revision": 1,
+      "title": "Robot arm forward-kinematics frames",
+      "path": "data/recipes/robot-arm-forward-frames.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 56.142334,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "summary",
+        "objective",
+        "tags",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Connect joint coordinates to an articulated arm and inspectable endpoint frame."
+    },
+    {
+      "id": "knowledge.style-retro-low-resolution",
+      "revision": 2,
+      "title": "Retro low-resolution presentation",
+      "path": "data/knowledge/style-profile/style-retro-low-resolution.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 54.930567,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Choose an intentional image-grid and detail hierarchy so pixel structure supports the scene instead of making controls unreadable."
+    },
+    {
+      "id": "knowledge.gltf-articulated-asset-adapter",
+      "revision": 1,
+      "title": "glTF articulated asset and linear-blend skin adapter",
+      "path": "data/knowledge/tool-adapter/gltf-articulated-asset-adapter.json",
+      "collection": "knowledge",
+      "kind": "tool-adapter",
+      "score": 48.920493,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "objective",
+        "intent_signals",
+        "example_prompts",
+        "applies_when"
+      ],
+      "summary": "Load articulated glTF so joint nodes own the pose, the skinned mesh node transform is ignored, and keyframe channels remain animation rather than physics."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

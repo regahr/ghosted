@@ -1,0 +1,341 @@
+"""Ghostie sketch parts. Every shape is a hand-written cubic Bezier path.
+
+Python only places the hand-drawn paths on the sheet (translate, scale) and
+writes the SVG files. Nothing is generated from primitives.
+
+Local frame of one ghost view: 300 x 340 units, body centre x 150,
+crown top y 36, hem cusps y about 296. Eye line y 150.
+"""
+
+BODY = "#F8F4EA"   # row 16
+ACC = "#C8C0D8"    # row 27
+TIE = "#C9A6D6"    # row 10
+INK = "#2B1E16"    # row 22
+SHADE = "#EAE6DC"  # body x 0.945, neutral (no hue shift), shown flat
+CREAM = "#FDE6C8"  # card background, sampled from v5/hero.png
+GRASS = "#BDD662"  # ground, acceptance/ghostie/v3/lena-park.md line 24
+NOTE = "#1D63C8"   # paint-over mark colour (not a character colour)
+
+# ---------------------------------------------------------------- front
+# Silhouette with both arms grown out of the body (one closed outline, no seam).
+# Viewer-right arm = arm_L (+x), the higher one. Viewer-left arm = arm_R, droops.
+FRONT_BODY = (
+    "M150,36 "
+    "C204,36 242,72 244,134 "
+    "C245,160 246,180 248,197 "            # right side down to arm_L root
+    "C259,199 270,202 278,207 "            # arm_L top edge, soft
+    "C288,213 288,229 276,230 "            # round tip
+    "C266,231 258,230 251,229 "            # underside back into the body
+    "C254,252 258,274 264,292 "            # side flares to the hem
+    "C256,314 216,316 192,301 "            # hem lobe 1
+    "C174,316 130,316 112,301 "            # hem lobe 2
+    "C94,316 50,312 38,292 "               # hem lobe 3 (wraps the corner)
+    "C42,278 45,266 49,254 "               # left side up to arm_R underside
+    "C43,258 36,261 30,260 "               # arm_R underside out
+    "C18,258 16,244 24,239 "               # round tip, lower than the root
+    "C32,232 42,227 51,222 "               # arm_R top back into the body
+    "C53,190 54,162 56,134 "
+    "C58,72 96,36 150,36 Z"
+)
+# Wave: arm_L lifted +40 deg about its root (about 249,213).
+FRONT_BODY_WAVE = FRONT_BODY.replace(
+    "C245,160 246,180 248,197 "
+    "C259,199 270,202 278,207 "
+    "C288,213 288,229 276,230 "
+    "C266,231 258,230 251,229 ",
+    "C245,160 246,176 247,190 "
+    "C256,182 263,175 270,170 "
+    "C281,162 292,172 285,182 "
+    "C277,192 264,208 251,229 ",
+)
+FRONT_SHADE = (  # neutral shade band on the viewer-left side, inside the outline
+    "M70,110 C62,150 60,200 62,240 C64,268 70,288 80,306 "
+    "C66,302 48,300 44,288 C47,262 52,226 56,190 C58,160 60,130 70,110 Z"
+)
+FRONT_EYES = [(124, 150), (176, 150)]  # ink ovals rx 8.5 ry 13
+
+# ---------------------------------------------------------------- 3/4
+# Front turned to the viewer-left (as v5/hero.png). arm_L is the near flap.
+Q_BODY = (
+    "M140,36 "
+    "C196,36 236,74 240,138 "
+    "C242,164 244,182 246,200 "
+    "C260,204 274,210 282,218 "            # near arm top
+    "C292,228 288,244 276,243 "            # tip
+    "C264,242 256,237 249,234 "            # underside root
+    "C252,256 256,276 258,292 "
+    "C250,318 206,320 184,298 "            # hem lobe
+    "C166,320 122,318 106,296 "            # hem lobe
+    "C92,314 62,310 52,292 "               # small far lobe
+    "C51,280 52,268 53,258 "
+    "C46,258 42,252 44,246 "               # far arm: a small nub
+    "C46,240 50,238 54,238 "
+    "C55,200 54,170 56,136 "
+    "C60,72 92,36 140,36 Z"
+)
+Q_SHADE = (
+    "M68,104 C60,150 58,206 62,250 C64,272 68,290 76,302 "
+    "C64,300 54,298 52,290 C53,250 54,200 56,160 C57,136 60,118 68,104 Z"
+)
+Q_EYES = [(98, 150), (148, 150)]
+
+# ---------------------------------------------------------------- side
+# Profile facing viewer-left. arm_L points at the viewer: a round stub.
+S_BODY = (
+    "M152,36 "
+    "C204,36 232,78 234,140 "
+    "C236,190 240,250 250,296 "            # back drifts out to the trailing hem
+    "C236,316 206,316 192,298 "
+    "C178,318 140,320 126,300 "
+    "C112,318 78,316 70,296 "
+    "C72,250 72,190 74,140 "
+    "C76,78 104,36 152,36 Z"
+)
+S_ARM = (  # near arm seen end-on: a soft drop that hangs from the side
+    "M146,204 C156,200 170,200 178,206 C186,220 178,244 164,252 "
+    "C150,256 140,244 140,230 C140,218 142,209 146,204 Z"
+)
+S_ARM_INK = (  # ink round the hanging drop; open where it grows from the body
+    "M146,204 C156,200 170,200 178,206 C186,220 178,244 164,252 "
+    "C150,256 140,244 140,230 C140,218 142,209 146,204 Z"
+)
+S_SHADE = (
+    "M210,90 C222,130 226,200 230,250 C232,274 236,290 242,300 "
+    "C232,306 222,306 214,300 C214,240 214,170 210,90 Z"
+)
+S_EYE = (82, 150)  # one eye on the front edge, half ellipse
+
+# ---------------------------------------------------------------- back
+B_BODY = FRONT_BODY  # mirrored with transform scale(-1,1)
+B_SHADE = FRONT_SHADE
+
+# ---------------------------------------------------------------- ties (front frame)
+def collar(cx, y=168):
+    """Two small shirt-collar points either side of the knot (body colour, ink)."""
+    l = (f"M{cx-1},{y+6} C{cx-8},{y+2} {cx-15},{y} {cx-21},{y+1} "
+         f"C{cx-19},{y+8} {cx-15},{y+16} {cx-11},{y+22} "
+         f"C{cx-8},{y+16} {cx-4},{y+11} {cx-1},{y+6} Z")
+    r = (f"M{cx+1},{y+6} C{cx+8},{y+2} {cx+15},{y} {cx+21},{y+1} "
+         f"C{cx+19},{y+8} {cx+15},{y+16} {cx+11},{y+22} "
+         f"C{cx+8},{y+16} {cx+4},{y+11} {cx+1},{y+6} Z")
+    return [l, r]
+
+
+def hanging_tie(cx, swing=0.0, y=175):
+    """Knot (trapezoid) + blade that widens + symmetric V. Kit-like.
+
+    swing: sideways drift of the V in units (a tie that slipped hangs a
+    little askew). Paths are hand-set; only the anchor moves.
+    """
+    s = swing
+    knot = (f"M{cx-9},{y} L{cx+9},{y} L{cx+6},{y+15} L{cx-6},{y+15} Z")
+    blade = (f"M{cx-5},{y+16} "
+             f"C{cx-7+s*0.3},{y+36} {cx-11+s*0.6},{y+58} {cx-14+s*0.85},{y+74} "
+             f"L{cx+s},{y+92} "
+             f"L{cx+14+s*0.85},{y+74} "
+             f"C{cx+11+s*0.6},{y+58} {cx+7+s*0.3},{y+36} {cx+5},{y+16} Z")
+    return knot, blade
+
+
+def blown_tie(cx, y=175):
+    """Knot on the front, blade blown out to the viewer-right with one S-bend,
+    symmetric V clear of the outline by about one blade width."""
+    knot = (f"M{cx-9},{y} L{cx+9},{y} L{cx+10},{y+15} L{cx-2},{y+15} Z")
+    blade = (f"M{cx+9},{y+1} "
+             f"C{cx+26},{y-8} {cx+44},{y+6} {cx+62},{y-6} "
+             f"L{cx+92},{y+2} "        # V point
+             f"L{cx+70},{y+24} "
+             f"C{cx+50},{y+30} {cx+30},{y+18} {cx+9},{y+15} Z")
+    return knot, blade
+
+
+def ellipse(cx, cy, rx, ry, fill, stroke=None, sw=0):
+    st = f' stroke="{stroke}" stroke-width="{sw}"' if stroke else ' stroke="none"'
+    return f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="{fill}"{st}/>'
+
+
+def path(d, fill, stroke=None, sw=0, extra=""):
+    st = (f' stroke="{stroke}" stroke-width="{sw}" stroke-linejoin="round"'
+          f' stroke-linecap="round"') if stroke else ' stroke="none"'
+    return f'<path d="{d}" fill="{fill}"{st}{extra}/>'
+
+
+# ---------------------------------------------------------------- full ghost views
+def tie_parts(option, sw):
+    # sw here is the card body-outline weight; the tie ink is geometry in 3D
+    # (a backing plate), so it scales with the tie, not with the screen.
+    """Return SVG for a tie option in the FRONT frame."""
+    out = []
+    if option == "A":      # hangs down the centre front, like Kit
+        cx, kind = 150, "hang"
+    elif option == "B":    # slipped: hangs down, off-centre on the arm_L side
+        cx, kind = 219, "slip"
+    elif option == "C":    # blown aside past the outline
+        cx, kind = 207, "blown"
+    else:
+        return ""
+    tw = sw * 0.75
+    for c in collar(cx, y=173 if kind == "slip" else 168):
+        out.append(path(c, BODY, INK, sw * 0.55))
+    if kind == "blown":
+        k, b = blown_tie(cx)
+    else:
+        k, b = hanging_tie(cx, swing=7 if kind == "slip" else 0,
+                           y=180 if kind == "slip" else 175)
+    out.append(path(b, TIE, INK, tw))
+    out.append(path(k, TIE, INK, tw))
+    return "".join(out)
+
+
+def glasses(eyes, sw, q=False):
+    out = []
+    (x1, y1), (x2, y2) = eyes
+    r1 = 17 if not q else 15
+    r2 = 18
+    out.append(ellipse(x1, y1, r1, r1 + 1, "none", ACC, 5.5))
+    out.append(ellipse(x2, y2, r2, r2 + 1, "none", ACC, 5.5))
+    mid1, mid2 = x1 + r1, x2 - r2
+    out.append(path(f"M{mid1},{y1-2} C{mid1+6},{y1-7} {mid2-6},{y2-7} {mid2},{y2-2}",
+                    "none", ACC, 4.5))
+    return "".join(out)
+
+
+def headset(sw, view="front"):
+    tw = sw * 0.75
+    if view == "front":
+        band = "M118,42 C170,28 226,62 238,128"
+        cup = (234, 146, 13, 20)
+    elif view == "q":
+        band = "M104,42 C160,26 222,64 236,132"
+        cup = (232, 150, 14, 21)
+    else:
+        return ""
+    cx, cy, rx, ry = cup
+    out = [path(band, "none", ACC, 7)]
+    out.append(ellipse(cx, cy, rx, ry, ACC, INK, tw))
+    out.append(path(f"M{cx},{cy-ry+2} L{cx},{cy-ry-10}", "none", ACC, 6))
+    return "".join(out)
+
+
+def front(variant="tie", tie="B", sw=5, wave=False, silhouette=False, shade=True,
+          acc_sw=5):
+    body = FRONT_BODY_WAVE if wave else FRONT_BODY
+    if silhouette:
+        s = path(body, INK)
+        if variant == "tie" and tie:
+            s += tie_parts(tie, sw).replace(BODY, INK).replace(TIE, INK)
+        elif variant == "headset":
+            s += path("M238,110 C252,120 254,170 238,170 Z", INK)
+        return s
+    out = [path(body, BODY, INK, sw)]
+    if shade:
+        out.append(path(FRONT_SHADE, SHADE))
+    for (x, y) in FRONT_EYES:
+        out.append(ellipse(x, y, 8.5, 13, INK))
+    if variant == "tie":
+        out.append(tie_parts(tie, acc_sw))
+    elif variant == "glasses":
+        out.append(glasses(FRONT_EYES, acc_sw))
+    elif variant == "headset":
+        out.append(headset(acc_sw, "front"))
+    return "".join(out)
+
+
+def three_quarter(variant="tie", sw=5):
+    out = [path(Q_BODY, BODY, INK, sw), path(Q_SHADE, SHADE)]
+    for (x, y) in Q_EYES:
+        out.append(ellipse(x, y, 7.5 if x < 120 else 8.5, 13, INK))
+    tw = sw * 0.75
+    if variant == "tie":
+        # slipped tie on the near cheek, foreshortened: narrower, nearer the edge
+        cx, y = 207, 180
+        for c in collar(cx, y=y - 7):
+            out.append(path(c, BODY, INK, sw * 0.55))
+        out.append(path(f"M{cx-3},{y+15} C{cx-5},{y+38} {cx-7},{y+60} {cx-9},{y+75} "
+                        f"L{cx+5},{y+92} L{cx+15},{y+73} "
+                        f"C{cx+12},{y+58} {cx+7},{y+38} {cx+4},{y+15} Z", TIE, INK, tw))
+        out.append(path(f"M{cx-7},{y} L{cx+8},{y} L{cx+5},{y+15} L{cx-4},{y+15} Z",
+                        TIE, INK, tw))
+    elif variant == "glasses":
+        out.append(glasses(Q_EYES, sw, q=True))
+    elif variant == "headset":
+        out.append(headset(sw, "q"))
+    return "".join(out)
+
+
+def side(variant="tie", sw=5):
+    tw = sw * 0.75
+    out = [path(S_BODY, BODY, INK, sw), path(S_SHADE, SHADE)]
+    # eye on the front edge: a narrow oval
+    out.append(ellipse(S_EYE[0], S_EYE[1], 4.5, 12.5, INK))
+    if variant == "tie":
+        # tie on the near front, seen edge-on: knot + blade along the front edge
+        out.append(path("M80,172 C88,172 96,176 100,182 L92,192 C88,186 84,180 80,172 Z",
+                        BODY, INK, tw))
+        out.append(path("M90,192 C88,214 86,236 85,250 L92,268 L104,250 "
+                        "C104,236 102,214 99,192 Z", TIE, INK, tw))
+        out.append(path("M88,177 L101,177 L99,192 L90,192 Z", TIE, INK, tw))
+    out.append(path(S_ARM, BODY))
+    out.append(path("M142,232 C150,240 168,238 180,222 C180,238 172,250 162,252 C150,254 143,244 142,232 Z", SHADE))
+    out.append(path("M150,212 C156,208 164,208 170,211", "none", "#FFFFFF", 3))
+    out.append(path(S_ARM_INK, "none", INK, sw * 0.9))
+    return "".join(out)
+
+
+def back(sw=5):
+    return (f'<g transform="translate(300,0) scale(-1,1)">'
+            f'{path(FRONT_BODY, BODY, INK, sw)}{path(FRONT_SHADE, SHADE)}</g>')
+
+
+def place(svg_inner, x, y, s=1.0, rot=-4.0):
+    """Put a 300x340 view at (x, y) with scale s and the rest tilt (deg)."""
+    return (f'<g transform="translate({x},{y}) scale({s})">'
+            f'<g transform="rotate({rot},150,300)">{svg_inner}</g></g>')
+
+
+def shadow(x, y, s=1.0, ground="#2B1E16", o=0.16):
+    return (f'<ellipse cx="{x + 150 * s}" cy="{y + 352 * s}" rx="{92 * s}" '
+            f'ry="{12 * s}" fill="{ground}" fill-opacity="{o}" stroke="none"/>')
+
+
+def text(x, y, t, size=16, weight="normal", fill=INK, anchor="start"):
+    t = t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    return (f'<text x="{x}" y="{y}" font-family="Helvetica" font-size="{size}" '
+            f'font-weight="{weight}" fill="{fill}" text-anchor="{anchor}">{t}</text>')
+
+
+def svg_doc(w, h, inner, bg=None):
+    # ImageMagick's MSVG loses group transforms after a <text>; so all text
+    # goes last. The drawing is the same.
+    import re
+    texts = re.findall(r"<text[^>]*>[^<]*</text>", inner)
+    inner = re.sub(r"<text[^>]*>[^<]*</text>", "", inner)
+    # rects and dashed lines also break later groups in MSVG: draw them last too
+    late = re.findall(r"<rect[^>]*/>|<path[^>]*stroke-dasharray[^>]*/>", inner)
+    inner = re.sub(r"<rect[^>]*/>|<path[^>]*stroke-dasharray[^>]*/>", "", inner)
+    inner = inner + "".join(late) + "".join(texts)
+    b = f'<rect x="0" y="0" width="{w}" height="{h}" fill="{bg}" stroke="none"/>' if bg else ""
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
+            f'viewBox="0 0 {w} {h}">{b}{inner}</svg>')
+
+
+# ---------------------------------------------------------------- game camera thumbnail
+# The lineup camera: 26 m, pitch 42 deg, yaw 20 deg, outline 1.6 px
+# (v5/ingame.html line 196). The front view is squashed in y to stand in for
+# the 42 deg pitch. Body about 32 px tall at 1x, as in v5/lineup-grass-crop-x3.png.
+THUMB_S = 0.15
+THUMB_SQUASH = 0.86
+
+
+def thumb(inner_view, cx, cy):
+    """Place a front view so its body centre sits at (cx, cy) in 1x pixels."""
+    s = THUMB_S
+    return (f'<g transform="translate({cx - 150 * s},{cy - 176 * s * THUMB_SQUASH}) '
+            f'scale({s},{s * THUMB_SQUASH})"><g transform="rotate(-4,150,300)">'
+            f'{inner_view}</g></g>')
+
+
+def thumb_shadow(cx, cy):
+    s = THUMB_S
+    return (f'<ellipse cx="{cx}" cy="{cy + 150 * s}" rx="{80 * s}" ry="{16 * s}" '
+            f'fill="#2B1E16" fill-opacity="0.18" stroke="none"/>')

@@ -1,0 +1,114 @@
+{
+  "status": "candidates",
+  "query": "hand holding prop swap between hands attach",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.style-hand-painted",
+      "revision": 2,
+      "title": "Hand-painted surface accents",
+      "path": "data/knowledge/style-profile/style-hand-painted.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 77.970082,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Place authored marks where they explain shape, use or attention rather than covering every surface with equal detail."
+    },
+    {
+      "id": "knowledge.theme-functional-prop-grammar",
+      "revision": 1,
+      "title": "Functional prop grammar for fictional settings",
+      "path": "data/knowledge/theme-profile/theme-functional-prop-grammar.json",
+      "collection": "knowledge",
+      "kind": "theme-profile",
+      "score": 60.925551,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Turn a fictional setting into a reusable prop language by assigning visible structure, interface, maintenance and state cues to each object role."
+    },
+    {
+      "id": "knowledge.deformable-prop-support-cage",
+      "revision": 1,
+      "title": "Deformable prop with a construction-aware support cage",
+      "path": "data/knowledge/object-archetype/deformable-prop-support-cage.json",
+      "collection": "knowledge",
+      "kind": "object-archetype",
+      "score": 52.555207,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "applies_when"
+      ],
+      "summary": "Organize a soft prop around a low-complexity cage, protected openings, attachment zones and thickness checks so expressive deformation does not silently destroy construction."
+    },
+    {
+      "id": "recipe.xr-two-hand-product-manipulation",
+      "revision": 1,
+      "title": "XR two-hand product manipulation contract",
+      "path": "data/recipes/xr-two-hand-product-manipulation.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 52.326747,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "summary",
+        "objective",
+        "tags",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Inspect one tabletop product using stable authored handle frames, one-hand rigid grab and a bounded two-hand transform on the product root, with controller-loss and desktop alternatives explicit."
+    },
+    {
+      "id": "knowledge.hero-prop-detail-hierarchy",
+      "revision": 2,
+      "title": "Hero prop detail hierarchy by camera evidence",
+      "path": "data/knowledge/object-archetype/hero-prop-detail-hierarchy.json",
+      "collection": "knowledge",
+      "kind": "object-archetype",
+      "score": 52.047436,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "objective",
+        "tags",
+        "intent_signals",
+        "applies_when"
+      ],
+      "summary": "Allocate a hero prop's geometry and shading detail by what primary, secondary and tertiary features contribute at the nearest approved camera and across runtime distance levels."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

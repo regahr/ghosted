@@ -1,0 +1,50 @@
+{
+ "grass": {
+  "teeth_px": 2,
+  "line_px": 25,
+  "grin_box_wxh_px": [
+   13,
+   4
+  ],
+  "teeth_luma_mean": 207.1,
+  "line_luma_mean": 33.2,
+  "skin_luma_mean_round_it": 180.6,
+  "eye_luma_mean": 38.2,
+  "teeth_centre_y": 526.0,
+  "line_centre_y": 526.76,
+  "grin_top_below_eye_bottom_px": 1,
+  "side_hair_lowest_px": 512,
+  "eye_top_px": 520,
+  "eye_bottom_px": 524,
+  "side_hair_above_eye_top_px": 8,
+  "side_hair_lowest_x_px": 797,
+  "eye_columns_px": [
+   776,
+   790
+  ]
+ },
+ "path": {
+  "teeth_px": 2,
+  "line_px": 26,
+  "grin_box_wxh_px": [
+   12,
+   4
+  ],
+  "teeth_luma_mean": 180.4,
+  "line_luma_mean": 40.3,
+  "skin_luma_mean_round_it": 180.5,
+  "eye_luma_mean": 39.6,
+  "teeth_centre_y": 371.0,
+  "line_centre_y": 371.88,
+  "grin_top_below_eye_bottom_px": 1,
+  "side_hair_lowest_px": 358,
+  "eye_top_px": 365,
+  "eye_bottom_px": 369,
+  "side_hair_above_eye_top_px": 7,
+  "side_hair_lowest_x_px": 580,
+  "eye_columns_px": [
+   563,
+   575
+  ]
+ }
+}

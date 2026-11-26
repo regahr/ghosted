@@ -1,0 +1,344 @@
+{
+ "ingame": {
+  "visibleTris": 875,
+  "calls": 15
+ },
+ "ingame-front": {
+  "visibleTris": 875,
+  "calls": 15
+ },
+ "ingame-stamp-windup": {
+  "visibleTris": 875,
+  "calls": 15
+ },
+ "ingame-slot": {
+  "visibleTris": 875,
+  "calls": 15
+ },
+ "lineup-grass": {
+  "atsTris": 875,
+  "ats": {
+   "feet": [
+    726.1,
+    608.4
+   ],
+   "top": [
+    699,
+    533.9
+   ],
+   "headTopFront": [
+    722.8,
+    557.6
+   ],
+   "chinFront": [
+    723.5,
+    576.6
+   ],
+   "neckRingTop": [
+    723.8,
+    576
+   ],
+   "neckRingBot": [
+    724.1,
+    583.9
+   ],
+   "crownFront": [
+    725.1,
+    579.8
+   ],
+   "bodyCrownZ50": [
+    723.5,
+    593.4
+   ],
+   "slotTop": [
+    723.7,
+    598.7
+   ],
+   "slotBot": [
+    723.8,
+    601.6
+   ],
+   "screenTL": [
+    701.9,
+    559.5
+   ],
+   "screenBR": [
+    744.2,
+    575.2
+   ],
+   "eyeL": [
+    714,
+    563
+   ],
+   "eyeLb": [
+    714.3,
+    569.4
+   ],
+   "hem": [
+    724.2,
+    611.8
+   ]
+  },
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 424,
+   "y1": 498,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_ats": {
+   "x0": 694,
+   "x1": 759,
+   "y0": 532,
+   "y1": 624,
+   "heightPx": 93,
+   "widthPx": 66
+  },
+  "neck": {
+   "neckPixels": {
+    "red": 26,
+    "green": 0
+   },
+   "neckBox": {
+    "x0": 719,
+    "x1": 730,
+    "y0": 575,
+    "y1": 583,
+    "widthPx": 12,
+    "heightPx": 9
+   },
+   "centreColumnFromY": 561,
+   "columns": {
+    "0": "KKKKKKKKKKKKKW.K.KRRKRRK.WWWWWWWWWWWW",
+    "4": ".KK......KKKK..KKR.K..K.WWWWWWWWWWWWW",
+    "-4": "KKKKKKKKKKKK.WRK.KR.KR.K.WWWWWWWWWWWW"
+   }
+  },
+  "px_ats_at_kit_spot": {
+   "x0": 859,
+   "x1": 917,
+   "y0": 417,
+   "y1": 506,
+   "heightPx": 90,
+   "widthPx": 59
+  },
+  "ratio_ats_to_kit": 1.24
+ },
+ "lineup-path": {
+  "atsTris": 875,
+  "ats": {
+   "feet": [
+    1075.4,
+    537.7
+   ],
+   "top": [
+    1059.9,
+    463.8
+   ],
+   "headTopFront": [
+    1083.2,
+    486.6
+   ],
+   "chinFront": [
+    1080.7,
+    505.5
+   ],
+   "neckRingTop": [
+    1080.5,
+    505
+   ],
+   "neckRingBot": [
+    1079.5,
+    512.9
+   ],
+   "crownFront": [
+    1079.2,
+    509.2
+   ],
+   "bodyCrownZ50": [
+    1079,
+    522
+   ],
+   "slotTop": [
+    1078.3,
+    527.3
+   ],
+   "slotBot": [
+    1077.9,
+    530.2
+   ],
+   "screenTL": [
+    1062.4,
+    488.5
+   ],
+   "screenBR": [
+    1101.4,
+    504
+   ],
+   "eyeL": [
+    1073.7,
+    492
+   ],
+   "eyeLb": [
+    1072.9,
+    498.3
+   ],
+   "hem": [
+    1076.6,
+    540.3
+   ]
+  },
+  "kitTop": [
+   886.9,
+   435.8
+  ],
+  "kitBot": [
+   884.7,
+   490.7
+  ],
+  "outlineW_m": 0.0213424816684965,
+  "px_kit": {
+   "x0": 864,
+   "x1": 910,
+   "y0": 423,
+   "y1": 497,
+   "heightPx": 75,
+   "widthPx": 47
+  },
+  "px_ats": {
+   "x0": 1050,
+   "x1": 1112,
+   "y0": 462,
+   "y1": 552,
+   "heightPx": 91,
+   "widthPx": 63
+  },
+  "neck": {
+   "neckPixels": {
+    "red": 34,
+    "green": 0
+   },
+   "neckBox": {
+    "x0": 1073,
+    "x1": 1085,
+    "y0": 504,
+    "y1": 512,
+    "widthPx": 13,
+    "heightPx": 9
+   },
+   "centreColumnFromY": 490,
+   "columns": {
+    "0": "KKKKKKKKKKKK.WRK.KR.KRRK.WWWWWWWWWWWW",
+    "4": "KKKKKKKKKKKK.W.KKKRKKRKKWWWWWWWWWWWWW",
+    "-4": "KK.SS...KKKK.W.K.R.KRRK.WWWWWWWWWWWWW"
+   }
+  },
+  "px_ats_at_kit_spot": {
+   "x0": 859,
+   "x1": 917,
+   "y0": 416,
+   "y1": 505,
+   "heightPx": 90,
+   "widthPx": 59
+  },
+  "ratio_ats_to_kit": 1.213
+ },
+ "lineup-grass-turned": {
+  "atsTris": 875,
+  "ats": {
+   "feet": [
+    726.1,
+    608.4
+   ],
+   "top": [
+    701.9,
+    529.6
+   ],
+   "headTopFront": [
+    720.2,
+    557.2
+   ],
+   "chinFront": [
+    721,
+    576.2
+   ],
+   "neckRingTop": [
+    721.9,
+    575.7
+   ],
+   "neckRingBot": [
+    722.2,
+    583.6
+   ],
+   "crownFront": [
+    725.1,
+    579.8
+   ],
+   "bodyCrownZ50": [
+    719.7,
+    592.8
+   ],
+   "slotTop": [
+    719.9,
+    598.1
+   ],
+   "slotBot": [
+    720,
+    601
+   ],
+   "screenTL": [
+    700.7,
+    555.3
+   ],
+   "screenBR": [
+    740.3,
+    578.6
+   ],
+   "eyeL": [
+    711.9,
+    561
+   ],
+   "eyeLb": [
+    712.2,
+    567.3
+   ],
+   "hem": [
+    720.4,
+    611.2
+   ]
+  },
+  "kitTop": [
+   886.9,
+   437
+  ],
+  "kitBot": [
+   884.7,
+   491.8
+  ],
+  "outlineW_m": 0.0213424816684965,
+  "px_ats": {
+   "x0": 693,
+   "x1": 757,
+   "y0": 528,
+   "y1": 628,
+   "heightPx": 101,
+   "widthPx": 65
+  }
+ },
+ "visibleTris": {
+  "rest": 875,
+  "windup": 875,
+  "notfit": 873,
+  "cv_in_slot": 875
+ }
+}

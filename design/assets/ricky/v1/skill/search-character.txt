@@ -1,0 +1,110 @@
+{
+  "status": "candidates",
+  "query": "stylized toon character suit jacket arm join outline",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.style-stylized",
+      "revision": 2,
+      "title": "Stylized proportions",
+      "path": "data/knowledge/style-profile/style-stylized.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 76.019254,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Choose one proportional exaggeration that gives the subject character while preserving its identifying parts."
+    },
+    {
+      "id": "knowledge.style-stylized-realism",
+      "revision": 2,
+      "title": "Stylized realism balance",
+      "path": "data/knowledge/style-profile/style-stylized-realism.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 56.5523,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Keep construction and recognizable material relationships while deliberately exaggerating selected shapes or color relationships."
+    },
+    {
+      "id": "recipe.robot-arm-forward-frames",
+      "revision": 1,
+      "title": "Robot arm forward-kinematics frames",
+      "path": "data/recipes/robot-arm-forward-frames.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 56.142334,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "summary",
+        "objective",
+        "tags",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Connect joint coordinates to an articulated arm and inspectable endpoint frame."
+    },
+    {
+      "id": "knowledge.style-cel-shaded",
+      "revision": 2,
+      "title": "Cel-shaded bands",
+      "path": "data/knowledge/style-profile/style-cel-shaded.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 52.019727,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Compose deliberately limited light bands to make form readable through graphic value regions."
+    },
+    {
+      "id": "knowledge.stylized-pbr-material-response",
+      "revision": 1,
+      "title": "Stylized PBR material response",
+      "path": "data/knowledge/style-profile/stylized-pbr-material-response.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 48.879022,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "intent_signals",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Art-direct a compact family of highlight widths, roughness transitions and material-role contrasts while keeping glTF metallic-roughness transport explicit."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

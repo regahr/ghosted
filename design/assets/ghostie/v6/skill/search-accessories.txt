@@ -1,0 +1,110 @@
+{
+  "status": "candidates",
+  "query": "fabric accessory tie collar headset on curved surface",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.material-composite-reinforcement-surface",
+      "revision": 1,
+      "title": "Composite reinforcement direction and laminate edge",
+      "path": "data/knowledge/material-profile/material-composite-reinforcement-surface.json",
+      "collection": "knowledge",
+      "kind": "material-profile",
+      "score": 67.00381,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "subject_terms"
+      ],
+      "summary": "Keep a composite surface pattern consistent with its declared reinforcement and show a separate authored laminate edge where layers are exposed."
+    },
+    {
+      "id": "recipe.modular-camera-rig",
+      "revision": 1,
+      "title": "Modular camera rig compatibility",
+      "path": "data/recipes/modular-camera-rig.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 57.127382,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "tags",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Create an invented accessory rig with explicit slot rules and reversible changes."
+    },
+    {
+      "id": "knowledge.shared-parametric-surface-domain",
+      "revision": 1,
+      "title": "Parametric surface with a declared domain and degeneracies",
+      "path": "data/knowledge/geometry-profile/shared-parametric-surface-domain.json",
+      "collection": "knowledge",
+      "kind": "geometry-profile",
+      "score": 51.039197,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Build a surface from an explicit parameter domain and decide in advance what happens at poles, seams and collapsed edges."
+    },
+    {
+      "id": "recipe.directional-derivative-surface",
+      "revision": 1,
+      "title": "Directional derivative on a quadratic surface",
+      "path": "data/recipes/directional-derivative-surface.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 49.230336,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "intent_signals",
+        "example_prompts"
+      ],
+      "summary": "Rotate a direction on a height field and compare the measured slope with the gradient dot product."
+    },
+    {
+      "id": "knowledge.conductor-surface",
+      "revision": 1,
+      "title": "Conductor surface with intentional finish",
+      "path": "data/knowledge/material-profile/conductor-surface.json",
+      "collection": "knowledge",
+      "kind": "material-profile",
+      "score": 36.032123,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags"
+      ],
+      "summary": "Make metal parts readable using finish zones and a reflected environment instead of a flat gray color."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

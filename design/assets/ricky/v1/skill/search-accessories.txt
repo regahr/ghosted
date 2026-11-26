@@ -1,0 +1,114 @@
+{
+  "status": "candidates",
+  "query": "headset accessory on head low poly",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.style-low-poly",
+      "revision": 2,
+      "title": "Low-poly shape economy",
+      "path": "data/knowledge/style-profile/style-low-poly.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 143.38897,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Spend geometric detail on the contour and meaningful part boundaries rather than distributing it evenly."
+    },
+    {
+      "id": "recipe.multi-head-attention-comparison",
+      "revision": 1,
+      "title": "Multi-head attention comparison without head averaging",
+      "path": "data/recipes/multi-head-attention-comparison.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 87.147665,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "subject_terms"
+      ],
+      "summary": "Compare two to eight supplied attention heads from their separate projections through concatenation and the output projection while retaining each head identity."
+    },
+    {
+      "id": "recipe.modular-camera-rig",
+      "revision": 1,
+      "title": "Modular camera rig compatibility",
+      "path": "data/recipes/modular-camera-rig.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 57.127382,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "aliases.en",
+        "summary",
+        "tags",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Create an invented accessory rig with explicit slot rules and reversible changes."
+    },
+    {
+      "id": "recipe.single-attention-head-aggregation",
+      "revision": 1,
+      "title": "Single attention-head value aggregation",
+      "path": "data/recipes/single-attention-head-aggregation.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 56.248668,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Connect one query row's scaled query-key scores and softmax weights to the weighted sum of value vectors produced by one attention head."
+    },
+    {
+      "id": "knowledge.style-retro-low-resolution",
+      "revision": 2,
+      "title": "Retro low-resolution presentation",
+      "path": "data/knowledge/style-profile/style-retro-low-resolution.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 54.930567,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Choose an intentional image-grid and detail hierarchy so pixel structure supports the scene instead of making controls unreadable."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

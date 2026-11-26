@@ -1,0 +1,45 @@
+{
+ "triangles": {
+  "body": 194,
+  "screen": 4,
+  "visible_robot (body + stamp + screen)": 198
+ },
+ "by_part": {
+  "body": {
+   "head": 124,
+   "treads": 52,
+   "hubs": 18
+  },
+  "screen": {
+   "screen": 2,
+   "scan": 2
+  }
+ },
+ "meshes": {
+  "non_swap (<= 3)": [
+   "body",
+   "screen"
+  ],
+  "prop": []
+ },
+ "height_m": 1.25,
+ "unit_mm": 3.743,
+ "bevel_m": 0.02,
+ "outline_points": {
+  "head": 16,
+  "body": null,
+  "tread": 14
+ },
+ "materials": {
+  "body": [
+   "robot",
+   "ink",
+   "hub",
+   "belt"
+  ],
+  "screen": [
+   "screen",
+   "scan"
+  ]
+ }
+}
