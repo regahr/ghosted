@@ -1,0 +1,40 @@
+{
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "bundle_hash": "3428d080e49d26bc1795bd3c0d4ec5b32a0e6c7ad403f22d63e2a6b2946e5a22",
+  "selected_ids": [
+    "recipe.winged-flight-cycle"
+  ],
+  "records": [
+    {
+      "schema_version": 1,
+      "id": "recipe.winged-flight-cycle",
+      "revision": 1,
+      "status": "active",
+      "record_kind": "creative",
+      "title": {
+        "en": "Winged creature flight cycle and banking turns"
+      },
+      "aliases": {
+        "en": [
+          "flight cycle",
+          "wing flap",
+          "banking turn"
+        ]
+      },
+      "direction_ids": [
+        "characters-motion-art"
+      ],
+      "summary": "Build a flier whose wing cycle, banking and heading come from one motion state instead of three unrelated animations.",
+      "objective": "Create a flying creature that flaps, glides and banks into turns, with the wing cycle driven by its actual motion.",
+      "tags": [
+        "creature",
+        "flight",
+        "animation"
+      ],
+      "subject_terms": [
+        "flight cycle",
+        "wing beat",
+        "banking",
+        "glide",
+        "downstroke",
+        "upstroke",

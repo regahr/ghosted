@@ -1,0 +1,154 @@
+{
+ "kit_grass": {
+  "bbox": [
+   765,
+   427,
+   813,
+   501
+  ],
+  "height_px": 75,
+  "kit_head_px_est (0.36 m / 0.977 m of the height)": 27.6
+ },
+ "idle_grass": {
+  "cf": {
+   "head_px_cap_top_to_chin": 23.2,
+   "box": [
+    737,
+    341,
+    775,
+    378
+   ],
+   "forehead_band_px": null,
+   "eye_top_bottom_y": [
+    363,
+    365
+   ],
+   "hair_low_in_eye_columns_above_eye_top_px": 10,
+   "side_hair_low_above_eye_top_px": 9,
+   "mouth_wxh_px": [
+    3,
+    1
+   ],
+   "mouth_dark_px": 3,
+   "teeth_px": 0,
+   "mouth_gap_below_eyes_px": 3,
+   "skin_under_mouth_px_min_median": [
+    0,
+    0
+   ],
+   "mouth_luma": 19,
+   "skin_luma": 183
+  },
+  "wb": {
+   "head_px_cap_top_to_chin": 23.3,
+   "box": [
+    787,
+    344,
+    825,
+    381
+   ],
+   "forehead_band_px": null,
+   "eye_top_bottom_y": [
+    365,
+    368
+   ],
+   "hair_low_in_eye_columns_above_eye_top_px": 9,
+   "side_hair_low_above_eye_top_px": 9,
+   "mouth_wxh_px": [
+    2,
+    1
+   ],
+   "mouth_dark_px": 2,
+   "teeth_px": 0,
+   "mouth_gap_below_eyes_px": 3,
+   "skin_under_mouth_px_min_median": [
+    0,
+    0
+   ],
+   "mouth_luma": 19,
+   "skin_luma": 183
+  }
+ },
+ "set_bbox_grass": [
+  726,
+  338,
+  880,
+  461
+ ],
+ "kit_path": {
+  "bbox": [
+   765,
+   426,
+   813,
+   500
+  ],
+  "height_px": 75,
+  "kit_head_px_est (0.36 m / 0.977 m of the height)": 27.6
+ },
+ "idle_path": {
+  "cf": {
+   "head_px_cap_top_to_chin": 23.3,
+   "box": [
+    737,
+    340,
+    775,
+    377
+   ],
+   "forehead_band_px": null,
+   "eye_top_bottom_y": [
+    362,
+    364
+   ],
+   "hair_low_in_eye_columns_above_eye_top_px": 10,
+   "side_hair_low_above_eye_top_px": 9,
+   "mouth_wxh_px": [
+    3,
+    1
+   ],
+   "mouth_dark_px": 2,
+   "teeth_px": 0,
+   "mouth_gap_below_eyes_px": 3,
+   "skin_under_mouth_px_min_median": [
+    1,
+    1
+   ],
+   "mouth_luma": 19,
+   "skin_luma": 183
+  },
+  "wb": {
+   "head_px_cap_top_to_chin": 23.2,
+   "box": [
+    787,
+    343,
+    825,
+    380
+   ],
+   "forehead_band_px": null,
+   "eye_top_bottom_y": [
+    365,
+    367
+   ],
+   "hair_low_in_eye_columns_above_eye_top_px": 11,
+   "side_hair_low_above_eye_top_px": 11,
+   "mouth_wxh_px": [
+    2,
+    1
+   ],
+   "mouth_dark_px": 2,
+   "teeth_px": 0,
+   "mouth_gap_below_eyes_px": 3,
+   "skin_under_mouth_px_min_median": [
+    1,
+    1
+   ],
+   "mouth_luma": 19,
+   "skin_luma": 183
+  }
+ },
+ "set_bbox_path": [
+  726,
+  337,
+  880,
+  460
+ ]
+}

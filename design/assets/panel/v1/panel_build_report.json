@@ -1,0 +1,186 @@
+{
+ "triangles": {
+  "table": 90,
+  "cf": 845,
+  "wb": 755,
+  "box_body": 10,
+  "cf_eyes_open": 36,
+  "cf_eyes_happy": 12,
+  "cf_brows_rest": 12,
+  "cf_brows_tilt": 12,
+  "cf_mouth_smile": 8,
+  "cf_mouth_grin": 15,
+  "cf_mouth_talk": 15,
+  "cf_mouth_smirk": 8,
+  "wb_eyes_open": 36,
+  "wb_brows_rest": 8,
+  "wb_brows_up": 16,
+  "wb_mouth_flat": 8,
+  "wb_mouth_talk": 15,
+  "wb_mouth_smirk": 8,
+  "icon_camoff": 13,
+  "icon_muted": 36,
+  "marker_rest": 32,
+  "marker_up": 32,
+  "marker_point": 32
+ },
+ "visible": {
+  "game idle (talk, talk, marker_rest, camoff)": 1867,
+  "card rest": 1853,
+  "cf grin + wb point + muted": 1866,
+  "max (grin, talk, point, muted)": 1891
+ },
+ "base_non_swap": 1700,
+ "meshes": {
+  "non_swap (<= 4)": [
+   "table",
+   "cf",
+   "wb",
+   "box_body"
+  ],
+  "swap": [
+   "cf_eyes_open",
+   "cf_eyes_happy",
+   "cf_brows_rest",
+   "cf_brows_tilt",
+   "cf_mouth_smile",
+   "cf_mouth_grin",
+   "cf_mouth_talk",
+   "cf_mouth_smirk",
+   "wb_eyes_open",
+   "wb_brows_rest",
+   "wb_brows_up",
+   "wb_mouth_flat",
+   "wb_mouth_talk",
+   "wb_mouth_smirk",
+   "icon_camoff",
+   "icon_muted",
+   "marker_rest",
+   "marker_up",
+   "marker_point"
+  ]
+ },
+ "ik_error_u": {
+  "wb_up": 1.8431718463976653e-05,
+  "wb_point": 7.068241373080863e-06,
+  "cf_chin_R": 2.528810910653642e-05,
+  "cf_chin_L": 2.528810910653642e-05
+ },
+ "unit_mm": 3.333,
+ "poses": {
+  "cf_nod": {
+   "cf_head": [
+    1.0,
+    0.0,
+    0.0,
+    14.0
+   ]
+  },
+  "cf_tilt": {
+   "cf_head": [
+    0.0,
+    1.0,
+    0.0,
+    -12.0
+   ],
+   "cf_arm_R_up": [
+    0.9538463354110718,
+    -0.1624230295419693,
+    -0.25258511304855347,
+    12.516859531445505
+   ],
+   "cf_arm_R_lo": [
+    -0.4760670065879822,
+    -0.5081791281700134,
+    0.7177143096923828,
+    76.351529184176
+   ],
+   "cf_arm_L_up": [
+    0.9538464546203613,
+    0.16242314875125885,
+    0.25258541107177734,
+    12.516859531445505
+   ],
+   "cf_arm_L_lo": [
+    -0.47606685757637024,
+    0.508179247379303,
+    -0.7177141904830933,
+    76.3515086936085
+   ]
+  },
+  "wb_up": {
+   "wb_arm_R_up": [
+    0.8665140271186829,
+    -0.035361770540475845,
+    -0.49790066480636597,
+    15.00149622884126
+   ],
+   "wb_arm_R_lo": [
+    -0.6799273490905762,
+    -0.7096308469772339,
+    0.18472465872764587,
+    69.42504800724441
+   ]
+  },
+  "wb_click": {
+   "wb_arm_R_up": [
+    0.8665140271186829,
+    -0.035361770540475845,
+    -0.49790066480636597,
+    15.00149622884126
+   ],
+   "wb_arm_R_lo": [
+    -0.6799273490905762,
+    -0.7096308469772339,
+    0.18472465872764587,
+    69.42504800724441
+   ]
+  },
+  "wb_point": {
+   "wb_arm_R_up": [
+    -0.9211293458938599,
+    0.21641631424427032,
+    -0.3235781788825989,
+    12.965843724083586
+   ],
+   "wb_arm_R_lo": [
+    -0.16443704068660736,
+    -0.15201936662197113,
+    -0.9746045470237732,
+    9.422040200583844
+   ]
+  },
+  "lean": {
+   "cf_lean": [
+    1.0,
+    0.0,
+    0.0,
+    14.0
+   ],
+   "wb_lean": [
+    1.0,
+    0.0,
+    0.0,
+    14.0
+   ],
+   "box": [
+    1.0,
+    0.0,
+    0.0,
+    12.0
+   ],
+   "cf_head": [
+    1.0,
+    0.0,
+    0.0,
+    -12.0
+   ],
+   "wb_head": [
+    1.0,
+    0.0,
+    0.0,
+    -12.0
+   ]
+  }
+ }
+}

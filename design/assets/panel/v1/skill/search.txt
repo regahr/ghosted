@@ -1,0 +1,117 @@
+{
+  "status": "candidates",
+  "query": "seated toon characters behind a table, low poly, skinned rigid parts, game camera",
+  "algorithm": "weighted-field-bm25",
+  "index_version": 4,
+  "expanded_terms": [],
+  "hint": "",
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "results": [
+    {
+      "id": "knowledge.style-low-poly",
+      "revision": 2,
+      "title": "Low-poly shape economy",
+      "path": "data/knowledge/style-profile/style-low-poly.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 144.134734,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Spend geometric detail on the contour and meaningful part boundaries rather than distributing it evenly."
+    },
+    {
+      "id": "knowledge.style-retro-low-resolution",
+      "revision": 2,
+      "title": "Retro low-resolution presentation",
+      "path": "data/knowledge/style-profile/style-retro-low-resolution.json",
+      "collection": "knowledge",
+      "kind": "style-profile",
+      "score": 82.812113,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Choose an intentional image-grid and detail hierarchy so pixel structure supports the scene instead of making controls unreadable."
+    },
+    {
+      "id": "knowledge.camera-orbit-follow-rig",
+      "revision": 1,
+      "title": "Orbit rig that follows a moving subject until the user takes over",
+      "path": "data/knowledge/composition-profile/camera-orbit-follow-rig.json",
+      "collection": "knowledge",
+      "kind": "composition-profile",
+      "score": 76.405495,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Orbit the camera around a subject with damping and clamped limits, tween focus over 0.9 s, keep following a moving character, and hand control back the moment the user drags."
+    },
+    {
+      "id": "knowledge.validation-group-closure-table",
+      "revision": 1,
+      "title": "Symmetry composition table, closure and noncommutativity",
+      "path": "data/knowledge/domain-validation/validation-group-closure-table.json",
+      "collection": "knowledge",
+      "kind": "domain-validation",
+      "score": 58.951416,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "summary",
+        "objective",
+        "subject_terms",
+        "applies_when"
+      ],
+      "summary": "Verify the composition table of a finite symmetry set, its defining relations and a noncommuting pair, using exact permutations."
+    },
+    {
+      "id": "recipe.modular-camera-rig",
+      "revision": 1,
+      "title": "Modular camera rig compatibility",
+      "path": "data/recipes/modular-camera-rig.json",
+      "collection": "recipes",
+      "kind": "recipe",
+      "score": 54.879561,
+      "exact_id": false,
+      "exact_alias": false,
+      "matched_fields": [
+        "title.en",
+        "aliases.en",
+        "objective",
+        "tags",
+        "intent_signals",
+        "example_prompts",
+        "subject_terms"
+      ],
+      "summary": "Create an invented accessory rig with explicit slot rules and reversible changes."
+    }
+  ],
+  "notice": "Lexical candidates only. Interpret negation and intent before choosing. Scores are not probabilities; no match does not limit creative capability."
+}

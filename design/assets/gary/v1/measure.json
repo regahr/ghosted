@@ -1,0 +1,240 @@
+{
+ "grass": {
+  "kit_bbox": [
+   765,
+   427,
+   813,
+   501
+  ],
+  "kit_h_px": 75,
+  "gary_bbox": [
+   817,
+   479,
+   841,
+   512
+  ],
+  "gary_h_px": 34,
+  "gary_w_px": 25,
+  "ratio_h": 0.453,
+  "face": {
+   "box": [
+    813,
+    476,
+    846,
+    506
+   ],
+   "eyes": [
+    {
+     "h_px": 2,
+     "w_px": 2,
+     "px": 3,
+     "cap_low_above_eye_top_px": 4
+    },
+    {
+     "h_px": 1,
+     "w_px": 2,
+     "px": 2,
+     "cap_low_above_eye_top_px": 4
+    }
+   ],
+   "cap_clear_min_px": 4,
+   "beak_wxh_px": [
+    1,
+    4
+   ]
+  }
+ },
+ "path": {
+  "kit_bbox": [
+   765,
+   426,
+   813,
+   500
+  ],
+  "kit_h_px": 75,
+  "gary_bbox": [
+   770,
+   517,
+   795,
+   551
+  ],
+  "gary_h_px": 35,
+  "gary_w_px": 26,
+  "ratio_h": 0.467,
+  "face": {
+   "box": [
+    766,
+    515,
+    799,
+    545
+   ],
+   "eyes": [
+    {
+     "h_px": 3,
+     "w_px": 2,
+     "px": 4,
+     "cap_low_above_eye_top_px": 3
+    },
+    {
+     "h_px": 3,
+     "w_px": 2,
+     "px": 5,
+     "cap_low_above_eye_top_px": 3
+    }
+   ],
+   "cap_clear_min_px": 3,
+   "beak_wxh_px": [
+    3,
+    4
+   ]
+  }
+ },
+ "grass_hold": {
+  "face": {
+   "box": [
+    813,
+    476,
+    846,
+    506
+   ],
+   "eyes": [
+    {
+     "h_px": 2,
+     "w_px": 2,
+     "px": 3,
+     "cap_low_above_eye_top_px": 4
+    },
+    {
+     "h_px": 1,
+     "w_px": 2,
+     "px": 2,
+     "cap_low_above_eye_top_px": 4
+    }
+   ],
+   "cap_clear_min_px": 4,
+   "beak_wxh_px": [
+    1,
+    4
+   ]
+  }
+ },
+ "grass_sorry": {
+  "face": {
+   "box": [
+    812,
+    477,
+    845,
+    506
+   ],
+   "eyes": [
+    {
+     "h_px": 1,
+     "w_px": 1,
+     "px": 1,
+     "cap_low_above_eye_top_px": 4
+    },
+    {
+     "h_px": 2,
+     "w_px": 3,
+     "px": 5,
+     "cap_low_above_eye_top_px": 4
+    }
+   ],
+   "cap_clear_min_px": 4,
+   "beak_wxh_px": [
+    2,
+    4
+   ]
+  }
+ },
+ "grass_happy": {
+  "face": {
+   "box": [
+    813,
+    474,
+    846,
+    503
+   ],
+   "beak_wxh_px": [
+    2,
+    4
+   ]
+  }
+ },
+ "grass_land": {
+  "face": {
+   "box": [
+    813,
+    475,
+    846,
+    504
+   ],
+   "eyes": [
+    {
+     "h_px": 3,
+     "w_px": 2,
+     "px": 5,
+     "cap_low_above_eye_top_px": 3
+    },
+    {
+     "h_px": 3,
+     "w_px": 3,
+     "px": 5,
+     "cap_low_above_eye_top_px": 3
+    }
+   ],
+   "cap_clear_min_px": 3,
+   "beak_wxh_px": [
+    2,
+    5
+   ]
+  }
+ },
+ "fly_level": {
+  "bbox": [
+   666,
+   367,
+   745,
+   399
+  ],
+  "w_px": 80,
+  "h_px": 33
+ },
+ "world": {
+  "stand_h_m": 0.479,
+  "kit_m": 0.977,
+  "span_bind_m": 1.032,
+  "span_x_kit": 1.056
+ },
+ "tris": {
+  "visible_by_beat": {
+   "rest": 842,
+   "flap_up": 860,
+   "flap_level": 860,
+   "flap_down": 860,
+   "land_hop": 860,
+   "hold": 870,
+   "sorry": 896,
+   "happy_hop": 818,
+   "fly_off": 842
+  },
+  "visible_max": 896,
+  "triangles": {
+   "body": 570,
+   "wing_R": 100,
+   "wing_L": 100,
+   "eyes_open": 36,
+   "eyes_oops": 36,
+   "eyes_happy": 12,
+   "eyes_sorry": 62,
+   "brows_rest": 12,
+   "brows_sorry": 12,
+   "brows_up": 12,
+   "env_beak": 18,
+   "env_wing": 18,
+   "flap_closed": 24,
+   "flap_open": 34
+  },
+  "three_visible_rest": 842
+ }
+}

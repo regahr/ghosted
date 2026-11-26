@@ -1,0 +1,40 @@
+{
+  "catalog_hash": "7c6f93cea112e5bfd08833b2a0e9bf7b79a95529bc45c48c9e4ddcfa6aeb2675",
+  "bundle_hash": "fd62352e3c4e183129fe86140951387bef718d2fcf5284c1f4d45c6c41641ab2",
+  "selected_ids": [
+    "knowledge.feathered-wing-assembly"
+  ],
+  "records": [
+    {
+      "schema_version": 1,
+      "id": "knowledge.feathered-wing-assembly",
+      "revision": 1,
+      "status": "active",
+      "record_kind": "mixed",
+      "knowledge_kind": "object-archetype",
+      "title": {
+        "en": "Feathered wing assembly and authored flight posing"
+      },
+      "aliases": {
+        "en": [
+          "feathered creature wing",
+          "folding bird wing construction"
+        ]
+      },
+      "direction_ids": [
+        "characters-motion-art",
+        "anatomy-structures",
+        "environments-dioramas"
+      ],
+      "summary": "Build a wing as a folding support hierarchy with coherent feather fields and distinguish expressive flapping from computed flight.",
+      "objective": "Expose how the wing folds and how its feather layers remain attached while making the source and limits of airborne motion clear.",
+      "tags": [
+        "object-archetype",
+        "feathered-wing-assembly"
+      ],
+      "subject_terms": [
+        "wing fold",
+        "rachis",
+        "barbs",
+        "barbules",
+        "pennaceous vane",

@@ -1,0 +1,648 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Gary in game</title>
+<style>html,body{margin:0;background:#FDE6C8}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"/concept/node_modules/three/build/three.module.js","three/addons/":"/concept/node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+// GHOSTED - Gary v1 (gary.glb: body, 2 wings + swaps), copied from assets/panel/v1/ingame.html. ?glb=<file> picks the Gary file.
+// Below: the Panel notes.
+// GHOSTED - The Panel v1 (panel.glb: table, Culture Fit, Whiteboard, the box) in the game renderer. Copied from
+// assets/juno/v1/ingame.html (Juno v1 pipeline). ?glb=<file> picks the panel file (blockout/panel_blockout.glb).
+// Below: the Juno notes.
+// GHOSTED - the exported juno.glb (Juno the barista) in the game renderer, next to the locked Kit (assets/kit/kit.glb),
+// the Ghosties (ghostie/v7), Ricky (ricky/v1), the ATS (ats9000/v1), Auntie Dot (auntie-dot/v1) and Brett (brett/v1).
+// Copied from brett/v1/ingame.html: MeshToonMaterial with Kit's toon.json thresholds, an inverted-hull ink outline,
+// the render.html light, Neutral tone mapping. ?glb=<file> picks the Juno file (blockout/juno_blockout.glb).
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { mergeVertices, mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+const Q = new URLSearchParams(location.search);
+const BX_G = +(Q.get('bxg') || -3.45), BZ_G = +(Q.get('bzg') || 4.4), BX_P = +(Q.get('bxp') || -3.2), BZ_P = +(Q.get('bzp') || 0.1);
+const JX_G = +(Q.get('jxg') || -1.95), JZ_G = +(Q.get('jzg') || 4.85), JX_P = +(Q.get('jxp') || -1.75), JZ_P = +(Q.get('jzp') || 1.6);
+const JUNO_GLB = '../../juno/v1/juno.glb';
+const PANEL_GLB = '../../panel/v1/panel.glb';
+const GARY_GLB = Q.get('glb') || 'gary.glb';
+const BRETT_GLB = '../../brett/v1/brett.glb';
+const DOT_GLB = '../../auntie-dot/v1/dot.glb';
+const ATS_GLB = '../../ats9000/v1/ats.glb';
+const RICKY_GLB = '../../ricky/v1/ricky.glb';
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = 1.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const TOON = await (await fetch('../../kit/toon.json')).json();
+const GT = await (await fetch('../../ghostie/v7/ghost_toon.json')).json();
+const RT = await (await fetch('../../ricky/v1/ricky_toon.json')).json();
+const AT = await (await fetch('../../ats9000/v1/ats_toon.json')).json();
+const DT = await (await fetch('../../auntie-dot/v1/dot_toon.json')).json();
+const BT = await (await fetch('../../brett/v1/brett_toon.json')).json();
+const JT = await (await fetch('../../juno/v1/juno_toon.json')).json();
+const PT = await (await fetch('../../panel/v1/panel_toon.json')).json();
+const YT = await (await fetch(GARY_GLB.includes('/') ? GARY_GLB.replace(/[^/]+$/, 'gary_toon.json') : 'gary_toon.json')).json();
+function gradient(bands) {
+  const n = TOON.texels, d = new Uint8Array(n * 4);
+  for (let i = 0; i < n; i++) {
+    const dot = 2 * (i + 0.5) / n - 1; let v = bands[0][1];
+    for (const [t, val] of bands) if (dot >= t) v = val;
+    const c = Array.isArray(v) ? v : [v, v, v]; d.set([c[0], c[1], c[2], 255], i * 4);
+  }
+  const t = new THREE.DataTexture(d, n, 1); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t;
+}
+const G2 = gradient(TOON.bands2), G3 = gradient(TOON.bands3);
+const GMAP = Object.fromEntries(Object.entries(GT.band_colors).map(([k, b]) => [k, gradient(b)]));
+const RMAP = Object.fromEntries(Object.entries(RT.band_colors).map(([k, b]) => [k, gradient(b)]));
+const AMAP = Object.fromEntries(Object.entries(AT.band_colors).map(([k, b]) => [k, gradient(b)]));
+const DMAP = Object.fromEntries(Object.entries(DT.band_colors).map(([k, b]) => [k, gradient(b)]));
+const BMAP = Object.fromEntries(Object.entries(BT.band_colors).map(([k, b]) => [k, gradient(b)]));
+const PMAP = Object.fromEntries(Object.entries(PT.band_colors).map(([k, b]) => [k, gradient(b)]));
+const YMAP = Object.fromEntries(Object.entries(YT.band_colors).map(([k, b]) => [k, gradient(b)]));
+const JMAP = Object.fromEntries(Object.entries(JT.band_colors).map(([k, b]) => [k, gradient(b)]));
+function rgbToon(color, map) {
+  const m = new THREE.MeshToonMaterial({ color, gradientMap: map });
+  m.onBeforeCompile = s => { s.fragmentShader = s.fragmentShader.replace('#include <gradientmap_pars_fragment>',
+    THREE.ShaderChunk.gradientmap_pars_fragment.replace('return vec3( texture2D( gradientMap, coord ).r );', 'return texture2D( gradientMap, coord ).rgb;')); };
+  m.customProgramCacheKey = () => 'rgbToon'; return m;
+}
+function outlineMaterial(width) {
+  const m = new THREE.MeshBasicMaterial({ color: TOON.outline.color, side: THREE.BackSide });
+  m.userData.width = { value: width };
+  m.onBeforeCompile = s => {
+    s.uniforms.uWidth = m.userData.width;
+    s.vertexShader = 'uniform float uWidth;\nattribute float outlineW;\n' + s.vertexShader.replace('#include <begin_vertex>', 'vec3 transformed = position + normal * uWidth * outlineW;');
+  };
+  return m;
+}
+function angleWeightedNormals(g) {
+  const P = g.attributes.position, I = g.index.array, N = new Float32Array(P.count * 3);
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), n = new THREE.Vector3(), e1 = new THREE.Vector3(), e2 = new THREE.Vector3();
+  for (let f = 0; f < I.length; f += 3) {
+    const ids = [I[f], I[f + 1], I[f + 2]]; a.fromBufferAttribute(P, ids[0]); b.fromBufferAttribute(P, ids[1]); c.fromBufferAttribute(P, ids[2]);
+    n.subVectors(c, b).cross(e1.subVectors(a, b)).normalize(); const V = [a, b, c];
+    for (let k = 0; k < 3; k++) { e1.subVectors(V[(k + 1) % 3], V[k]).normalize(); e2.subVectors(V[(k + 2) % 3], V[k]).normalize();
+      const ang = Math.acos(Math.min(1, Math.max(-1, e1.dot(e2)))); N[ids[k] * 3] += n.x * ang; N[ids[k] * 3 + 1] += n.y * ang; N[ids[k] * 3 + 2] += n.z * ang; }
+  }
+  for (let i = 0; i < P.count; i++) { n.fromArray(N, i * 3).normalize(); n.toArray(N, i * 3); }
+  g.setAttribute('normal', new THREE.BufferAttribute(N, 3));
+}
+// one hull for a (multi-primitive) skinned node: all primitives merged, so the ink runs round the whole body
+function skinnedHull(node, mat, useColor = false) {   // useColor: outline weight from COLOR_0 (Brett's neck)
+  const parts = node.isMesh ? [node] : node.children.filter(c => c.isSkinnedMesh);   // (node may be a plain {name, children})
+  const geos = parts.map(m => { const s = m.geometry, g = new THREE.BufferGeometry();
+    g.setAttribute('position', s.attributes.position.clone()); g.setAttribute('skinIndex', s.attributes.skinIndex.clone());
+    g.setAttribute('skinWeight', s.attributes.skinWeight.clone());
+    const w = new Float32Array(s.attributes.position.count).fill(1);
+    if (useColor && s.attributes.color) for (let i = 0; i < w.length; i++) w[i] = s.attributes.color.getX(i);
+    g.setAttribute('outlineW', new THREE.BufferAttribute(w, 1)); g.setIndex(s.index.clone()); return g; });
+  const m = mergeVertices(mergeGeometries(geos), 1e-5); angleWeightedNormals(m);
+  const h = new THREE.SkinnedMesh(m, mat); h.bind(parts[0].skeleton, parts[0].bindMatrix); h.name = node.name + '_outline'; h.frustumCulled = false;
+  return h;
+}
+function hullFor(mesh, mat) {          // Ghostie v7 (with its wave morph)
+  const src = mesh.geometry, g = new THREE.BufferGeometry(); g.setAttribute('position', src.attributes.position.clone());
+  g.setAttribute('outlineW', new THREE.BufferAttribute(new Float32Array(src.attributes.position.count).fill(1), 1)); g.setIndex(src.index.clone());
+  if (mesh.isSkinnedMesh) { g.setAttribute('skinIndex', src.attributes.skinIndex.clone()); g.setAttribute('skinWeight', src.attributes.skinWeight.clone()); }
+  if (src.morphAttributes.position) { g.morphAttributes.position = src.morphAttributes.position.map(a => a.clone()); g.morphTargetsRelative = src.morphTargetsRelative; }
+  const m = mergeVertices(g, 1e-5); angleWeightedNormals(m);
+  if (m.morphAttributes.position) {
+    const P = m.attributes.position, N0 = m.attributes.normal, w = mat.userData.width.value;
+    m.morphAttributes.position = m.morphAttributes.position.map(D => {
+      const rel = m.morphTargetsRelative, q = new THREE.BufferGeometry(), arr = new Float32Array(P.count * 3);
+      for (let i = 0; i < P.count; i++) for (let c = 0; c < 3; c++) arr[i * 3 + c] = P.array[i * 3 + c] * (rel ? 1 : 0) + D.array[i * 3 + c];
+      q.setAttribute('position', new THREE.BufferAttribute(arr, 3)); q.setIndex(m.index); angleWeightedNormals(q);
+      const N1 = q.attributes.normal, out = new Float32Array(P.count * 3);
+      for (let i = 0; i < P.count; i++) for (let c = 0; c < 3; c++) out[i * 3 + c] = arr[i * 3 + c] - P.array[i * 3 + c] + (N1.array[i * 3 + c] - N0.array[i * 3 + c]) * w;
+      return new THREE.BufferAttribute(out, 3);
+    });
+    m.morphTargetsRelative = true;
+  }
+  let h;
+  if (mesh.isSkinnedMesh) { h = new THREE.SkinnedMesh(m, mat); h.bind(mesh.skeleton, mesh.bindMatrix); } else h = new THREE.Mesh(m, mat);
+  if (m.morphAttributes.position) { h.updateMorphTargets(); mesh.userData.hull = h; }
+  h.name = mesh.name + '_outline'; return h;
+}
+
+// ---------------------------------------------------------------- Kit (= assets/kit/ingame.html)
+function prepareKit(gltf, outlineMat) {
+  const kit = gltf.scene; const nodes = {}; kit.traverse(o => { nodes[o.name] = o; });
+  kit.traverse(o => { if (!o.isMesh) return; const src = o.material, name = src.name;
+    if (TOON.basic_materials.includes(name)) o.material = new THREE.MeshBasicMaterial({ color: src.color });
+    else o.material = new THREE.MeshToonMaterial({ color: src.color, gradientMap: TOON.skin_materials.includes(name) ? G3 : G2 }); });
+  for (const nm of ['body', 'head', 'briefcase', 'sprout']) {
+    const node = nodes[nm]; const geos = []; const assoc = gltf.parser.associations;
+    const meshes = node.isMesh ? [node] : node.children.filter(c => c.isMesh && assoc.get(c) && assoc.get(c).primitives !== undefined);
+    for (const m of meshes) { const g = new THREE.BufferGeometry(), src = m.geometry; g.setAttribute('position', src.attributes.position.clone());
+      const n = src.attributes.position.count, w = new Float32Array(n).fill(1);
+      if (src.attributes.color) for (let i = 0; i < n; i++) w[i] = src.attributes.color.getX(i);
+      g.setAttribute('outlineW', new THREE.BufferAttribute(w, 1)); g.setIndex(src.index.clone()); geos.push(g); }
+    let g = mergeVertices(mergeGeometries(geos), 1e-5); g.computeVertexNormals();
+    const hull = new THREE.Mesh(g, outlineMat); hull.name = nm + '_outline'; node.add(hull);
+  }
+  const faces = Object.keys(nodes).filter(k => /^face_[a-z_]+$/.test(k) && nodes[k].userData.sprout_scale_three_y !== undefined);
+  const eyes = Object.keys(nodes).filter(k => /^eyes_[a-z_]+$/.test(k) && nodes[k].userData.default_visible !== undefined);
+  kit.userData.setExpr = expr => {
+    for (const f of faces) nodes[f].visible = f === 'face_' + expr; for (const e of eyes) nodes[e].visible = e === 'eyes_' + expr;
+    const f = nodes['face_' + expr].userData; nodes.sprout.quaternion.fromArray(f.sprout_quat_three_xyzw);
+    if (f.sprout_scale_three_xyz) nodes.sprout.scale.fromArray(f.sprout_scale_three_xyz); else nodes.sprout.scale.set(1, f.sprout_scale_three_y, 1);
+  };
+  kit.userData.nodes = nodes; return kit;
+}
+// ---------------------------------------------------------------- Ghostie (= ghostie/v7/ingame.html, rest pose)
+function prepareGhost(gltf, outlineMat) {
+  const g = gltf.scene; const nodes = {}; g.traverse(o => { nodes[o.name] = o; });
+  g.traverse(o => { if (!o.isMesh) return; const name = o.material.name;
+    o.material = GT.basic_materials.includes(name) ? new THREE.MeshBasicMaterial({ color: o.material.color }) : rgbToon(o.material.color, GMAP[name]); });
+  for (const nm of GT.outline_nodes) { const n = nodes[nm], m = n.isMesh ? n : n.children.find(c => c.isMesh && c.name !== 'acc_headset_band'); n.add(hullFor(m, outlineMat)); }
+  g.userData.setVariant = v => { for (const a of GT.variants) if (nodes['acc_' + a]) nodes['acc_' + a].visible = a === v; };
+  const rest = nodes.float.position.clone(), restQ = nodes.float.quaternion.clone();
+  const armRest = { arm_L: nodes.arm_L.quaternion.clone(), arm_R: nodes.arm_R.quaternion.clone() };
+  const fx = nodes.float.userData, axF = {};
+  for (const a of ['arm_L', 'arm_R']) { const w = fx.wave_axis_float_blender[a]; axF[a] = new THREE.Vector3(w[0], w[2], -w[1]); }
+  g.userData.pose = ({ t = 0, upright = false, lift = 0 } = {}) => {
+    nodes.float.position.set(rest.x + 0.03 * Math.sin(2 * Math.PI * t / 3.7), rest.y + lift + 0.06 * Math.sin(2 * Math.PI * t / 2.4), rest.z);
+    const base = upright ? new THREE.Quaternion() : restQ;
+    nodes.float.quaternion.copy(base).premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), 8 * Math.PI / 180 * Math.sin(2 * Math.PI * t / 5.1)));
+    nodes.arm_L.quaternion.copy(armRest.arm_L);
+    if (upright) nodes.arm_R.quaternion.copy(armRest.arm_R);
+    else { g.updateMatrixWorld(true);
+      const fq = nodes.float.getWorldQuaternion(new THREE.Quaternion()), pq = nodes.arm_R.parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+      const toBone = v => v.clone().applyQuaternion(fq).applyQuaternion(pq).normalize();
+      const sw = fx.rest_swing_axis_float_blender, axS = new THREE.Vector3(sw[0], sw[2], -sw[1]);
+      const qd = new THREE.Quaternion().setFromAxisAngle(toBone(axF.arm_R), -fx.rest_arm_R_droop_deg * Math.PI / 180);
+      const qs = new THREE.Quaternion().setFromAxisAngle(toBone(axS), fx.rest_arm_R_swing_deg * Math.PI / 180);
+      nodes.arm_R.quaternion.copy(armRest.arm_R).premultiply(qs.multiply(qd)); }
+    g.traverse(o => { if (o.isSkinnedMesh && o.morphTargetInfluences) o.morphTargetInfluences.fill(0); });
+  };
+  g.userData.nodes = nodes; return g;
+}
+// ---------------------------------------------------------------- Ricky
+const HEX = h => new THREE.Color(h);
+function prepareRicky(gltf, outlineMat) {
+  const g = gltf.scene; const nodes = {}; g.traverse(o => { nodes[o.name] = o; });
+  const mats = {};
+  g.traverse(o => { if (!o.isMesh) return; const name = o.material.name;
+    if (!mats[name]) mats[name] = RT.basic_materials.includes(name) ? new THREE.MeshBasicMaterial({ color: o.material.color }) : rgbToon(o.material.color, RMAP[name]);
+    mats[name].name = name;
+    o.material = mats[name]; });
+  const base = Object.fromEntries(Object.entries(mats).map(([k, m]) => [k, m.color.clone()]));
+  // two hulls: the main one, and one for the parts that fade in the drain (legs, shoes, mic), so their ink fades too
+  const FADE = ['leg', 'shoe', 'mic'], kids = nodes.body.children.filter(c => c.isSkinnedMesh);
+  const fadeMat = outlineMat.clone(); fadeMat.onBeforeCompile = outlineMat.onBeforeCompile; fadeMat.userData = outlineMat.userData;
+  fadeMat.customProgramCacheKey = () => 'hullfade';
+  const hm = skinnedHull({ name: 'body', children: kids.filter(c => !FADE.includes(c.material.name)) }, outlineMat);
+  const hf = skinnedHull({ name: 'body_fade', children: kids.filter(c => FADE.includes(c.material.name)) }, fadeMat);
+  nodes.body.add(hm); nodes.body.add(hf); mats._hullFade = fadeMat;
+  const fx = nodes.float.userData;
+  const bones = {}; for (const b of ['arm_L_up', 'arm_L_lo', 'arm_R_up', 'arm_R_lo']) bones[b] = nodes[b];
+  const rest = Object.fromEntries(Object.entries(bones).map(([k, b]) => [k, b.quaternion.clone()]));
+  const mouth = k => { for (const m of ['grin', 'o']) if (nodes['mouth_' + m]) nodes['mouth_' + m].visible = m === k; };
+  // pose: bone rotations stored as axis + angle in float space (Blender axes); each axis is taken into the parent's
+  // REST frame, so a child turn rides its parent's turn (= build_ricky.py solve(), = render_ricky.py pose()).
+  g.userData.pose = ({ pose = null, frac = 1, hop = null, drain = 0 } = {}) => {
+    for (const [k, b] of Object.entries(bones)) b.quaternion.copy(rest[k]);
+    g.updateMatrixWorld(true);
+    if (pose) {
+      const P = fx.poses_float_blender[pose], fq = nodes.float.getWorldQuaternion(new THREE.Quaternion()), qs = {};
+      for (const [bn, v] of Object.entries(P)) { const pq = bones[bn].parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+        const ax = new THREE.Vector3(v[0], v[2], -v[1]).applyQuaternion(fq).applyQuaternion(pq).normalize();
+        qs[bn] = new THREE.Quaternion().setFromAxisAngle(ax, v[3] * frac * Math.PI / 180); }
+      for (const [bn, q] of Object.entries(qs)) bones[bn].quaternion.copy(rest[bn]).premultiply(q);
+    }
+    const h = fx.hop, sq = hop === 'squash' ? h.squash_xyz_blender : hop === 'stretch' ? h.stretch_xyz_blender : [1, 1, 1];
+    nodes.bounce.scale.set(sq[0], sq[2], sq[1]);
+    // drain 0..1: suit 17 -> 11 -> 27 -> 16 (keys at 0, 1/3, 2/3, 1); skin and hair -> 16; headset -> 27; legs, shoes,
+    // mic, brows, tie and the mouth fade; float up 0.22 m. At 1 the game swaps in the headset Ghostie.
+    const rows = RT.drain.suit_rows.map(HEX), seg = Math.min(2, Math.floor(drain * 3)), f = drain * 3 - seg;
+    const suit = rows[seg].clone().lerp(rows[Math.min(3, seg + 1)], Math.min(1, f));
+    for (const k of ['suit', 'leg']) mats[k] && mats[k].color.copy(drain ? suit : base[k]);
+    for (const k of ['skin', 'hair', 'shirt']) mats[k] && mats[k].color.copy(base[k]).lerp(HEX('#F8F4EA'), Math.max(0, (drain - 1 / 3) * 1.5));
+    for (const k of ['acc']) mats[k] && mats[k].color.copy(base[k]).lerp(HEX('#C8C0D8'), Math.max(0, Math.min(1, (drain - 1 / 3) * 3)));
+    const op = 1 - Math.min(1, drain * 1.5);
+    for (const k of ['leg', 'shoe', 'mic', 'brow', 'tie', 'tieink', '_hullFade']) if (mats[k]) {
+      if (mats[k].transparent !== drain > 0) mats[k].needsUpdate = true;
+      mats[k].transparent = drain > 0; mats[k].opacity = op; mats[k].depthWrite = drain === 0; mats[k].visible = op > 0.01; }
+    mouth(drain === 0 ? 'grin' : drain < 0.5 ? 'o' : null);
+    // he shrinks toward the Ghostie's size (body map E: each step smaller and higher) and floats up
+    const sc = 1 - (1 - (RT.drain.scale_at_end || 1)) * drain;
+    nodes.bounce.scale.multiplyScalar(sc);
+    nodes.float.position.y = (h.air_m && hop === 'stretch' ? h.air_m : 0) + 0.04 * drain + 0.10 * Math.sin(Math.PI * drain);
+  };
+  g.userData.nodes = nodes; g.userData.mats = mats; g.userData.pose();
+  return g;
+}
+// ---------------------------------------------------------------- ATS-9000
+const kidsOf = n => !n ? [] : n.isMesh ? [n] : n.children.filter(c => c.isMesh && !/_outline$/.test(c.name));
+function hullOf(meshes, mat, name) {
+  const geos = meshes.map(m => { const s = m.geometry, g = new THREE.BufferGeometry(); g.setAttribute('position', s.attributes.position.clone());
+    g.setAttribute('outlineW', new THREE.BufferAttribute(new Float32Array(s.attributes.position.count).fill(1), 1)); g.setIndex(s.index.clone()); return g; });
+  const m = mergeVertices(mergeGeometries(geos), 1e-4); angleWeightedNormals(m); const h = new THREE.Mesh(m, mat); h.name = name + '_outline'; return h;
+}
+function prepareATS(gltf, outlineMat) {
+  const g = gltf.scene; const nodes = {}; g.traverse(o => { nodes[o.name] = o; });
+  const mats = {};
+  g.traverse(o => { if (!o.isMesh) return; const src = o.material, name = src.name;
+    if (!mats[name]) {
+      if (src.map) mats[name] = new THREE.MeshBasicMaterial({ map: src.map, alphaTest: AT.alpha_materials.includes(name) ? 0.5 : 0 });
+      else mats[name] = AT.basic_materials.includes(name) ? new THREE.MeshBasicMaterial({ color: src.color }) : rgbToon(src.color, AMAP[name]);
+      mats[name].name = name; }
+    o.material = mats[name]; });
+  for (const nm of AT.outline_nodes) { const n = nodes[nm]; if (!n) continue;
+    const ks = kidsOf(n).filter(k => !AT.no_outline_materials.includes(k.material.name)); n.add(hullOf(ks, outlineMat, nm)); }
+  const fx = nodes.float.userData, S = fx.screen, ST = fx.stamp, CVd = fx.cv;
+  const scanMeshes = kidsOf(nodes.screen).filter(m => m.material.name === 'scan');
+  const ballBase = mats.ball ? mats.ball.color.clone() : null;
+  const cvRest = nodes.cv ? nodes.cv.position.clone() : null;
+  if (mats.hub) mats.hub.map.center.set(0.5, 0.5);
+  g.userData.pose = ({ screen = 'idle', scan = 'rest', theta = null, cv = null, stamped = false, hub = 0, belt = 0, ant = true } = {}) => {
+    mats.screen.map.offset.y = S.three_offset_y[screen];
+    mats.scan.map.offset.y = typeof scan === 'string' ? S.scan_three_offset_y[scan] : scan;
+    scanMeshes.forEach(m => m.visible = S.scan_visible_in.includes(screen));
+    if (nodes.stamp_pivot) nodes.stamp_pivot.rotation.set(ST.sign * (theta ?? ST.rest_deg) * Math.PI / 180, 0, 0);
+    if (nodes.cv) { nodes.cv.visible = cv !== null; if (cv !== null) nodes.cv.position.copy(cvRest).add(new THREE.Vector3(0, 0, -CVd.travel_m * cv));
+      mats.paper.map.offset.x = stamped ? 0.5 : 0; }
+    if (mats.hub) mats.hub.map.rotation = hub;
+    if (mats.belt) mats.belt.map.offset.x = belt;
+    if (ballBase) mats.ball.color.copy(ballBase).multiplyScalar(ant ? 1 : fx.antenna.off_mult);
+  };
+  g.userData.nodes = nodes; g.userData.mats = mats; g.userData.pose();
+  return g;
+}
+// ---------------------------------------------------------------- Auntie Dot
+function prepareDot(gltf, outlineMat) {
+  const g = gltf.scene; const nodes = {}; g.traverse(o => { nodes[o.name] = o; });
+  const mats = {};
+  g.traverse(o => { if (!o.isMesh) return; const name = o.material.name;
+    if (!mats[name]) mats[name] = DT.basic_materials.includes(name) ? new THREE.MeshBasicMaterial({ color: o.material.color }) : rgbToon(o.material.color, DMAP[name]);
+    mats[name].name = name; o.material = mats[name]; });
+  const kids = n => !n ? [] : n.isSkinnedMesh ? [n] : n.children.filter(c => c.isSkinnedMesh);
+  nodes.body.add(skinnedHull({ name: 'body', children: kids(nodes.body) }, outlineMat));
+  if (nodes.card) nodes.card.add(skinnedHull({ name: 'card', children: kids(nodes.card) }, outlineMat));
+  const fx = nodes.float.userData;
+  const bones = {}; for (const b of ['torso', 'head', 'arm_L_up', 'arm_L_lo', 'arm_R_up', 'arm_R_lo']) bones[b] = nodes[b];
+  const rest = Object.fromEntries(Object.entries(bones).map(([k, b]) => [k, b.quaternion.clone()]));
+  const SW = ['eyes_open', 'eyes_happy', 'mouth_smile', 'mouth_talk'];
+  // pose: bone rotations stored as axis + angle in float space (Blender axes), taken into the parent's REST frame
+  // (= build_dot.py solve() and pose(), = render_dot.py pose()). sway: degrees (torso about the feet; the head -half).
+  g.userData.pose = ({ pose = null, frac = 1, sway = 0, expr = null } = {}) => {
+    for (const [k, b] of Object.entries(bones)) b.quaternion.copy(rest[k]);
+    g.updateMatrixWorld(true);
+    const P = Object.assign({}, pose ? fx.poses_float_blender[pose] : {});
+    if (sway) { P.torso = [0, 1, 0, sway / frac]; P.head = [0, 1, 0, -0.5 * sway / frac]; }
+    const fq = nodes.float.getWorldQuaternion(new THREE.Quaternion()), qs = {};
+    for (const [bn, v] of Object.entries(P)) { const pq = bones[bn].parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+      const ax = new THREE.Vector3(v[0], v[2], -v[1]).applyQuaternion(fq).applyQuaternion(pq).normalize();
+      qs[bn] = new THREE.Quaternion().setFromAxisAngle(ax, v[3] * frac * Math.PI / 180); }
+    for (const [bn, q] of Object.entries(qs)) bones[bn].quaternion.copy(rest[bn]).premultiply(q);
+    const e = fx.expressions[expr || (pose === 'talk' ? 'talk' : 'rest')];
+    for (const k of SW) if (nodes[k]) nodes[k].visible = e.includes(k);
+    if (nodes.card) nodes.card.visible = pose === 'card';
+  };
+  g.userData.nodes = nodes; g.userData.mats = mats; g.userData.pose();
+  return g;
+}
+// ---------------------------------------------------------------- Brett Bullet-Points
+function prepareBrett(gltf, outlineMat) {
+  const g = gltf.scene; const nodes = {}; g.traverse(o => { nodes[o.name] = o; });
+  const mats = {};
+  g.traverse(o => { if (!o.isMesh) return; const name = o.material.name;
+    if (!mats[name]) mats[name] = BT.basic_materials.includes(name) ? new THREE.MeshBasicMaterial({ color: o.material.color }) : rgbToon(o.material.color, BMAP[name]);
+    mats[name].name = name; o.material = mats[name]; });
+  const kids = n => !n ? [] : n.isSkinnedMesh ? [n] : n.children.filter(c => c.isSkinnedMesh);
+  nodes.body.add(skinnedHull({ name: 'body', children: kids(nodes.body) }, outlineMat, true));
+  // the thumb and finger swap parts get their own ink hulls (they show with the hand in their beat)
+  for (const k of ['thumb', 'fingers_1', 'fingers_2', 'fingers_3']) if (nodes[k]) nodes[k].add(skinnedHull({ name: k, children: kids(nodes[k]) }, outlineMat));
+  const fx = nodes.float.userData;
+  const bones = {}; for (const b of ['torso', 'head', 'halo', 'arm_L_up', 'arm_L_lo', 'arm_R_up', 'arm_R_lo']) bones[b] = nodes[b];
+  const rest = Object.fromEntries(Object.entries(bones).map(([k, b]) => [k, b.quaternion.clone()]));
+  const restP = bones.torso.position.clone();
+  const SW = ['eyes_open', 'eyes_wink', 'brows_rest', 'brows_smug', 'brows_lost', 'mouth_grin', 'mouth_talk', 'mouth_wink', 'mouth_lost'];
+  const HANDS = ['thumb', 'fingers_1', 'fingers_2', 'fingers_3'];
+  // pose: bone rotations stored as axis + angle in float space (Blender axes), taken into the parent's REST frame
+  // (= build_brett.py pose(), = render_brett.py pose()). carry: chin up 10 deg, the halo counter-turned (level).
+  // puff 0..1: torso -3 deg about the feet + rise. noHalo: the halo bone scaled to 0 (the scale measure, chair call 1).
+  g.userData.pose = ({ beat = null, frac = 1, carry = true, puff = 0, expr = null, hand = undefined, noHalo = false } = {}) => {
+    for (const [k, b] of Object.entries(bones)) b.quaternion.copy(rest[k]);
+    bones.torso.position.copy(restP); bones.halo.scale.setScalar(noHalo ? 1e-4 : 1);
+    g.updateMatrixWorld(true);
+    const P = {};
+    if (beat) for (const [k, v] of Object.entries(fx.poses_float_blender[beat])) P[k] = [v[0], v[1], v[2], v[3] * frac];
+    if (carry) Object.assign(P, fx.carry_float_blender);
+    if (puff) { const t = fx.puff.torso_float_blender; P.torso = [t[0], t[1], t[2], t[3] * puff]; }
+    const fq = nodes.float.getWorldQuaternion(new THREE.Quaternion()), qs = {};
+    for (const [bn, v] of Object.entries(P)) { const pq = bones[bn].parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+      const ax = new THREE.Vector3(v[0], v[2], -v[1]).applyQuaternion(fq).applyQuaternion(pq).normalize();
+      qs[bn] = new THREE.Quaternion().setFromAxisAngle(ax, v[3] * Math.PI / 180); }
+    for (const [bn, q] of Object.entries(qs)) bones[bn].quaternion.copy(rest[bn]).premultiply(q);
+    if (puff) { const pq = bones.torso.parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+      bones.torso.position.add(new THREE.Vector3(0, fx.puff.rise_m * puff, 0).applyQuaternion(pq)); }
+    const bd = (beat && fx.beat_defaults[beat]) || {};
+    const e = fx.expressions[expr || bd.expr || 'rest'];
+    for (const k of SW) if (nodes[k]) nodes[k].visible = e.includes(k);
+    const hd = hand !== undefined ? hand : (frac >= 0.999 ? bd.hand : null);
+    for (const k of HANDS) if (nodes[k]) nodes[k].visible = k === hd;
+  };
+  g.userData.nodes = nodes; g.userData.mats = mats; g.userData.pose();
+  return g;
+}
+// ---------------------------------------------------------------- Juno the barista
+function prepareJuno(gltf, outlineMat) {
+  const g = gltf.scene; const nodes = {}; g.traverse(o => { nodes[o.name] = o; });
+  const mats = {};
+  g.traverse(o => { if (!o.isMesh) return; const name = o.material.name;
+    if (!mats[name]) mats[name] = JT.basic_materials.includes(name) ? new THREE.MeshBasicMaterial({ color: o.material.color }) : rgbToon(o.material.color, JMAP[name]);
+    mats[name].name = name; o.material = mats[name]; });
+  const kids = n => !n ? [] : n.isSkinnedMesh ? [n] : n.children.filter(c => c.isSkinnedMesh);
+  nodes.body.add(skinnedHull({ name: 'body', children: kids(nodes.body) }, outlineMat, true));
+  // the cups and the marker get their own ink hulls; the cup line (ink strokes) is left out of the hull
+  const PROPS = ['cup_rest', 'cup_hand', 'cup_wave', 'cup_write', 'marker'];
+  for (const k of PROPS) if (nodes[k]) nodes[k].add(skinnedHull({ name: k, children: kids(nodes[k]).filter(c => !(k.startsWith('cup') && c.material.name === 'ink')) }, outlineMat));
+  const fx = nodes.float.userData;
+  const bones = {}; for (const b of ['torso', 'head', 'arm_L_up', 'arm_L_lo', 'arm_R_up', 'arm_R_lo']) bones[b] = nodes[b];
+  const rest = Object.fromEntries(Object.entries(bones).map(([k, b]) => [k, b.quaternion.clone()]));
+  const SW = ['eyes_open', 'eyes_happy', 'eyes_down', 'brows_rest', 'brows_dry', 'mouth_smile', 'mouth_laugh', 'mouth_talk', 'mouth_smirk'];
+  // pose: bone rotations stored as axis + angle in float space (Blender axes), taken into the parent's REST frame
+  // (= build_juno.py pose(), = render_juno.py pose()). beat: rest / hand / wave1-3 / write / handover (null: bind).
+  g.userData.pose = ({ beat = 'rest', expr = null, cup = undefined } = {}) => {
+    for (const [k, b] of Object.entries(bones)) b.quaternion.copy(rest[k]);
+    g.updateMatrixWorld(true);
+    const P = beat ? fx.poses_float_blender[beat] : {};
+    const fq = nodes.float.getWorldQuaternion(new THREE.Quaternion()), qs = {};
+    for (const [bn, v] of Object.entries(P)) { const pq = bones[bn].parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+      const ax = new THREE.Vector3(v[0], v[2], -v[1]).applyQuaternion(fq).applyQuaternion(pq).normalize();
+      qs[bn] = new THREE.Quaternion().setFromAxisAngle(ax, v[3] * Math.PI / 180); }
+    for (const [bn, q] of Object.entries(qs)) bones[bn].quaternion.copy(rest[bn]).premultiply(q);
+    const bd = fx.beat_defaults[beat || ''] || {};
+    const e = fx.expressions[expr || bd.expr || 'rest'];
+    for (const k of SW) if (nodes[k]) nodes[k].visible = e.includes(k);
+    const c = cup !== undefined ? cup : bd.cup;
+    for (const k of PROPS) if (nodes[k]) nodes[k].visible = k === 'marker' ? !!bd.marker : k === c;
+  };
+  g.userData.nodes = nodes; g.userData.mats = mats; g.userData.pose();
+  return g;
+}
+function visibleTris(obj) { let t = 0; obj.traverseVisible(o => { if (o.isMesh && !/_outline$/.test(o.name) && !o.userData.isBlob && o.name !== 'cv') t += o.geometry.index.count / 3; }); return t; }
+function blob(rx, ry, opacity, y) {
+  const m = new THREE.Mesh(new THREE.CircleGeometry(1, 40), new THREE.MeshBasicMaterial({ color: TOON.contact_shadow.color, transparent: true, opacity, toneMapped: false, depthWrite: false }));
+  m.rotation.x = -Math.PI / 2; m.scale.set(rx, ry, 1); m.position.set(0, y, 0); m.renderOrder = -1; m.userData.isBlob = true; return m;
+}
+function charLights(scene) {
+  const el = TOON.sun.elev * Math.PI / 180, az = TOON.sun.az * Math.PI / 180;
+  scene.add(new THREE.HemisphereLight(TOON.hemi.sky, TOON.hemi.ground, TOON.hemi.intensity));
+  const sun = new THREE.DirectionalLight(TOON.sun.color, TOON.sun.intensity);
+  sun.position.set(Math.sin(az) * Math.cos(el) * 40, Math.sin(el) * 40, Math.cos(az) * Math.cos(el) * 40); scene.add(sun);
+  scene.add(new THREE.AmbientLight(TOON.ambient.color, TOON.ambient.intensity));
+}
+const loader = new GLTFLoader();
+// ---------------------------------------------------------------- The Panel (build_panel.py): 4 non-swap meshes + swaps
+const PBONES = ['cf_lean', 'cf_head', 'cf_arm_R_up', 'cf_arm_R_lo', 'cf_arm_L_up', 'cf_arm_L_lo',
+                'wb_lean', 'wb_head', 'wb_arm_R_up', 'wb_arm_R_lo', 'wb_arm_L_up', 'wb_arm_L_lo', 'box'];
+function preparePanel(gltf, outlineMat) {
+  const g = gltf.scene; const nodes = {}; g.traverse(o => { nodes[o.name] = o; });
+  const mats = {};
+  g.traverse(o => { if (!o.isMesh) return; const name = o.material.name;
+    if (!mats[name]) mats[name] = PT.basic_materials.includes(name) ? new THREE.MeshBasicMaterial({ color: o.material.color }) : rgbToon(o.material.color, PMAP[name]);
+    mats[name].name = name; o.material = mats[name]; });
+  const kids = n => !n ? [] : n.isSkinnedMesh ? [n] : n.children.filter(c => c.isSkinnedMesh);
+  for (const k of ['table', 'cf', 'wb', 'box_body', 'marker_rest', 'marker_up', 'marker_point'])
+    nodes[k].add(skinnedHull({ name: k, children: kids(nodes[k]) }, outlineMat, true));
+  const fx = nodes.float.userData;
+  const bones = {}; for (const b of PBONES) bones[b] = nodes[b];
+  const rest = Object.fromEntries(Object.entries(bones).map(([k, b]) => [k, b.quaternion.clone()]));
+  const SW = Object.keys(nodes).filter(k => nodes[k].userData && nodes[k].userData.variant);
+  // state: cf: null | 'cf_nod' | 'cf_tilt'; wb: null | 'wb_up' | 'wb_click' | 'wb_point'; lean: bool;
+  // cfExpr / wbExpr: build_panel.py EXPR keys; icon: 'icon_camoff' | 'icon_muted' | null (blink: dark)
+  g.userData.pose = ({ cf = null, wb = null, lean = false, cfExpr = 'rest', wbExpr = 'rest', icon = 'icon_camoff' } = {}) => {
+    for (const [k, b] of Object.entries(bones)) b.quaternion.copy(rest[k]);
+    g.updateMatrixWorld(true);
+    const PP = fx.poses_float_blender;
+    const P = Object.assign({}, cf ? PP[cf] : {}, wb ? PP[wb] : {}, lean ? PP.lean : {});
+    const fq = nodes.float.getWorldQuaternion(new THREE.Quaternion()), qs = {};
+    for (const [bn, v] of Object.entries(P)) { const pq = bones[bn].parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+      const ax = new THREE.Vector3(v[0], v[2], -v[1]).applyQuaternion(fq).applyQuaternion(pq).normalize();
+      qs[bn] = new THREE.Quaternion().setFromAxisAngle(ax, v[3] * Math.PI / 180); }
+    for (const [bn, q] of Object.entries(qs)) bones[bn].quaternion.copy(rest[bn]).premultiply(q);
+    const mk = wb === 'wb_up' || wb === 'wb_click' ? 'marker_up' : wb === 'wb_point' ? 'marker_point' : 'marker_rest';
+    const on = new Set([...fx.expressions.cf[cfExpr].map(x => 'cf_' + x), ...fx.expressions.wb[wbExpr].map(x => 'wb_' + x), mk]);
+    if (icon) on.add(icon);
+    for (const k of SW) nodes[k].visible = on.has(k);
+    g.updateMatrixWorld(true);
+  };
+  // a bind-pose point (Blender metres) carried by a bone -> world
+  const sk = kids(nodes.cf)[0].skeleton;
+  g.userData.boneLM = (bn, bl) => { const i = sk.bones.findIndex(b => b.name === bn);
+    const v = new THREE.Vector3(bl[0], bl[2], -bl[1]);
+    const rootM = nodes.rig.matrixWorld;   // bind space = the rig space
+    return v.applyMatrix4(sk.boneInverses[i]).applyMatrix4(sk.bones[i].matrixWorld); };
+  g.userData.nodes = nodes; g.userData.mats = mats; g.userData.pose();
+  return g;
+}
+// ---------------------------------------------------------------- Gary (build_gary.py): body, wing_R, wing_L + swaps
+const YBONES = ['torso', 'head', 'wing_L_up', 'wing_L_lo', 'wing_R_up', 'wing_R_lo', 'leg_L', 'leg_R'];
+function prepareGary(gltf, outlineMat) {
+  const g = gltf.scene; const nodes = {}; g.traverse(o => { nodes[o.name] = o; });
+  const mats = {};
+  g.traverse(o => { if (!o.isMesh) return; const name = o.material.name;
+    if (!mats[name]) mats[name] = YT.basic_materials.includes(name) ? new THREE.MeshBasicMaterial({ color: o.material.color }) : rgbToon(o.material.color, YMAP[name]);
+    mats[name].name = name; o.material = mats[name]; });
+  const kids = n => !n ? [] : n.isSkinnedMesh ? [n] : n.children.filter(c => c.isSkinnedMesh);
+  for (const k of ['body', 'wing_R', 'wing_L', 'env_beak', 'env_wing', 'flap_closed', 'flap_open'])
+    nodes[k].add(skinnedHull({ name: k, children: kids(nodes[k]) }, outlineMat, true));
+  const fx = nodes.float.userData;
+  const bones = {}; for (const b of YBONES) bones[b] = nodes[b];
+  const rest = Object.fromEntries(Object.entries(bones).map(([k, b]) => [k, b.quaternion.clone()]));
+  const SW = Object.keys(nodes).filter(k => nodes[k].userData && nodes[k].userData.variant);
+  // state: beat (build_gary.py BEATS) with overrides: pose, expr, env, flap, lift (u), yaw (deg, card spin)
+  g.userData.pose = (st = {}) => {
+    const bd = fx.beats[st.beat || 'rest'];
+    const pose = st.pose || bd.pose, expr = st.expr || bd.expr, env = st.env !== undefined ? st.env : bd.env, flap = st.flap || bd.flap;
+    const lift = st.lift !== undefined ? st.lift : bd.lift;
+    for (const [k, b] of Object.entries(bones)) b.quaternion.copy(rest[k]);
+    nodes.float.position.set(0, lift * fx.unit_m, 0);
+    g.updateMatrixWorld(true);
+    const P = fx.poses_float_blender[pose] || {};
+    const fq = nodes.float.getWorldQuaternion(new THREE.Quaternion()), qs = {};
+    for (const [bn, v] of Object.entries(P)) { const pq = bones[bn].parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+      const ax = new THREE.Vector3(v[0], v[2], -v[1]).applyQuaternion(fq).applyQuaternion(pq).normalize();
+      qs[bn] = new THREE.Quaternion().setFromAxisAngle(ax, v[3] * Math.PI / 180); }
+    for (const [bn, q] of Object.entries(qs)) bones[bn].quaternion.copy(rest[bn]).premultiply(q);
+    const on = new Set([...fx.expressions[expr], flap]); if (env) on.add(env);
+    for (const k of SW) nodes[k].visible = on.has(k);
+    g.updateMatrixWorld(true);
+  };
+  const sk = kids(nodes.body)[0].skeleton;
+  g.userData.boneLM = (bn, bl) => { const i = sk.bones.findIndex(b => b.name === bn);
+    const v = new THREE.Vector3(bl[0], bl[2], -bl[1]);
+    return v.applyMatrix4(sk.boneInverses[i]).applyMatrix4(sk.bones[i].matrixWorld); };
+  g.userData.nodes = nodes; g.userData.mats = mats; g.userData.pose();
+  return g;
+}
+// looks: 'grey' (all lit materials one grey), 'sil' (all black, no hull), 'mask' (Gary classes)
+function applyLook(obj, look) {
+  const saved = new Map(); if (!look || look === 'colour') return () => {};
+  const owner = o => { let q = o; while (q && !/^(body|wing_|env_|flap_|eyes_|brows_)/.test(q.name)) q = q.parent; return q ? q.name : ''; };
+  obj.traverse(o => { if (!o.isMesh || o.userData.isBlob) return; saved.set(o, o.material);
+    const isHull = /_outline$/.test(o.name), n = o.material.name, own = owner(o);
+    let m;
+    if (look === 'sil') { m = new THREE.MeshBasicMaterial({ color: '#000000', toneMapped: false }); if (isHull) m.visible = false; }
+    else if (look === 'grey') { if (isHull || YT.basic_materials.includes(n)) return; m = rgbToon(new THREE.Color('#C8C8C8'), YMAP.body); }
+    else if (look === 'mask') {
+      const col = isHull ? '#000000' : (/^body/.test(own) && (n === 'cap' || n === 'ink')) ? '#FF0000' : /^eyes_/.test(own) && n === 'ink' ? '#0000FF'
+        : /^brows_/.test(own) ? '#FF8000' : (/^body/.test(own) && n === 'gold') ? '#00FF00' : n === 'body' ? '#FFFFFF' : '#808080';
+      m = new THREE.MeshBasicMaterial({ color: col, side: isHull ? THREE.BackSide : THREE.FrontSide, toneMapped: false });
+      if (isHull) { m.onBeforeCompile = saved.get(o).onBeforeCompile; m.userData = saved.get(o).userData; m.customProgramCacheKey = () => 'hullmask'; }
+    }
+    if (look === 'sil' && isHull) { m.onBeforeCompile = saved.get(o).onBeforeCompile; m.userData = saved.get(o).userData; }
+    o.material = m; });
+  return () => saved.forEach((m, o) => { o.material = m; });
+}
+const gcard = prepareGary(await loader.loadAsync(GARY_GLB), outlineMaterial(TOON.outline.width_m * 0.6));
+gcard.userData.nodes.root.add(blob(YT.contact_shadow.rx, YT.contact_shadow.ry, YT.contact_shadow.opacity, 0.002));
+// a card render: orbit camera round target (m), elev / azim in deg (azim +: camera to his left, +X)
+window.renderCard = async ({ w = 1000, h = 1000, target = [0, 0.25, 0], dist = 2.6, elev = 6, azim = 0, fov = 22, state = {}, look = 'colour', bg = '#FDE6C8', shadow = true }) => {
+  renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(look === 'sil' ? '#FFFFFF' : bg); charLights(scene);
+  gcard.userData.pose(state); scene.add(gcard);
+  gcard.userData.nodes.root.children.forEach(c => { if (c.userData.isBlob) c.visible = look !== 'sil' && shadow; });
+  const restore = applyLook(gcard, look);
+  const e = elev * Math.PI / 180, a = azim * Math.PI / 180;
+  const camera = new THREE.PerspectiveCamera(fov, w / h, 0.05, 100);
+  camera.position.set(target[0] + Math.sin(a) * Math.cos(e) * dist, target[1] + Math.sin(e) * dist, target[2] + Math.cos(a) * Math.cos(e) * dist); camera.lookAt(...target);
+  renderer.render(scene, camera); await new Promise(r => requestAnimationFrame(r)); renderer.render(scene, camera);
+  restore();
+  return { visibleTris: visibleTris(gcard.userData.nodes.float), calls: renderer.info.render.calls };
+};
+// ---------------------------------------------------------------- Applyside patch (= assets/kit/ingame.html)
+const P = { grass: '#B5D67A', grassDeep: '#7FA65A', path: '#EBD3A6', plinth: '#E59F64', wood: '#7A4A2E', ink: '#2B1E16', panel: '#FFF8EE', coral: '#E2574C', cream: '#FFE8A6', cafeWall: '#F4A672', cafeRoof: '#D4503A', panelEdge: '#E9D3B4' };
+const toon = c => new THREE.MeshToonMaterial({ color: c, gradientMap: G2 });
+function mesh(geo, mat, pos = [0, 0, 0], rot = [0, 0, 0], cast = true, recv = false) { const m = new THREE.Mesh(geo, mat); m.position.set(...pos); m.rotation.set(...rot); m.castShadow = cast; m.receiveShadow = recv; return m; }
+function patch() {
+  const g = new THREE.Group();
+  g.add(mesh(new THREE.BoxGeometry(14, 0.8, 14), toon(P.plinth), [0, -0.4, 0], [0, 0, 0], false, true));
+  g.add(mesh(new THREE.BoxGeometry(13.6, 0.12, 13.6), toon(P.grass), [0, 0.06, 0], [0, 0, 0], false, true));
+  g.add(mesh(new THREE.BoxGeometry(13.6, 0.14, 4), toon(P.path), [0, 0.07, 0], [0, 0, 0], false, true));
+  g.add(mesh(new THREE.BoxGeometry(4, 0.14, 13.6), toon(P.path), [0, 0.07, 0], [0, 0, 0], false, true));
+  for (let i = -6; i <= 6; i += 2.5) if (Math.abs(i) > 2.2) g.add(mesh(new THREE.BoxGeometry(0.6, 0.15, 0.12), toon(P.panel), [i, 0.08, 0], [0, 0, 0], false, true));
+  const tree = (x, z, s = 1) => { const t = new THREE.Group(); t.add(mesh(new THREE.CylinderGeometry(0.15, 0.2, 0.9, 8), toon(P.wood), [0, 0.45, 0]));
+    t.add(mesh(new THREE.IcosahedronGeometry(0.9, 0), toon(P.grassDeep), [0, 1.5, 0])); t.add(mesh(new THREE.IcosahedronGeometry(0.6, 0), toon('#8fb866'), [0.35, 2.1, 0.1])); t.position.set(x, 0.12, z); t.scale.setScalar(s); return t; };
+  g.add(tree(-4.6, -4.4)); g.add(tree(4.8, 4.2, 0.9)); g.add(tree(-5.2, 4.6, 0.85));
+  const mailbox = new THREE.Group(); mailbox.add(mesh(new THREE.BoxGeometry(0.1, 0.8, 0.1), toon(P.ink), [0, 0.4, 0])); mailbox.add(mesh(new THREE.CapsuleGeometry(0.18, 0.3, 4, 8), toon(P.coral), [0, 0.9, 0], [Math.PI / 2, 0, 0])); mailbox.position.set(2.6, 0.12, -2.7); g.add(mailbox);
+  const board = new THREE.Group(); board.add(mesh(new THREE.BoxGeometry(1.6, 1.0, 0.1), toon('#C9A27A'), [0, 1.2, 0]));
+  for (const [px, py, c] of [[-0.5, 1.35, P.panel], [0, 1.1, P.cream], [0.45, 1.35, '#E3D3EE'], [-0.3, 0.95, '#CFE3F0'], [0.4, 0.95, P.panel]]) board.add(mesh(new THREE.BoxGeometry(0.3, 0.36, 0.02), toon(c), [px, py, 0.06]));
+  for (const x2 of [-0.7, 0.7]) board.add(mesh(new THREE.BoxGeometry(0.08, 1.2, 0.08), toon(P.wood), [x2, 0.6, 0])); board.position.set(-2.9, 0.12, -3.0); g.add(board);
+  const cafe = new THREE.Group(); cafe.add(mesh(new THREE.BoxGeometry(5, 3.2, 3.6), toon(P.cafeWall), [0, 1.6, 0])); cafe.add(mesh(new THREE.BoxGeometry(5.4, 0.4, 4.0), toon(P.cafeRoof), [0, 3.4, 0]));
+  cafe.add(mesh(new THREE.BoxGeometry(0.9, 1.4, 0.1), toon(P.wood), [0, 0.7, 1.85])); for (const x of [-1.6, 1.6]) cafe.add(mesh(new THREE.BoxGeometry(0.8, 0.8, 0.06), toon('#FFF4C9'), [x, 1.7, 1.83]));
+  cafe.add(mesh(new THREE.BoxGeometry(4, 0.12, 0.9), toon(P.panel), [0, 1.9, 2.2], [0.35, 0, 0]));
+  cafe.position.set(4.4, 0.12, -4.6); g.add(cafe);
+  return g;
+}
+const kitGltf = await loader.loadAsync('../../kit/kit.glb');
+const ghostGltfs = await Promise.all([0, 1, 2].map(() => loader.loadAsync('../../ghostie/v7/ghostie.glb')));
+const rickyGltf = await loader.loadAsync(RICKY_GLB);
+const atsGltf = await loader.loadAsync(ATS_GLB);
+const dotGltf = await loader.loadAsync(DOT_GLB);
+const brettGltf = await loader.loadAsync(BRETT_GLB);
+const junoGltf = await loader.loadAsync(JUNO_GLB);
+const panelGltf = await loader.loadAsync(PANEL_GLB);
+const garyGltfs = await Promise.all([0, 1].map(() => loader.loadAsync(GARY_GLB)));
+let world = null;
+// Kit + 3 Ghosties + Ricky + the ATS at the 26 m follow camera (= ricky/v1 lineup; the ATS stands nearer the camera).
+// only: 'kit' | 'ats' | 'ricky' renders that character alone on a flat magenta background with no blob (pixel measure).
+// mask: 'neck' paints the ATS neck rings red, the neck core green, the hull black and the rest white.
+window.renderLineup = async ({ w = 1600, h = 900, dist = 26, pitch = 42, yaw = 20, outlinePx = 1.6, ground = 'grass', t = 0, only = null, mask = null, state = {}, atsYaw = 15, atsAtKit = false, dotState = {}, brettState = {}, junoAtKit = false, junoState = {}, panelState = {}, look = null, kitOnly = false, garyState = {}, flyState = null, gyaw = 15 }) => {
+  renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(only ? '#FF00FF' : '#FBE7CC');
+  const el = 62 * Math.PI / 180, az = 140 * Math.PI / 180;
+  scene.add(new THREE.HemisphereLight('#ffe9c7', '#d9a877', 0.9));
+  const sun = new THREE.DirectionalLight('#fff3dc', 2.6); sun.position.set(Math.sin(az) * Math.cos(el) * 40, Math.sin(el) * 40, Math.cos(az) * Math.cos(el) * 40);
+  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -10, right: 10, top: 10, bottom: -10, near: 1, far: 120 }); sun.shadow.bias = -0.0015; sun.shadow.normalBias = 0.05;
+  scene.add(sun); scene.add(new THREE.AmbientLight('#ffffff', 0.25)); if (!only) scene.add(patch());
+  const fov = 26, vh = 2 * dist * Math.tan(fov / 2 * Math.PI / 180), outW = outlinePx * vh / h;
+  if (!world) {
+    world = { kit: prepareKit(kitGltf, outlineMaterial(outW)), ghosts: ghostGltfs.map(gl => prepareGhost(gl, outlineMaterial(outW))),
+              ricky: prepareRicky(rickyGltf, outlineMaterial(outW)), ats: prepareATS(atsGltf, outlineMaterial(outW)), dot: prepareDot(dotGltf, outlineMaterial(outW)), brett: prepareBrett(brettGltf, outlineMaterial(outW)), juno: prepareJuno(junoGltf, outlineMaterial(outW)), panel: preparePanel(panelGltf, outlineMaterial(outW)), gary: prepareGary(garyGltfs[0], outlineMaterial(outW)), fly: prepareGary(garyGltfs[1], outlineMaterial(outW)) };
+    world.kit.userData.setExpr('hopeful');
+    world.blobs = [];
+    const kb = blob(TOON.contact_shadow.rx, TOON.contact_shadow.ry, TOON.contact_shadow.opacity, 0.004); kb.position.x = 0.03; world.kit.userData.nodes.root.add(kb); world.blobs.push(kb);
+    world.ghosts.forEach((g, i) => { g.userData.setVariant(GT.variants[i]); const b = blob(GT.contact_shadow.rx, GT.contact_shadow.ry, GT.contact_shadow.opacity_at_rest, 0.004); g.userData.nodes.root.add(b); world.blobs.push(b); });
+    const rb = blob(RT.contact_shadow.rx, RT.contact_shadow.ry, RT.contact_shadow.opacity, 0.004); world.ricky.userData.nodes.root.add(rb); world.blobs.push(rb);
+    const ab = blob(AT.contact_shadow.rx, AT.contact_shadow.ry, AT.contact_shadow.opacity, 0.004); world.ats.userData.nodes.root.add(ab); world.blobs.push(ab);
+    const db = blob(DT.contact_shadow.rx, DT.contact_shadow.ry, DT.contact_shadow.opacity, 0.004); world.dot.userData.nodes.root.add(db); world.blobs.push(db);
+    const bb = blob(BT.contact_shadow.rx, BT.contact_shadow.ry, BT.contact_shadow.opacity, 0.004); world.brett.userData.nodes.root.add(bb); world.blobs.push(bb);
+    const jb = blob(JT.contact_shadow.rx, JT.contact_shadow.ry, JT.contact_shadow.opacity, 0.004); world.juno.userData.nodes.root.add(jb); world.blobs.push(jb);
+    for (const k of ['gary', 'fly']) { const yb = blob(YT.contact_shadow.rx, YT.contact_shadow.ry, YT.contact_shadow.opacity, 0.004); world[k].userData.nodes.root.add(yb); world.blobs.push(yb); }
+    const pb = blob(PT.contact_shadow.rx, PT.contact_shadow.ry, PT.contact_shadow.opacity, 0.004); pb.position.z = -0.05; world.panel.userData.nodes.root.add(pb); world.blobs.push(pb);
+  }
+  world.blobs.forEach(b => b.visible = !only);
+  const gy = ground === 'grass' ? 0.12 : 0.14;
+  const row = ground === 'grass' ? { z: 2.6, kx: -2.7, gx: [-5.1, -4.3, -3.5], rx: -2.75, rz: 3.9, ax: -3.9, az: 5.3, dx: -2.5, dz: 5.6, bx: BX_G, bz: BZ_G, jx: JX_G, jz: JZ_G }
+                                 : { z: 0.1, kx: 1.3, gx: [-1.1, -0.3, 0.5], rx: 2.55, rz: 0.1, ax: 3.9, az: 0.1, dx: -2.0, dz: 0.1, bx: BX_P, bz: BZ_P, jx: JX_P, jz: JZ_P };
+  const PY = 15 * Math.PI / 180, PS = ground === 'grass' ? [3.05, 5.15] : null;
+  const koff = [-40 / 300 * Math.cos(PY) + 1.0 * Math.sin(PY), 40 / 300 * Math.sin(PY) + 1.0 * Math.cos(PY)];
+  const setXZ = PS || [row.kx - koff[0], row.z - koff[1]], kitXZ = PS ? [PS[0] + koff[0], PS[1] + koff[1]] : [row.kx, row.z];
+  const pn = world.panel; pn.userData.nodes.root.position.set(setXZ[0], gy, setXZ[1]); pn.userData.nodes.root.rotation.y = PY;
+  pn.userData.pose(panelState); if (!only) scene.add(pn);
+  row.kx = kitXZ[0]; row.z = kitXZ[1];
+  const kit = world.kit; kit.userData.nodes.root.position.set(row.kx, gy, row.z); kit.userData.nodes.root.rotation.y = 15 * Math.PI / 180;
+  if (!only || only === 'kit') scene.add(kit);
+  world.ghosts.forEach((g, i) => { const r = g.userData.nodes.root; r.position.set(row.gx[i], gy, row.z + (i === 1 ? 0.35 : 0)); r.rotation.y = (10 - 12 * i) * Math.PI / 180;
+    g.userData.pose({ t: t + i * 0.9 }); if (!only) scene.add(g); });
+  const rk = world.ricky; rk.userData.nodes.root.position.set(row.rx, gy, row.rz); rk.userData.nodes.root.rotation.y = 15 * Math.PI / 180;
+  rk.userData.pose({}); if (!only || only === 'ricky') scene.add(rk);
+  const dt = world.dot; dt.userData.nodes.root.position.set(row.dx, gy, row.dz); dt.userData.nodes.root.rotation.y = 15 * Math.PI / 180;
+  dt.userData.pose(dotState); if (!only || only === 'dot') scene.add(dt);
+  const br = world.brett; br.userData.nodes.root.position.set(row.bx, gy, row.bz); br.userData.nodes.root.rotation.y = 15 * Math.PI / 180;
+  br.userData.pose(brettState); if (!only || only === 'brett') scene.add(br);
+  const jn = world.juno; jn.userData.nodes.root.position.set(junoAtKit ? row.kx : row.jx, gy, junoAtKit ? row.z : row.jz); jn.userData.nodes.root.rotation.y = 15 * Math.PI / 180;
+  jn.userData.pose(junoState); if (!only || only === 'juno') scene.add(jn);
+  const at = world.ats; at.userData.nodes.root.position.set(atsAtKit ? row.kx : row.ax, gy, atsAtKit ? row.z : row.az); at.userData.nodes.root.rotation.y = atsYaw * Math.PI / 180;
+  at.userData.pose(state); if (!only || only === 'ats') scene.add(at);
+  // Gary: standing right of Kit on the grass, in front of Kit on the path; a flying copy 0.9 m up (sketch notes Open 4)
+  const gy_ = world.gary, fl = world.fly;
+  const GP = ground === 'grass' ? [row.kx + 0.62, row.z + 0.05] : [row.kx + 0.30, row.z + 0.95];
+  const FP = ground === 'grass' ? [row.kx - 1.35, row.z - 0.55] : [row.kx + 1.55, row.z - 0.75];
+  gy_.userData.nodes.root.position.set(GP[0], gy, GP[1]); gy_.userData.nodes.root.rotation.y = gyaw * Math.PI / 180;
+  gy_.userData.pose(garyState); if (!only || only === 'gary') scene.add(gy_);
+  if (flyState) { fl.userData.nodes.root.position.set(FP[0], gy, FP[1]); fl.userData.nodes.root.rotation.y = 15 * Math.PI / 180;
+    fl.userData.pose({ ...flyState, lift: 0.9 / fl.userData.nodes.float.userData.unit_m }); if (!only || only === 'fly') scene.add(fl);
+    fl.userData.nodes.root.children.forEach(c => { if (c.userData.isBlob) { c.visible = !only; } }); }
+  const restoreG = [applyLook(gy_, look), applyLook(fl, look)];
+  const out = { garyTris: visibleTris(gy_.userData.nodes.float), junoTris: visibleTris(jn.userData.nodes.float), panelTris: visibleTris(world.panel.userData.nodes.float), setXZ, kitXZ };
+  const restoreLook = () => restoreG.forEach(f => f());
+  const saved = new Map();
+  // mask 'hair' (Juno): hair (and the hairline ink, the strand lines) red, eye ink blue, brows orange, mouth ink green, teeth cyan, hull black, the rest white
+  if (mask === 'hair') jn.traverse(o => { if (!o.isMesh || o.userData.isBlob) return; saved.set(o, o.material);
+    const isHull = /_outline$/.test(o.name), n = o.material.name, par = o.parent ? o.parent.name : '';
+    const inN = k => o.name === k || par === k;
+    const col = isHull ? '#000000' : (n === 'hair' || (n === 'ink' && (inN('body') || inN('decals')))) ? '#FF0000' : ((inN('eyes_open') || inN('eyes_happy') || inN('eyes_down')) && n === 'ink') ? '#0000FF' : (inN('brows_rest') || inN('brows_dry')) ? '#FF8000'
+      : (inN('mouth_smile') || inN('mouth_laugh') || inN('mouth_talk') || inN('mouth_smirk')) ? (n === 'white' ? '#00FFFF' : '#00FF00') : '#FFFFFF';
+    o.material = new THREE.MeshBasicMaterial({ color: col, side: isHull ? THREE.BackSide : THREE.FrontSide, toneMapped: false });
+    if (isHull) { o.material.onBeforeCompile = saved.get(o).onBeforeCompile; o.material.userData = saved.get(o).userData; o.material.customProgramCacheKey = () => 'hullmask'; } });
+  if (mask === 'neck') at.traverse(o => { if (!o.isMesh || o.userData.isBlob) return; saved.set(o, o.material);
+    const isHull = /_outline$/.test(o.name), n = o.material.name;
+    const col = isHull ? '#000000' : n === 'neck' ? '#FF0000' : n === 'neckcore' ? '#00FF00' : n === 'screen' ? '#0000FF' : n === 'decal' && o.parent && o.parent.name === 'body' ? '#FFFF00' : '#FFFFFF';
+    o.material = new THREE.MeshBasicMaterial({ color: col, side: isHull ? THREE.BackSide : THREE.FrontSide, toneMapped: false, alphaTest: saved.get(o).alphaTest, map: n === 'screen' || n === 'scan' || n === 'hub' ? saved.get(o).map : null });
+    if (n === 'scan') o.material.visible = false;
+    if (isHull) { o.material.onBeforeCompile = saved.get(o).onBeforeCompile; o.material.userData = saved.get(o).userData; o.material.customProgramCacheKey = () => 'hullmask'; } });
+  const camera = new THREE.PerspectiveCamera(fov, w / h, 0.5, 400); const p = pitch * Math.PI / 180, yw = yaw * Math.PI / 180;
+  const tgt = new THREE.Vector3(row.kx, 0.5, row.z - 0.5);
+  camera.position.set(tgt.x + Math.sin(yw) * Math.cos(p) * dist, tgt.y + Math.sin(p) * dist, tgt.z + Math.cos(yw) * Math.cos(p) * dist); camera.lookAt(tgt);
+  renderer.render(scene, camera); await new Promise(r => requestAnimationFrame(r)); renderer.render(scene, camera);
+  saved.forEach((m, o) => { o.material = m; }); restoreLook();
+  scene.updateMatrixWorld(true);
+  const px = v => { const q = v.clone().project(camera); return [Math.round((q.x + 1) / 2 * w * 10) / 10, Math.round((1 - q.y) / 2 * h * 10) / 10]; };
+  out.kitTop = px(new THREE.Vector3(row.kx, gy + 0.977, row.z)); out.kitBot = px(new THREE.Vector3(row.kx, gy, row.z));
+  // Juno landmarks (sketch units -> rest Blender -> bounce world -> screen)
+  const jfx = jn.userData.nodes.float.userData, Uj = jfx.unit_m, jbn = jn.userData.nodes.bounce;
+  const Lj = (X, y, Z) => px(jbn.localToWorld(new THREE.Vector3(X * Uj, (340 - y) * Uj, Z * Uj)));
+  const LM = gy_.userData.nodes.float.userData.landmarks_bind;
+  out.gary = {}; for (const [k, v] of Object.entries(LM)) out.gary[k] = px(gy_.userData.boneLM(v[0], v[1]));
+  if (flyState) { out.fly = {}; for (const [k, v] of Object.entries(LM)) out.fly[k] = px(fl.userData.boneLM(v[0], v[1])); }
+  out.garyFeet = px(new THREE.Vector3(GP[0], gy, GP[1]));
+  out.juno = { feet: Lj(0, 340, 0), puffTopRest: Lj(0, 10, -18), chin: Lj(0, 154, 0), tie: Lj(0, 238, 34), hem: Lj(0, 294, 40) };
+  out.outlineW_m = outW; return out;
+};
+window.__ready = true;
+</script></body></html>
